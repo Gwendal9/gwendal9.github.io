@@ -131,12 +131,17 @@ export default function App() {
   }, [dark])
 
   useEffect(() => {
-    if (typeof window.gtag !== 'undefined') {
-      window.gtag('event', 'page_view', {
-        page_title: active,
-        page_path: '/' + active,
-      })
+    const sendPageView = () => {
+      if (typeof window.gtag !== 'undefined') {
+        window.gtag('event', 'page_view', {
+          page_title: active,
+          page_path: '/' + active,
+        })
+      }
     }
+    // Petit délai pour laisser gtag se charger
+    const timeout = setTimeout(sendPageView, 500)
+    return () => clearTimeout(timeout)
   }, [active])
 
   // Nav items mobile — on en prend 5 max pour la bottom bar
@@ -209,6 +214,7 @@ export default function App() {
                   cursor: 'pointer', marginBottom: '4px',
                   transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
                   transform: active === id ? 'translateX(4px)' : 'translateX(0)',
+
                 }}
               >
                 <span style={{ color: active === id ? 'var(--lilas)' : 'var(--low)', display: 'flex', flexShrink: 0 }}>
