@@ -145,10 +145,12 @@ export default function Projects() {
       </h2>
 
       {/* Tabs */}
+
       <div style={{
-        display: 'flex', gap: 8, marginBottom: 0,
+        display: 'flex', gap: 8, marginBottom: isMobile ? 16 : 0,
         borderBottom: '1px solid var(--border)',
       }}>
+
         {[{ key: 'pro', label: 'Projets pro' }, { key: 'perso', label: 'Projets perso' }].map(t => (
           <button
             key={t.key}
