@@ -112,12 +112,13 @@ export default function Projects() {
   return (
     <div style={{
       height: '100vh', overflowY: 'auto', overflowX: 'hidden',
-      padding: isMobile ? '4px 16px 135px' : '48px 72px 0',
       boxSizing: 'border-box',
-      maxWidth: 900,
-      margin: '0 auto',
-      width: '100%',
     }}>
+      <div style={{
+        maxWidth: 900,
+        margin: '0 auto',
+        padding: isMobile ? '4px 16px 135px' : '48px 72px 0',
+      }}>
 
       {/* Eyebrow */}
       <div id="proj-eyebrow" style={{
@@ -240,6 +241,7 @@ export default function Projects() {
       {selected && (
         <ProjectDrawer project={selected} onClose={() => setSelected(null)} />
       )}
+      </div>
     </div>
   )
 }

@@ -45,9 +45,13 @@ export default function Experience() {
   return (
     <div style={{
       height: '100vh', overflowY: 'auto', overflowX: 'hidden',
-      padding: isMobile ? '4px 16px 135px' : '48px 72px 80px',
       boxSizing: 'border-box',
     }}>
+      <div style={{
+        maxWidth: 900,
+        margin: '0 auto',
+        padding: isMobile ? '4px 16px 135px' : '48px 72px 80px',
+      }}>
 
       <div id="exp-eyebrow" style={{
         fontSize: 10, letterSpacing: 4, textTransform: 'uppercase',
@@ -192,6 +196,7 @@ export default function Experience() {
 
           </div>
         ))}
+      </div>
       </div>
     </div>
   )

@@ -75,8 +75,12 @@ export default function About() {
       height: '100vh',
       overflowY: 'auto',
       overflowX: 'hidden',
-      padding: isMobile ? '4px 16px 135px' : '48px 72px',
     }}>
+      <div style={{
+        maxWidth: 900,
+        margin: '0 auto',
+        padding: isMobile ? '4px 16px 135px' : '48px 72px',
+      }}>
 
       <div id="about-eyebrow" style={{
         ...fadeStyle,
@@ -212,6 +216,7 @@ export default function About() {
             </div>
           </div>
         ))}
+      </div>
       </div>
     </div>
   )

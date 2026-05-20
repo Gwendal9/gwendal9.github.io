@@ -77,8 +77,12 @@ export default function Contact() {
     <div style={{
       height: '100vh',
       overflowY: 'auto',
-      padding: isMobile ? '4px 16px 135px' : '48px 72px',
     }}>
+      <div style={{
+        maxWidth: 900,
+        margin: '0 auto',
+        padding: isMobile ? '4px 16px 135px' : '48px 72px',
+      }}>
 
       <div id="contact-eyebrow" style={{
         fontSize: 10, letterSpacing: 4, textTransform: 'uppercase',
@@ -214,6 +218,7 @@ export default function Contact() {
             ))}
           </div>
         </div>
+      </div>
       </div>
     </div>
   )
