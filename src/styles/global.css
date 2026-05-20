@@ -1,0 +1,94 @@
+:root {
+    --cream: #f7f3ec;
+    --cream2: #f0ebe0;
+    --cream3: #e8e1d4;
+    --lilas: #7c3aed;
+    --lilas-l: #9f67fa;
+    --lilas-d: rgba(124, 58, 237, 0.08);
+    --lilas-b: rgba(124, 58, 237, 0.18);
+    --ink: #1a1a1a;
+    --mid: #4a4540;
+    /* était #6b6560 — plus foncé */
+    --low: #7a7068;
+    /* était #b5afa6 — beaucoup plus lisible */
+    --border: #d8cfc2;
+    /* était #e2dbd0 — légèrement plus marqué */
+    --white: #ffffff;
+    --sidebar: 220px;
+}
+
+::selection {
+    background: rgba(124, 58, 237, 0.15);
+    color: var(--ink);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+}
+
+@keyframes fadeup {
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes reveal {
+    from {
+        transform: translateY(100%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes linedraw {
+    to {
+        width: min(200px, 40%);
+    }
+}
+
+@keyframes pulse-green {
+
+    0%,
+    100% {
+        box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2);
+    }
+
+    50% {
+        box-shadow: 0 0 0 5px rgba(34, 197, 94, 0);
+    }
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+}
