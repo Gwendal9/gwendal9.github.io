@@ -56,7 +56,8 @@ export default function Experience({ key: _key }) {
     return (
         <div style={{
             height: '100vh', overflowY: 'auto',
-            padding: 'clamp(40px,6vw,72px) clamp(32px,6vw,72px)',
+            padding: '64px 72px',
+            boxSizing: 'border-box',
         }}>
 
             {/* Eyebrow */}

@@ -3,10 +3,10 @@ import { content } from '../data/content'
 import ProjectDrawer from './ProjectDrawer'
 
 const COLORS = {
-  blue:  { text: '#2563eb', bg: 'rgba(37,99,235,0.06)',  border: 'rgba(37,99,235,0.15)'  },
+  blue: { text: '#2563eb', bg: 'rgba(37,99,235,0.06)', border: 'rgba(37,99,235,0.15)' },
   lilas: { text: '#7c3aed', bg: 'rgba(124,58,237,0.06)', border: 'rgba(124,58,237,0.15)' },
-  green: { text: '#059669', bg: 'rgba(5,150,105,0.06)',  border: 'rgba(5,150,105,0.15)'  },
-  amber: { text: '#d97706', bg: 'rgba(217,119,6,0.06)',  border: 'rgba(217,119,6,0.15)'  },
+  green: { text: '#059669', bg: 'rgba(5,150,105,0.06)', border: 'rgba(5,150,105,0.15)' },
+  amber: { text: '#d97706', bg: 'rgba(217,119,6,0.06)', border: 'rgba(217,119,6,0.15)' },
 }
 
 export default function Projects() {
@@ -43,7 +43,8 @@ export default function Projects() {
   return (
     <div style={{
       height: '100vh', overflowY: 'auto',
-      padding: 'clamp(40px, 6vw, 72px) clamp(32px, 6vw, 72px)',
+      padding: '64px 72px',
+      boxSizing: 'border-box',
       scrollbarWidth: 'none',
     }}>
 
@@ -102,6 +103,7 @@ export default function Projects() {
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
         gap: 14,
+    
       }}>
         {projects.map((proj, i) => {
           const c = COLORS[proj.color] || COLORS.lilas
