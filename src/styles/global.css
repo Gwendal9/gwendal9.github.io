@@ -1,152 +1,143 @@
 :root {
-    --cream: #f7f3ec;
-    --cream2: #f0ebe0;
-    --cream3: #e8e1d4;
-    --lilas: #7c3aed;
-    --lilas-l: #9f67fa;
-    --lilas-d: rgba(124, 58, 237, 0.08);
-    --lilas-b: rgba(124, 58, 237, 0.18);
-    --ink: #1a1a1a;
-    --mid: #4a4540;
-    --low: #7a7068;
-    --border: #d8cfc2;
-    --white: #ffffff;
-    --sidebar: 220px;
+  --cream: #f7f3ec;
+  --cream2: #f0ebe0;
+  --cream3: #e8e1d4;
+  --lilas: #7c3aed;
+  --lilas-l: #9f67fa;
+  --lilas-d: rgba(124, 58, 237, 0.08);
+  --lilas-b: rgba(124, 58, 237, 0.18);
+  --ink: #1a1a1a;
+  --mid: #4a4540;
+  --low: #7a7068;
+  --border: #d8cfc2;
+  --white: #ffffff;
+  --sidebar: 220px;
 }
 
 ::selection {
-    background: rgba(124, 58, 237, 0.15);
-    color: var(--ink);
+  background: rgba(124, 58, 237, 0.15);
+  color: var(--ink);
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 *::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 html {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 
 body {
-    background: var(--cream);
-    color: var(--ink);
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    height: 100vh;
-    overflow: hidden;
-    display: flex;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
 }
 
 @keyframes fadeup {
-    from {
-        opacity: 0;
-        transform: translateY(14px);
-    }
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
 
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes reveal {
-    from {
-        transform: translateY(100%);
-    }
+  from {
+    transform: translateY(100%);
+  }
 
-    to {
-        transform: translateY(0);
-    }
+  to {
+    transform: translateY(0);
+  }
 }
 
 @keyframes linedraw {
-    to {
-        width: min(200px, 40%);
-    }
+  to {
+    width: min(200px, 40%);
+  }
 }
 
 @keyframes pulse-green {
 
-    0%,
-    100% {
-        box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2);
-    }
+  0%,
+  100% {
+    box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2);
+  }
 
-    50% {
-        box-shadow: 0 0 0 5px rgba(34, 197, 94, 0);
-    }
+  50% {
+    box-shadow: 0 0 0 5px rgba(34, 197, 94, 0);
+  }
 }
 
 @keyframes blink {
 
-    0%,
-    100% {
-        opacity: 1;
-    }
+  0%,
+  100% {
+    opacity: 1;
+  }
 
-    50% {
-        opacity: 0.3;
-    }
-}
-
-/* Responsive */
-.sidebar-short {
-    display: none;
-}
-
-.nav-label {
-    display: inline;
-}
-
-@media (max-width: 768px) {
-    :root {
-        --sidebar: 64px;
-    }
-
-    .sidebar-full {
-        display: none;
-    }
-
-    .sidebar-short {
-        display: block;
-        font-size: 16px;
-        font-weight: 800;
-    }
-
-    .nav-label {
-        display: none;
-    }
+  50% {
+    opacity: 0.3;
+  }
 }
 
 @keyframes photo-pulse {
 
-    0%,
-    100% {
-        box-shadow: 0 0 0 4px var(--lilas-b), 0 8px 32px rgba(124, 58, 237, 0.15);
-    }
+  0%,
+  100% {
+    box-shadow: 0 0 0 4px var(--lilas-b), 0 8px 32px rgba(124, 58, 237, 0.15);
+  }
 
-    50% {
-        box-shadow: 0 0 0 8px var(--lilas-b), 0 8px 40px rgba(124, 58, 237, 0.25);
-    }
+  50% {
+    box-shadow: 0 0 0 8px var(--lilas-b), 0 8px 40px rgba(124, 58, 237, 0.25);
+  }
 }
 
 @keyframes scrollanim {
-    0% {
-        transform: translateX(-100%);
-    }
+  0% {
+    transform: translateX(-100%);
+  }
 
-    50% {
-        transform: translateX(0);
-    }
+  50% {
+    transform: translateX(0);
+  }
 
-    100% {
-        transform: translateX(100%);
-    }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --sidebar: 0px;
+  }
+
+  .sidebar-desktop {
+    display: none !important;
+  }
+
+  .mobile-header {
+    display: flex !important;
+  }
+
+  body {
+    padding-top: 56px;
+    height: auto;
+    overflow: auto;
+  }
 }

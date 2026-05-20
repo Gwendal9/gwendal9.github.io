@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { content } from '../data/content'
 
-export default function Hero() {
+export default function Hero({ onNavigate }) {
   const { hero } = content
 
   return (
@@ -46,11 +46,7 @@ export default function Hero() {
           <img
             src="/CV_photo.jpg"
             alt="Gwendal Rolland"
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-            }}
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
           />
         </div>
       </div>
@@ -165,15 +161,31 @@ export default function Hero() {
         animation: 'fadeup 0.5s 1.2s forwards',
       }}>
         {hero.chips.map(chip => (
-          <span key={chip} style={{
-            padding: '6px 14px',
-            borderRadius: '100px',
-            border: '1px solid var(--border)',
-            background: 'var(--white)',
-            fontSize: '12px',
-            color: 'var(--low)',
-            fontWeight: 500,
-          }}>
+          <span
+            key={chip}
+            style={{
+              padding: '6px 14px',
+              borderRadius: '100px',
+              border: '1px solid var(--border)',
+              background: 'var(--white)',
+              fontSize: '12px',
+              color: 'var(--low)',
+              fontWeight: 500,
+              transition: 'border-color 0.2s, color 0.2s, transform 0.15s',
+              cursor: 'default',
+              display: 'inline-block',
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.borderColor = 'var(--lilas)'
+              e.currentTarget.style.color = 'var(--lilas)'
+              e.currentTarget.style.transform = 'translateY(-2px)'
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.borderColor = 'var(--border)'
+              e.currentTarget.style.color = 'var(--low)'
+              e.currentTarget.style.transform = 'translateY(0)'
+            }}
+          >
             {chip}
           </span>
         ))}
@@ -188,7 +200,7 @@ export default function Hero() {
         animation: 'fadeup 0.5s 1.35s forwards',
       }}>
         <a
-          href="/CV_GWENDAL ROLLAND-Data analyst.pdf"
+          href="/CV_GWENDAL_ROLLAND-Data_analyst.pdf"
           download
           style={{
             padding: '13px 28px',
@@ -199,12 +211,21 @@ export default function Hero() {
             borderRadius: '8px',
             textDecoration: 'none',
             display: 'inline-block',
+            transition: 'background 0.2s, transform 0.15s',
+          }}
+          onMouseEnter={e => {
+            e.currentTarget.style.background = 'var(--lilas)'
+            e.currentTarget.style.transform = 'translateY(-1px)'
+          }}
+          onMouseLeave={e => {
+            e.currentTarget.style.background = 'var(--ink)'
+            e.currentTarget.style.transform = 'translateY(0)'
           }}
         >
           Telecharger CV
         </a>
-        <a
-          href="mailto:gwendal.rolland@yahoo.fr"
+        <button
+          onClick={() => onNavigate('projets')}
           style={{
             padding: '13px 28px',
             background: 'var(--white)',
@@ -212,45 +233,57 @@ export default function Hero() {
             color: 'var(--low)',
             fontSize: '13px',
             borderRadius: '8px',
-            textDecoration: 'none',
-            display: 'inline-block',
+            cursor: 'pointer',
+            fontFamily: 'inherit',
+            transition: 'border-color 0.2s, color 0.2s, transform 0.15s',
+          }}
+          onMouseEnter={e => {
+            e.currentTarget.style.borderColor = 'var(--lilas)'
+            e.currentTarget.style.color = 'var(--lilas)'
+            e.currentTarget.style.transform = 'translateY(-1px)'
+          }}
+          onMouseLeave={e => {
+            e.currentTarget.style.borderColor = 'var(--border)'
+            e.currentTarget.style.color = 'var(--low)'
+            e.currentTarget.style.transform = 'translateY(0)'
           }}
         >
-          Me contacter
-        </a>
+          Voir les projets
+        </button>
       </div>
 
-      {/* Scroll hint */}
+      {/* Compteurs */}
       <div style={{
-        position: 'absolute',
-        bottom: '36px',
-        left: 'clamp(24px, 5vw, 60px)',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '10px',
-        fontSize: '11px',
-        color: 'var(--low)',
-        letterSpacing: '2px',
-        textTransform: 'uppercase',
+        display: 'grid',
+        gridTemplateColumns: 'repeat(3, 1fr)',
+        gap: 1,
+        background: 'var(--border)',
+        border: '1px solid var(--border)',
+        borderRadius: 12,
+        overflow: 'hidden',
+        marginTop: 56,
         opacity: 0,
-        animation: 'fadeup 0.5s 1.8s forwards',
+        animation: 'fadeup 0.5s 1.6s forwards',
       }}>
-        <span style={{
-          width: '32px',
-          height: '1px',
-          background: 'var(--low)',
-          position: 'relative',
-          overflow: 'hidden',
-          display: 'inline-block',
-        }}>
-          <span style={{
-            position: 'absolute',
-            inset: 0,
-            background: 'var(--lilas)',
-            animation: 'scrollanim 2s ease-in-out 2s infinite',
-          }} />
-        </span>
-        Scroll
+        {content.counters.map((c, i) => (
+          <div key={i} style={{
+            background: 'var(--white)',
+            padding: '24px 20px',
+          }}>
+            <div style={{
+              fontSize: 36,
+              fontWeight: 800,
+              color: 'var(--lilas)',
+              lineHeight: 1,
+              marginBottom: 6,
+            }}>
+              {c.value}{c.suffix}
+            </div>
+            <div style={{ fontSize: 11, color: 'var(--low)', letterSpacing: 1 }}>
+              {c.label}
+            </div>
+          </div>
+        ))}
       </div>
 
     </section>
