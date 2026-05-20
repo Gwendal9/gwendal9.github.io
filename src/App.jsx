@@ -1,10 +1,11 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Hero from './components/Hero'
 import About from './components/About'
 import Experience from './components/Experience'
 import Projects from './components/Projects'
 import Stack from './components/Stack'
 import Contact from './components/Contact'
+import Footer from './components/Footer'
 
 const NAV = [
   { id: 'hero', icon: '👤', label: 'Profil' },
@@ -15,11 +16,33 @@ const NAV = [
   { id: 'contact', icon: '✉️', label: 'Contact' },
 ]
 
-const PANELS = ['hero', 'about', 'experience', 'projets', 'stack', 'contact']
-
 export default function App() {
   const [active, setActive] = useState('hero')
   const [menuOpen, setMenuOpen] = useState(false)
+  const [dark, setDark] = useState(false)
+
+  useEffect(() => {
+    const root = document.documentElement
+    if (dark) {
+      root.style.setProperty('--cream', '#0d0d0d')
+      root.style.setProperty('--cream2', '#111111')
+      root.style.setProperty('--cream3', '#1a1a1a')
+      root.style.setProperty('--white', '#161616')
+      root.style.setProperty('--low', '#888888')
+      root.style.setProperty('--mid', '#bbb5ad')
+      root.style.setProperty('--ink', '#f0ece4')
+      root.style.setProperty('--border', '#222222')
+    } else {
+      root.style.setProperty('--cream', '#f7f3ec')
+      root.style.setProperty('--cream2', '#f0ebe0')
+      root.style.setProperty('--cream3', '#e8e1d4')
+      root.style.setProperty('--white', '#ffffff')
+      root.style.setProperty('--ink', '#1a1a1a')
+      root.style.setProperty('--mid', '#4a4540')
+      root.style.setProperty('--low', '#7a7068')
+      root.style.setProperty('--border', '#d8cfc2')
+    }
+  }, [dark])
 
   return (
     <div style={{ display: 'flex', height: '100vh', overflow: 'hidden' }}>
@@ -35,27 +58,57 @@ export default function App() {
         flexDirection: 'column',
         padding: '40px 0',
         flexShrink: 0,
+        transition: 'background 0.3s',
       }}>
 
+        {/* Logo + toggle */}
         <div style={{
           padding: '0 28px 40px',
           borderBottom: '1px solid var(--border)',
           marginBottom: '32px',
+          display: 'flex',
+          alignItems: 'flex-start',
+          justifyContent: 'space-between',
         }}>
-          <div style={{ fontSize: 16, fontWeight: 800, color: 'var(--ink)' }}>
-            Gwendal
+          <div>
+            <div style={{ fontSize: 16, fontWeight: 800, color: 'var(--ink)' }}>
+              Gwendal
+            </div>
+            <div style={{
+              fontFamily: 'Fraunces, serif',
+              fontStyle: 'italic',
+              fontWeight: 300,
+              fontSize: 13,
+              color: 'var(--lilas)',
+            }}>
+              Rolland
+            </div>
           </div>
-          <div style={{
-            fontFamily: 'Fraunces, serif',
-            fontStyle: 'italic',
-            fontWeight: 300,
-            fontSize: 13,
-            color: 'var(--lilas)',
-          }}>
-            Rolland
-          </div>
+
+          {/* Toggle dark mode */}
+          <button
+            onClick={() => setDark(!dark)}
+            title={dark ? 'Mode clair' : 'Mode sombre'}
+            style={{
+              width: 32,
+              height: 32,
+              borderRadius: '50%',
+              border: '1px solid var(--border)',
+              background: 'var(--cream)',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: 14,
+              flexShrink: 0,
+              transition: 'background 0.2s, border-color 0.2s',
+            }}
+          >
+            {dark ? '☀️' : '🌙'}
+          </button>
         </div>
 
+        {/* Nav */}
         <nav style={{ flex: 1, padding: '0 16px' }}>
           {NAV.map(({ id, icon, label }) => (
             <div
@@ -97,6 +150,7 @@ export default function App() {
           ))}
         </nav>
 
+        {/* Status */}
         <div style={{
           padding: '24px 28px 0',
           borderTop: '1px solid var(--border)',
@@ -144,18 +198,31 @@ export default function App() {
             Rolland
           </span>
         </div>
-        <button
-          onClick={() => setMenuOpen(!menuOpen)}
-          style={{
-            background: 'transparent',
-            border: 'none',
-            fontSize: 22,
-            cursor: 'pointer',
-            color: 'var(--ink)',
-          }}
-        >
-          {menuOpen ? 'x' : '='}
-        </button>
+        <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+          <button
+            onClick={() => setDark(!dark)}
+            style={{
+              width: 32, height: 32, borderRadius: '50%',
+              border: '1px solid var(--border)',
+              background: 'var(--cream)',
+              cursor: 'pointer', fontSize: 14,
+            }}
+          >
+            {dark ? '☀️' : '🌙'}
+          </button>
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            style={{
+              background: 'transparent',
+              border: 'none',
+              fontSize: 22,
+              cursor: 'pointer',
+              color: 'var(--ink)',
+            }}
+          >
+            {menuOpen ? 'x' : '='}
+          </button>
+        </div>
       </div>
 
       {/* MOBILE MENU */}
@@ -206,14 +273,25 @@ export default function App() {
       )}
 
       {/* MAIN */}
-      <main style={{ flex: 1, height: '100vh', overflow: 'hidden', position: 'relative' }}>
-        {active === 'hero' && <Hero onNavigate={setActive} />}
-        {active === 'about' && <About />}
-        {active === 'experience' && <Experience />}
-        {active === 'projets' && <Projects />}
-        {active === 'stack' && <Stack />}
-        {active === 'contact' && <Contact />}
+      <main style={{
+        flex: 1,
+        height: '100vh',
+        overflow: 'hidden',
+        position: 'relative',
+        display: 'flex',
+        flexDirection: 'column',
+      }}>
+        <div style={{ flex: 1, overflow: 'hidden', position: 'relative' }}>
+          {active === 'hero' && <Hero onNavigate={setActive} />}
+          {active === 'about' && <About />}
+          {active === 'experience' && <Experience />}
+          {active === 'projets' && <Projects />}
+          {active === 'stack' && <Stack />}
+          {active === 'contact' && <Contact />}
+        </div>
+        <Footer />
       </main>
+
     </div>
   )
 }

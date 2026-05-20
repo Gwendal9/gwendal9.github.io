@@ -185,6 +185,60 @@ export default function Contact() {
             </span>
           </a>
         ))}
+
+        {/* References */}
+        <div style={{
+          marginTop: 48,
+        }}>
+          <div style={{
+            fontSize: 11,
+            letterSpacing: 3,
+            textTransform: 'uppercase',
+            color: 'var(--mid)',
+            fontWeight: 700,
+            marginBottom: 20,
+          }}>
+            References
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 480 }}>
+            {content.references.map((ref, i) => (
+              <div key={i} style={{
+                padding: '20px 24px',
+                background: 'var(--white)',
+                border: '1px solid var(--border)',
+                borderRadius: 12,
+                display: 'flex',
+                alignItems: 'center',
+                gap: 16,
+              }}>
+                <div style={{
+                  width: 44,
+                  height: 44,
+                  borderRadius: '50%',
+                  background: 'var(--lilas-d)',
+                  border: '1px solid var(--lilas-b)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: 16,
+                  fontWeight: 700,
+                  color: 'var(--lilas)',
+                  flexShrink: 0,
+                }}>
+                  {ref.name.charAt(0)}
+                </div>
+                <div>
+                  <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink)', marginBottom: 2 }}>
+                    {ref.name}
+                  </div>
+                  <div style={{ fontSize: 12, color: 'var(--low)' }}>
+                    {ref.role} · {ref.company}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   )
