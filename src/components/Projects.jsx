@@ -180,6 +180,7 @@ export default function Projects() {
         gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
         gap: 14,
         padding: isMobile ? '0' : '0 0 80px',
+        alignItems: 'stretch',
       }}>
         {projects.map((proj, i) => {
           const c = COLORS[proj.color] || COLORS.lilas
@@ -195,6 +196,8 @@ export default function Projects() {
                 opacity: 0, transform: 'translateY(16px)',
                 transition: 'opacity 0.4s, transform 0.4s, border-color 0.2s, box-shadow 0.2s',
                 cursor: 'pointer',
+                display: 'flex',
+                flexDirection: 'column',
               }}
               onMouseEnter={e => {
                 e.currentTarget.style.borderColor = c.border
@@ -224,7 +227,7 @@ export default function Projects() {
                 {proj.description}
               </p>
 
-              <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginTop: 'auto' }}>
                 {proj.tags.map((tag, j) => (
                   <ToolTag key={j} name={tag} />
                 ))}

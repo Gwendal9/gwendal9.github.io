@@ -123,7 +123,14 @@ export default function App() {
   }, [dark])
 
   // Nav items mobile — on en prend 5 max pour la bottom bar
-  const mobileNav = NAV.slice(0, 5)
+  const mobileNav = [
+    { id: 'hero', icon: 'hero', label: 'Profil' },
+    { id: 'about', icon: 'about', label: 'A propos' },
+    { id: 'experience', icon: 'experience', label: 'Experience' },
+    { id: 'projets', icon: 'projets', label: 'Projets' },
+    { id: 'contact', icon: 'contact', label: 'Contact' },
+    { id: 'cv', icon: 'cv', label: 'Mon CV' },
+  ]
 
   return (
     <div style={{ display: 'flex', height: '100vh', overflow: 'hidden' }}>
@@ -293,21 +300,7 @@ export default function App() {
               </span>
             </button>
           ))}
-          {/* Bouton ... pour les onglets restants */}
-          <button
-            onClick={() => setActive(NAV[5].id)}
-            style={{
-              display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3,
-              background: 'transparent', border: 'none', cursor: 'pointer',
-              padding: '8px 6px', borderRadius: 8, flex: 1,
-              color: ['contact', 'cv'].includes(active) ? 'var(--lilas)' : 'var(--low)',
-            }}
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
-              <circle cx="5" cy="12" r="1.5" /><circle cx="12" cy="12" r="1.5" /><circle cx="19" cy="12" r="1.5" />
-            </svg>
-            <span style={{ fontSize: 9, fontWeight: 400 }}>Plus</span>
-          </button>
+
         </div>
       )}
 

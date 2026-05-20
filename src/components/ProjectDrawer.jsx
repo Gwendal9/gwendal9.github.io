@@ -11,9 +11,30 @@ export default function ProjectDrawer({ project, onClose }) {
   const c = COLORS[project.color] || COLORS.lilas
 
   useEffect(() => {
+    // Fermer avec Escape
     const handleKey = (e) => { if (e.key === 'Escape') onClose() }
     document.addEventListener('keydown', handleKey)
-    return () => document.removeEventListener('keydown', handleKey)
+
+    // Swipe droite pour fermer sur mobile
+    let startX = 0
+    const drawer = document.getElementById('project-drawer')
+    const onTouchStart = (e) => { startX = e.touches[0].clientX }
+    const onTouchEnd = (e) => {
+      const diff = e.changedTouches[0].clientX - startX
+      if (diff > 80) onClose()
+    }
+    if (drawer) {
+      drawer.addEventListener('touchstart', onTouchStart)
+      drawer.addEventListener('touchend', onTouchEnd)
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleKey)
+      if (drawer) {
+        drawer.removeEventListener('touchstart', onTouchStart)
+        drawer.removeEventListener('touchend', onTouchEnd)
+      }
+    }
   }, [onClose])
 
   return (
@@ -30,18 +51,21 @@ export default function ProjectDrawer({ project, onClose }) {
       />
 
       {/* Drawer */}
-      <div style={{
-        position: 'fixed',
-        top: 0, right: 0, bottom: 0,
-        width: 'min(520px, 90vw)',
-        background: 'var(--cream)',
-        borderLeft: '1px solid var(--border)',
-        zIndex: 301,
-        overflowY: 'auto',
-        animation: 'slidein 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards',
-        display: 'flex',
-        flexDirection: 'column',
-      }}>
+      <div
+        id="project-drawer"
+        style={{
+          position: 'fixed',
+          top: 0, right: 0, bottom: 0,
+          width: 'min(520px, 90vw)',
+          background: 'var(--cream)',
+          borderLeft: '1px solid var(--border)',
+          zIndex: 301,
+          overflowY: 'auto',
+          animation: 'slidein 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
 
         {/* Header */}
         <div style={{
@@ -65,10 +89,7 @@ export default function ProjectDrawer({ project, onClose }) {
             }}>
               {project.category}
             </div>
-            <h2 style={{
-              fontSize: 22, fontWeight: 800,
-              color: 'var(--ink)', lineHeight: 1.2,
-            }}>
+            <h2 style={{ fontSize: 22, fontWeight: 800, color: 'var(--ink)', lineHeight: 1.2 }}>
               {project.title}
             </h2>
             {project.context && (
@@ -88,29 +109,22 @@ export default function ProjectDrawer({ project, onClose }) {
               flexShrink: 0, color: 'var(--mid)',
             }}
           >
-            x
+            ✕
           </button>
         </div>
 
         {/* Contenu */}
         <div style={{ padding: '28px 32px', flex: 1 }}>
 
-          {/* Screenshot si dispo */}
           {project.screenshot && (
             <div style={{
               borderRadius: 12, overflow: 'hidden',
-              border: '1px solid var(--border)',
-              marginBottom: 28,
+              border: '1px solid var(--border)', marginBottom: 28,
             }}>
-              <img
-                src={project.screenshot}
-                alt={project.title}
-                style={{ width: '100%', display: 'block' }}
-              />
+              <img src={project.screenshot} alt={project.title} style={{ width: '100%', display: 'block' }} />
             </div>
           )}
 
-          {/* Description longue */}
           {project.longDescription && (
             <div style={{ marginBottom: 28 }}>
               <div style={{
@@ -119,16 +133,12 @@ export default function ProjectDrawer({ project, onClose }) {
               }}>
                 Description
               </div>
-              <p style={{
-                fontSize: 14, color: 'var(--low)',
-                lineHeight: 1.8, whiteSpace: 'pre-line',
-              }}>
+              <p style={{ fontSize: 14, color: 'var(--low)', lineHeight: 1.8, whiteSpace: 'pre-line' }}>
                 {project.longDescription}
               </p>
             </div>
           )}
 
-          {/* Stack */}
           {project.stack && project.stack.length > 0 && (
             <div style={{ marginBottom: 28 }}>
               <div style={{
@@ -141,8 +151,7 @@ export default function ProjectDrawer({ project, onClose }) {
                 {project.stack.map((s, i) => (
                   <span key={i} style={{
                     padding: '6px 12px', borderRadius: 6,
-                    background: 'var(--white)',
-                    border: '1px solid var(--border)',
+                    background: 'var(--white)', border: '1px solid var(--border)',
                     fontSize: 12, color: 'var(--mid)', fontWeight: 500,
                   }}>
                     {s}
@@ -152,7 +161,6 @@ export default function ProjectDrawer({ project, onClose }) {
             </div>
           )}
 
-          {/* Liens */}
           {(project.github || project.demo) && (
             <div style={{ marginBottom: 28 }}>
               <div style={{
@@ -163,42 +171,37 @@ export default function ProjectDrawer({ project, onClose }) {
               </div>
               <div style={{ display: 'flex', gap: 10 }}>
                 {project.github && (
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noreferrer"
-                    style={{
-                      padding: '10px 20px',
-                      background: 'var(--ink)', color: 'var(--white)',
-                      borderRadius: 8, fontSize: 13, fontWeight: 600,
-                      textDecoration: 'none', display: 'inline-flex',
-                      alignItems: 'center', gap: 8,
-                    }}
-                  >
+                  <a href={project.github} target="_blank" rel="noreferrer" style={{
+                    padding: '10px 20px', background: 'var(--ink)', color: 'var(--white)',
+                    borderRadius: 8, fontSize: 13, fontWeight: 600,
+                    textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8,
+                  }}>
                     GitHub →
                   </a>
                 )}
                 {project.demo && (
-                  <a
-                    href={project.demo}
-                    target="_blank"
-                    rel="noreferrer"
-                    style={{
-                      padding: '10px 20px',
-                      background: 'var(--white)',
-                      border: '1px solid var(--border)',
-                      color: 'var(--mid)', borderRadius: 8,
-                      fontSize: 13, fontWeight: 600,
-                      textDecoration: 'none', display: 'inline-flex',
-                      alignItems: 'center', gap: 8,
-                    }}
-                  >
+                  <a href={project.demo} target="_blank" rel="noreferrer" style={{
+                    padding: '10px 20px', background: 'var(--white)',
+                    border: '1px solid var(--border)', color: 'var(--mid)',
+                    borderRadius: 8, fontSize: 13, fontWeight: 600,
+                    textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8,
+                  }}>
                     Demo →
                   </a>
                 )}
               </div>
             </div>
           )}
+
+          {/* Hint swipe sur mobile */}
+          <div style={{
+            display: window.innerWidth <= 768 ? 'flex' : 'none',
+            alignItems: 'center', gap: 6, marginTop: 24,
+            fontSize: 11, color: 'var(--low)', opacity: 0.6,
+          }}>
+            <span>→</span>
+            <span>Glisser vers la droite pour fermer</span>
+          </div>
         </div>
       </div>
     </>

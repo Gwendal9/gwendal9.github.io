@@ -1,5 +1,7 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { content } from '../data/content'
+
+const isMobile = window.innerWidth <= 768
 
 const ICONS = {
   email: (
@@ -23,6 +25,7 @@ const ICONS = {
 
 export default function Contact() {
   const { contact } = content
+  const [copied, setCopied] = useState(false)
 
   useEffect(() => {
     setTimeout(() => {
@@ -45,6 +48,15 @@ export default function Contact() {
     })
   }, [])
 
+  const handleCopyEmail = (e, item) => {
+    if (item.icon !== 'email') return
+    e.preventDefault()
+    navigator.clipboard.writeText(item.value).then(() => {
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    })
+  }
+
   const handleEnter = (e) => {
     e.currentTarget.style.borderColor = 'var(--lilas-b)'
     e.currentTarget.style.boxShadow = '0 4px 20px var(--lilas-d)'
@@ -65,21 +77,14 @@ export default function Contact() {
     <div style={{
       height: '100vh',
       overflowY: 'auto',
-      padding: window.innerWidth <= 768 ? '4px 16px 135px' : '48px 72px',
+      padding: isMobile ? '4px 16px 135px' : '48px 72px',
     }}>
 
       <div id="contact-eyebrow" style={{
-        fontSize: 10,
-        letterSpacing: 4,
-        textTransform: 'uppercase',
-        color: 'var(--lilas)',
-        fontWeight: 700,
-        marginBottom: 16,
-        display: 'flex',
-        alignItems: 'center',
-        gap: 10,
-        opacity: 0,
-        transform: 'translateY(10px)',
+        fontSize: 10, letterSpacing: 4, textTransform: 'uppercase',
+        color: 'var(--lilas)', fontWeight: 700, marginBottom: 16,
+        display: 'flex', alignItems: 'center', gap: 10,
+        opacity: 0, transform: 'translateY(10px)',
         transition: 'opacity 0.5s, transform 0.5s',
       }}>
         <span style={{ width: 16, height: 1, background: 'var(--lilas)', display: 'inline-block' }} />
@@ -87,143 +92,113 @@ export default function Contact() {
       </div>
 
       <h2 id="contact-title" style={{
-        fontSize: 'clamp(28px, 4vw, 42px)',
-        fontWeight: 800,
-        color: 'var(--ink)',
-        lineHeight: 1.1,
-        marginBottom: 20,
-        opacity: 0,
-        transform: 'translateY(14px)',
+        fontSize: 'clamp(28px, 4vw, 42px)', fontWeight: 800,
+        color: 'var(--ink)', lineHeight: 1.1, marginBottom: 20,
+        opacity: 0, transform: 'translateY(14px)',
         transition: 'opacity 0.6s, transform 0.6s',
       }}>
         On se{' '}
-        <em style={{
-          fontFamily: 'Fraunces, serif',
-          fontStyle: 'italic',
-          fontWeight: 300,
-          color: 'var(--lilas)',
-        }}>
+        <em style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 300, color: 'var(--lilas)' }}>
           parle ?
         </em>
       </h2>
 
       <p id="contact-intro" style={{
-        fontSize: 15,
-        color: 'var(--low)',
-        lineHeight: 1.8,
-        maxWidth: 440,
-        marginBottom: 48,
-        opacity: 0,
-        transform: 'translateY(12px)',
+        fontSize: 15, color: 'var(--low)', lineHeight: 1.8,
+        maxWidth: 440, marginBottom: 48,
+        opacity: 0, transform: 'translateY(12px)',
         transition: 'opacity 0.6s, transform 0.6s',
       }}>
         Disponible pour des opportunites en Data et BI en Ile-de-France.
         N'hesite pas a me contacter directement.
       </p>
 
+      {/* Toast "Copie !" */}
+      {copied && (
+        <div style={{
+          position: 'fixed', bottom: isMobile ? 80 : 32, left: '50%',
+          transform: 'translateX(-50%)',
+          background: 'var(--ink)', color: 'var(--white)',
+          padding: '10px 20px', borderRadius: 8,
+          fontSize: 13, fontWeight: 600,
+          zIndex: 999, animation: 'fadeup 0.3s forwards',
+          display: 'flex', alignItems: 'center', gap: 8,
+        }}>
+          ✓ Email copie !
+        </div>
+      )}
+
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 480 }}>
         {contact.map((item, i) => (
           <a
             key={i}
             id={'contact-card-' + i}
-            href={item.href}
+            href={item.icon === 'email' ? undefined : item.href}
             target={item.href.startsWith('mailto') ? '_self' : '_blank'}
             rel="noreferrer"
+            onClick={(e) => handleCopyEmail(e, item)}
             style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 16,
+              display: 'flex', alignItems: 'center', gap: 16,
               padding: '20px 24px',
-              background: 'var(--white)',
-              border: '1px solid var(--border)',
-              borderRadius: 12,
-              textDecoration: 'none',
-              color: 'inherit',
-              opacity: 0,
-              transform: 'translateY(14px)',
+              background: 'var(--white)', border: '1px solid var(--border)',
+              borderRadius: 12, textDecoration: 'none', color: 'inherit',
+              opacity: 0, transform: 'translateY(14px)',
               transition: 'opacity 0.4s, transform 0.4s, border-color 0.2s, box-shadow 0.2s',
+              cursor: 'pointer',
             }}
             onMouseEnter={handleEnter}
             onMouseLeave={handleLeave}
           >
             <div style={{
-              width: 44,
-              height: 44,
-              borderRadius: 10,
-              background: 'var(--cream2)',
-              border: '1px solid var(--border)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
+              width: 44, height: 44, borderRadius: 10,
+              background: 'var(--cream2)', border: '1px solid var(--border)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
               flexShrink: 0,
             }}>
               {ICONS[item.icon]}
             </div>
             <div>
               <div style={{
-                fontSize: 10,
-                color: 'var(--low)',
-                letterSpacing: 2,
-                textTransform: 'uppercase',
-                marginBottom: 3,
-                fontWeight: 500,
+                fontSize: 10, color: 'var(--low)',
+                letterSpacing: 2, textTransform: 'uppercase',
+                marginBottom: 3, fontWeight: 500,
               }}>
                 {item.label}
               </div>
               <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--ink)' }}>
-                {item.value}
+                {item.icon === 'email' && copied ? 'Copie !' : item.value}
               </div>
             </div>
             <span className="arrow" style={{
-              marginLeft: 'auto',
-              fontSize: 16,
-              color: 'var(--lilas)',
-              opacity: 0,
+              marginLeft: 'auto', fontSize: 13,
+              color: 'var(--lilas)', opacity: 0,
               transition: 'opacity 0.2s, transform 0.2s',
             }}>
-              &#8599;
+              {item.icon === 'email' ? 'Copier' : '↗'}
             </span>
           </a>
         ))}
 
         {/* References */}
-        <div style={{
-          marginTop: 48,
-        }}>
+        <div style={{ marginTop: 48 }}>
           <div style={{
-            fontSize: 11,
-            letterSpacing: 3,
-            textTransform: 'uppercase',
-            color: 'var(--mid)',
-            fontWeight: 700,
-            marginBottom: 20,
+            fontSize: 11, letterSpacing: 3, textTransform: 'uppercase',
+            color: 'var(--mid)', fontWeight: 700, marginBottom: 20,
           }}>
             References
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 480 }}>
             {content.references.map((ref, i) => (
               <div key={i} style={{
-                padding: '20px 24px',
-                background: 'var(--white)',
-                border: '1px solid var(--border)',
-                borderRadius: 12,
-                display: 'flex',
-                alignItems: 'center',
-                gap: 16,
+                padding: '20px 24px', background: 'var(--white)',
+                border: '1px solid var(--border)', borderRadius: 12,
+                display: 'flex', alignItems: 'center', gap: 16,
               }}>
                 <div style={{
-                  width: 44,
-                  height: 44,
-                  borderRadius: '50%',
-                  background: 'var(--lilas-d)',
-                  border: '1px solid var(--lilas-b)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: 16,
-                  fontWeight: 700,
-                  color: 'var(--lilas)',
-                  flexShrink: 0,
+                  width: 44, height: 44, borderRadius: '50%',
+                  background: 'var(--lilas-d)', border: '1px solid var(--lilas-b)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontSize: 16, fontWeight: 700, color: 'var(--lilas)', flexShrink: 0,
                 }}>
                   {ref.name.charAt(0)}
                 </div>
