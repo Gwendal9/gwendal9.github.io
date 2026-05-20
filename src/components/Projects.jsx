@@ -42,10 +42,11 @@ export default function Projects() {
 
   return (
     <div style={{
-      height: '100vh', overflowY: 'auto',
+      height: '100vh',
+      overflowY: 'auto',
+      overflowX: 'hidden',
       padding: '64px 72px',
       boxSizing: 'border-box',
-      scrollbarWidth: 'none',
     }}>
 
       <div id="proj-eyebrow" style={{
@@ -103,7 +104,7 @@ export default function Projects() {
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
         gap: 14,
-    
+
       }}>
         {projects.map((proj, i) => {
           const c = COLORS[proj.color] || COLORS.lilas

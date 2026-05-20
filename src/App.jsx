@@ -1,91 +1,91 @@
 import { useState, useEffect } from 'react'
-import Hero       from './components/Hero'
-import About      from './components/About'
+import Hero from './components/Hero'
+import About from './components/About'
 import Experience from './components/Experience'
-import Projects   from './components/Projects'
-import Stack      from './components/Stack'
-import Contact    from './components/Contact'
-import Footer     from './components/Footer'
-import CV         from './components/CV'
+import Projects from './components/Projects'
+import Stack from './components/Stack'
+import Contact from './components/Contact'
+import Footer from './components/Footer'
+import CV from './components/CV'
 
 // Icones SVG propres
 const ICONS = {
   hero: (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="8" r="4"/>
-      <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+      <circle cx="12" cy="8" r="4" />
+      <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
     </svg>
   ),
   about: (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="12" r="10"/>
-      <path d="M12 16v-4M12 8h.01"/>
+      <circle cx="12" cy="12" r="10" />
+      <path d="M12 16v-4M12 8h.01" />
     </svg>
   ),
   experience: (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="2" y="7" width="20" height="14" rx="2"/>
-      <path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/>
+      <rect x="2" y="7" width="20" height="14" rx="2" />
+      <path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2" />
     </svg>
   ),
   projets: (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="3" y="3" width="7" height="7" rx="1"/>
-      <rect x="14" y="3" width="7" height="7" rx="1"/>
-      <rect x="3" y="14" width="7" height="7" rx="1"/>
-      <rect x="14" y="14" width="7" height="7" rx="1"/>
+      <rect x="3" y="3" width="7" height="7" rx="1" />
+      <rect x="14" y="3" width="7" height="7" rx="1" />
+      <rect x="3" y="14" width="7" height="7" rx="1" />
+      <rect x="14" y="14" width="7" height="7" rx="1" />
     </svg>
   ),
   stack: (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-      <path d="M2 17l10 5 10-5"/>
-      <path d="M2 12l10 5 10-5"/>
+      <path d="M12 2L2 7l10 5 10-5-10-5z" />
+      <path d="M2 17l10 5 10-5" />
+      <path d="M2 12l10 5 10-5" />
     </svg>
   ),
   contact: (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-      <polyline points="22,6 12,13 2,6"/>
+      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+      <polyline points="22,6 12,13 2,6" />
     </svg>
   ),
   cv: (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
-      <polyline points="14,2 14,8 20,8"/>
-      <line x1="16" y1="13" x2="8" y2="13"/>
-      <line x1="16" y1="17" x2="8" y2="17"/>
-      <polyline points="10,9 9,9 8,9"/>
+      <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+      <polyline points="14,2 14,8 20,8" />
+      <line x1="16" y1="13" x2="8" y2="13" />
+      <line x1="16" y1="17" x2="8" y2="17" />
+      <polyline points="10,9 9,9 8,9" />
     </svg>
   ),
   moon: (
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+      <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
     </svg>
   ),
   sun: (
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="12" r="5"/>
-      <line x1="12" y1="1" x2="12" y2="3"/>
-      <line x1="12" y1="21" x2="12" y2="23"/>
-      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-      <line x1="1" y1="12" x2="3" y2="12"/>
-      <line x1="21" y1="12" x2="23" y2="12"/>
-      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+      <circle cx="12" cy="12" r="5" />
+      <line x1="12" y1="1" x2="12" y2="3" />
+      <line x1="12" y1="21" x2="12" y2="23" />
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+      <line x1="1" y1="12" x2="3" y2="12" />
+      <line x1="21" y1="12" x2="23" y2="12" />
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
     </svg>
   ),
 }
 
 const NAV = [
-  { id: 'hero',       icon: 'hero',       label: 'Profil'     },
-  { id: 'about',      icon: 'about',      label: 'A propos'   },
+  { id: 'hero', icon: 'hero', label: 'Profil' },
+  { id: 'about', icon: 'about', label: 'A propos' },
   { id: 'experience', icon: 'experience', label: 'Experience' },
-  { id: 'projets',    icon: 'projets',    label: 'Projets'    },
-  { id: 'stack',      icon: 'stack',      label: 'Stack'      },
-  { id: 'contact',    icon: 'contact',    label: 'Contact'    },
-  { id: 'cv',         icon: 'cv',         label: 'Mon CV'     },
+  { id: 'projets', icon: 'projets', label: 'Projets' },
+  { id: 'stack', icon: 'stack', label: 'Stack' },
+  { id: 'contact', icon: 'contact', label: 'Contact' },
+  { id: 'cv', icon: 'cv', label: 'Mon CV' },
 ]
 
 export default function App() {
@@ -102,22 +102,22 @@ export default function App() {
   useEffect(() => {
     const root = document.documentElement
     if (dark) {
-      root.style.setProperty('--cream',  '#0d0d0d')
+      root.style.setProperty('--cream', '#0d0d0d')
       root.style.setProperty('--cream2', '#111111')
       root.style.setProperty('--cream3', '#1a1a1a')
-      root.style.setProperty('--white',  '#161616')
-      root.style.setProperty('--ink',    '#f0ece4')
-      root.style.setProperty('--mid',    '#a09890')
-      root.style.setProperty('--low',    '#666666')
+      root.style.setProperty('--white', '#161616')
+      root.style.setProperty('--ink', '#f0ece4')
+      root.style.setProperty('--mid', '#a09890')
+      root.style.setProperty('--low', '#666666')
       root.style.setProperty('--border', '#222222')
     } else {
-      root.style.setProperty('--cream',  '#f7f3ec')
+      root.style.setProperty('--cream', '#f7f3ec')
       root.style.setProperty('--cream2', '#f0ebe0')
       root.style.setProperty('--cream3', '#e8e1d4')
-      root.style.setProperty('--white',  '#ffffff')
-      root.style.setProperty('--ink',    '#1a1a1a')
-      root.style.setProperty('--mid',    '#4a4540')
-      root.style.setProperty('--low',    '#7a7068')
+      root.style.setProperty('--white', '#ffffff')
+      root.style.setProperty('--ink', '#1a1a1a')
+      root.style.setProperty('--mid', '#4a4540')
+      root.style.setProperty('--low', '#7a7068')
       root.style.setProperty('--border', '#d8cfc2')
     }
   }, [dark])
@@ -252,15 +252,16 @@ export default function App() {
         display: 'flex', flexDirection: 'column',
         paddingTop: isMobile ? 56 : 0,
         paddingBottom: isMobile ? 64 : 0,
+        overflowX: 'hidden',
       }}>
         <div style={{ flex: 1, overflow: 'hidden', position: 'relative' }}>
-          {active === 'hero'       && <Hero onNavigate={setActive} isMobile={isMobile} />}
-          {active === 'about'      && <About />}
+          {active === 'hero' && <Hero onNavigate={setActive} isMobile={isMobile} />}
+          {active === 'about' && <About />}
           {active === 'experience' && <Experience />}
-          {active === 'projets'    && <Projects />}
-          {active === 'stack'      && <Stack />}
-          {active === 'contact'    && <Contact />}
-          {active === 'cv'         && <CV isMobile={isMobile} />}
+          {active === 'projets' && <Projects />}
+          {active === 'stack' && <Stack />}
+          {active === 'contact' && <Contact />}
+          {active === 'cv' && <CV isMobile={isMobile} />}
         </div>
         {!isMobile && <Footer />}
       </main>
@@ -304,7 +305,7 @@ export default function App() {
             }}
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
-              <circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/>
+              <circle cx="5" cy="12" r="1.5" /><circle cx="12" cy="12" r="1.5" /><circle cx="19" cy="12" r="1.5" />
             </svg>
             <span style={{ fontSize: 9, fontWeight: 400 }}>Plus</span>
           </button>

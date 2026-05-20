@@ -44,6 +44,8 @@ export default function About() {
       overflowY: 'auto',
       padding: 'clamp(40px, 6vw, 72px) clamp(32px, 6vw, 72px)',
       scrollbarWidth: 'none',
+      paddingBottom: 80,
+
     }}>
 
       {/* Eyebrow */}
