@@ -1,19 +1,21 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Hero from './components/Hero'
+import About from './components/About'
 import Experience from './components/Experience'
 import Projects from './components/Projects'
 import Stack from './components/Stack'
-import About from './components/About'
 import Contact from './components/Contact'
 
 const NAV = [
   { id: 'hero', icon: '👤', label: 'Profil' },
+  { id: 'about', icon: '🙋', label: 'À propos' },
   { id: 'experience', icon: '💼', label: 'Expérience' },
   { id: 'projets', icon: '🚀', label: 'Projets' },
   { id: 'stack', icon: '⚙️', label: 'Stack' },
   { id: 'contact', icon: '✉️', label: 'Contact' },
-  { id: 'about', icon: '🙋', label: 'À propos' },
 ]
+
+const PANELS = ['hero', 'about', 'experience', 'projets', 'stack', 'contact']
 
 export default function App() {
   const [active, setActive] = useState('hero')
@@ -28,6 +30,7 @@ export default function App() {
         borderRight: '1px solid var(--border)',
         display: 'flex', flexDirection: 'column',
         padding: '40px 0',
+        transition: 'width 0.3s',
       }}>
 
         {/* Logo */}
@@ -36,18 +39,22 @@ export default function App() {
           borderBottom: '1px solid var(--border)',
           marginBottom: '32px',
         }}>
-          <div style={{ fontSize: 16, fontWeight: 800, color: 'var(--ink)', letterSpacing: '-0.3px', lineHeight: 1.2 }}>
-            Gwendal
-          </div>
           <div style={{
+            fontSize: 16, fontWeight: 800,
+            color: 'var(--ink)', letterSpacing: '-0.3px', lineHeight: 1.2,
+          }}>
+            <span className="sidebar-full">Gwendal</span>
+            <span className="sidebar-short">G.</span>
+          </div>
+          <div className="sidebar-full" style={{
             fontFamily: 'Fraunces, serif', fontStyle: 'italic',
             fontWeight: 300, fontSize: 13, color: 'var(--lilas)',
           }}>
-            Ropars
+            Rolland
           </div>
         </div>
 
-        {/* Nav items */}
+        {/* Nav */}
         <nav style={{ flex: 1, padding: '0 16px' }}>
           {NAV.map(({ id, icon, label }) => (
             <div
@@ -56,29 +63,33 @@ export default function App() {
               style={{
                 display: 'flex', alignItems: 'center', gap: '12px',
                 padding: '11px 14px', borderRadius: '8px',
-                fontSize: 13, fontWeight: active === id ? 600 : 500,
+                fontSize: 13,
+                fontWeight: active === id ? 600 : 500,
                 color: active === id ? 'var(--lilas)' : 'var(--low)',
                 background: active === id ? 'var(--lilas-d)' : 'transparent',
                 border: `1px solid ${active === id ? 'var(--lilas-b)' : 'transparent'}`,
                 cursor: 'pointer', marginBottom: '4px',
                 transition: 'all 0.2s', userSelect: 'none',
                 position: 'relative',
+                justifyContent: 'flex-start',
               }}
             >
-              <span style={{ fontSize: 15, width: 20, textAlign: 'center' }}>{icon}</span>
-              <span>{label}</span>
+              <span style={{ fontSize: 16, width: 20, textAlign: 'center', flexShrink: 0 }}>
+                {icon}
+              </span>
+              <span className="nav-label">{label}</span>
               {active === id && (
                 <span style={{
                   position: 'absolute', right: 14,
                   width: 5, height: 5, borderRadius: '50%',
                   background: 'var(--lilas)',
-                }} />
+                }} className="sidebar-full" />
               )}
             </div>
           ))}
         </nav>
 
-        {/* Footer status */}
+        {/* Status */}
         <div style={{
           padding: '24px 28px 0',
           borderTop: '1px solid var(--border)',
@@ -92,19 +103,20 @@ export default function App() {
             animation: 'pulse-green 2s infinite',
             display: 'inline-block',
           }} />
-          Disponible
+          <span className="nav-label">Disponible</span>
         </div>
       </aside>
 
-      {/* ── CONTENU ── */}
+      {/* ── MAIN ── */}
       <main style={{ flex: 1, height: '100vh', overflow: 'hidden', position: 'relative' }}>
         {active === 'hero' && <Hero />}
-        {active === 'experience' && <Experience key={Date.now()} />}
-        {active === 'projets' && <Projects key={Date.now()} />}
-        {active === 'stack' && <Stack key={Date.now()} />}
-        {active === 'contact' && <Contact key={Date.now()} />}
-        {active === 'about' && <About key={Date.now()} />}
+        {active === 'about' && <About />}
+        {active === 'experience' && <Experience />}
+        {active === 'projets' && <Projects />}
+        {active === 'stack' && <Stack />}
+        {active === 'contact' && <Contact />}
       </main>
+
     </div>
   )
 }
