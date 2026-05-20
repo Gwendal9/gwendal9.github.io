@@ -1,8 +1,61 @@
-import { useEffect } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { content } from '../data/content'
+import Particles from './Particles'
+
+const TYPING_TITLES = ['Data Analyst', 'IA & Big Data']
+
+function useTypingEffect(titles) {
+  const [display, setDisplay] = useState('')
+  const [titleIdx, setTitleIdx] = useState(0)
+  const [typing, setTyping] = useState(true)
+  const [charIdx, setCharIdx] = useState(0)
+
+  useEffect(() => {
+    const current = titles[titleIdx]
+    let timeout
+
+    if (typing) {
+      if (charIdx < current.length) {
+        timeout = setTimeout(() => {
+          setDisplay(current.slice(0, charIdx + 1))
+          setCharIdx(c => c + 1)
+        }, 80)
+      } else {
+        timeout = setTimeout(() => setTyping(false), 1800)
+      }
+    } else {
+      if (charIdx > 0) {
+        timeout = setTimeout(() => {
+          setDisplay(current.slice(0, charIdx - 1))
+          setCharIdx(c => c - 1)
+        }, 40)
+      } else {
+        setTitleIdx(i => (i + 1) % titles.length)
+        setTyping(true)
+      }
+    }
+
+    return () => clearTimeout(timeout)
+  }, [charIdx, typing, titleIdx, titles])
+
+  return display
+}
 
 export default function Hero({ onNavigate }) {
   const { hero } = content
+  const typedTitle = useTypingEffect(TYPING_TITLES)
+  const photoRef = useRef(null)
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      if (!photoRef.current) return
+      const x = (e.clientX / window.innerWidth - 0.5) * 12
+      const y = (e.clientY / window.innerHeight - 0.5) * 12
+      photoRef.current.style.transform = 'translate(' + x + 'px, ' + y + 'px)'
+    }
+    window.addEventListener('mousemove', handleMouseMove)
+    return () => window.removeEventListener('mousemove', handleMouseMove)
+  }, [])
 
   return (
     <section style={{
@@ -15,6 +68,7 @@ export default function Hero({ onNavigate }) {
       margin: '0 auto',
       position: 'relative',
     }}>
+      <Particles />
 
       {/* Ligne accent top */}
       <div style={{
@@ -27,13 +81,14 @@ export default function Hero({ onNavigate }) {
         width: 0,
       }} />
 
-      {/* Photo de profil */}
-      <div style={{
+      {/* Photo de profil avec parallax */}
+      <div ref={photoRef} style={{
         position: 'absolute',
         top: 'clamp(88px, 10vw, 120px)',
         right: 'clamp(24px, 5vw, 60px)',
         opacity: 0,
         animation: 'fadeup 0.6s 0.8s forwards',
+        transition: 'transform 0.1s ease-out',
       }}>
         <div style={{
           width: 130,
@@ -51,36 +106,35 @@ export default function Hero({ onNavigate }) {
         </div>
       </div>
 
-      {/* Status pill */}
+      {/* Infos essentielles */}
       <div style={{
-        display: 'inline-flex',
+        display: 'flex',
         alignItems: 'center',
-        gap: '8px',
-        padding: '7px 16px',
-        borderRadius: '100px',
-        border: '1px solid var(--lilas-b)',
-        background: 'var(--lilas-d)',
-        fontSize: '12px',
-        color: 'var(--lilas)',
-        width: 'fit-content',
+        gap: '10px',
+        flexWrap: 'wrap',
         marginBottom: '44px',
         opacity: 0,
         animation: 'fadeup 0.5s 0.3s forwards',
       }}>
         <span style={{
-          width: '6px',
-          height: '6px',
-          borderRadius: '50%',
-          background: 'var(--lilas)',
-          boxShadow: '0 0 6px var(--lilas)',
-          animation: 'blink 2.5s ease-in-out infinite',
-          display: 'inline-block',
-        }} />
-        {hero.status}
+          display: 'inline-flex', alignItems: 'center', gap: 6,
+          padding: '6px 14px', borderRadius: '100px',
+          border: '1px solid var(--lilas-b)', background: 'var(--lilas-d)',
+          fontSize: '12px', color: 'var(--lilas)', fontWeight: 500,
+        }}>
+          <span style={{
+            width: 6, height: 6, borderRadius: '50%',
+            background: 'var(--lilas)', display: 'inline-block',
+            animation: 'blink 2.5s ease-in-out infinite',
+          }} />
+          Disponible immediatement
+        </span>
+        <span style={{ fontSize: 12, color: 'var(--low)' }}>📍 Paris — Vehicule</span>
+        <span style={{ fontSize: 12, color: 'var(--low)' }}>📄 CDI / Mission</span>
       </div>
 
       {/* Nom */}
-      <div style={{ marginBottom: '20px' }}>
+      <div style={{ marginBottom: '16px' }}>
         {[hero.firstName, hero.lastName].map((name, i) => (
           <span key={i} style={{
             display: 'block',
@@ -104,22 +158,28 @@ export default function Hero({ onNavigate }) {
         ))}
       </div>
 
-      {/* Roles */}
+      {/* Typing effect */}
       <div style={{
+        fontSize: 'clamp(16px, 2.5vw, 22px)',
+        fontWeight: 600,
+        color: 'var(--mid)',
+        marginBottom: '28px',
+        height: 32,
         display: 'flex',
         alignItems: 'center',
-        gap: '12px',
-        flexWrap: 'wrap',
-        fontSize: '13px',
-        marginBottom: '32px',
+        gap: 2,
         opacity: 0,
         animation: 'fadeup 0.5s 0.9s forwards',
       }}>
-        {hero.roles.map((role, i) => (
-          <span key={i} style={{ color: i === 0 ? 'var(--mid)' : 'var(--low)' }}>
-            {role}{i < hero.roles.length - 1 ? ' · ' : ''}
-          </span>
-        ))}
+        {typedTitle}
+        <span style={{
+          display: 'inline-block',
+          width: 2,
+          height: '1em',
+          background: 'var(--lilas)',
+          marginLeft: 2,
+          animation: 'blink 1s infinite',
+        }} />
       </div>
 
       {/* Description */}
@@ -128,68 +188,12 @@ export default function Hero({ onNavigate }) {
         color: 'var(--low)',
         lineHeight: 1.8,
         maxWidth: '460px',
-        marginBottom: '24px',
+        marginBottom: '40px',
         opacity: 0,
         animation: 'fadeup 0.6s 1.05s forwards',
       }}>
         {hero.description}
       </p>
-
-      {/* Infos rapides */}
-      <div style={{
-        display: 'flex',
-        gap: '20px',
-        flexWrap: 'wrap',
-        fontSize: '12px',
-        color: 'var(--low)',
-        marginBottom: '32px',
-        opacity: 0,
-        animation: 'fadeup 0.5s 1.1s forwards',
-      }}>
-        <span>📍 {hero.location}</span>
-        <span>🟢 {hero.disponibility}</span>
-        <span>📄 {hero.contract}</span>
-      </div>
-
-      {/* Chips */}
-      <div style={{
-        display: 'flex',
-        gap: '8px',
-        flexWrap: 'wrap',
-        marginBottom: '44px',
-        opacity: 0,
-        animation: 'fadeup 0.5s 1.2s forwards',
-      }}>
-        {hero.chips.map(chip => (
-          <span
-            key={chip}
-            style={{
-              padding: '6px 14px',
-              borderRadius: '100px',
-              border: '1px solid var(--border)',
-              background: 'var(--white)',
-              fontSize: '12px',
-              color: 'var(--low)',
-              fontWeight: 500,
-              transition: 'border-color 0.2s, color 0.2s, transform 0.15s',
-              cursor: 'default',
-              display: 'inline-block',
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.borderColor = 'var(--lilas)'
-              e.currentTarget.style.color = 'var(--lilas)'
-              e.currentTarget.style.transform = 'translateY(-2px)'
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.borderColor = 'var(--border)'
-              e.currentTarget.style.color = 'var(--low)'
-              e.currentTarget.style.transform = 'translateY(0)'
-            }}
-          >
-            {chip}
-          </span>
-        ))}
-      </div>
 
       {/* Boutons */}
       <div style={{
@@ -197,7 +201,7 @@ export default function Hero({ onNavigate }) {
         gap: '12px',
         flexWrap: 'wrap',
         opacity: 0,
-        animation: 'fadeup 0.5s 1.35s forwards',
+        animation: 'fadeup 0.5s 1.2s forwards',
       }}>
         <a
           href="/CV_GWENDAL_ROLLAND-Data_analyst.pdf"
@@ -252,37 +256,28 @@ export default function Hero({ onNavigate }) {
         </button>
       </div>
 
-      {/* Compteurs */}
+      {/* Mots-cles */}
       <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(3, 1fr)',
-        gap: 1,
-        background: 'var(--border)',
-        border: '1px solid var(--border)',
-        borderRadius: 12,
-        overflow: 'hidden',
-        marginTop: 56,
+        display: 'flex',
+        gap: '10px',
+        flexWrap: 'wrap',
+        marginTop: 48,
         opacity: 0,
-        animation: 'fadeup 0.5s 1.6s forwards',
+        animation: 'fadeup 0.5s 1.4s forwards',
       }}>
-        {content.counters.map((c, i) => (
-          <div key={i} style={{
-            background: 'var(--white)',
-            padding: '24px 20px',
+        {content.keywords.map((kw, i) => (
+          <span key={i} style={{
+            padding: '8px 16px',
+            borderRadius: 8,
+            background: i === 0 ? 'var(--lilas-d)' : 'var(--white)',
+            border: '1px solid ' + (i === 0 ? 'var(--lilas-b)' : 'var(--border)'),
+            fontSize: 12,
+            fontWeight: 600,
+            color: i === 0 ? 'var(--lilas)' : 'var(--mid)',
+            letterSpacing: 0.5,
           }}>
-            <div style={{
-              fontSize: 36,
-              fontWeight: 800,
-              color: 'var(--lilas)',
-              lineHeight: 1,
-              marginBottom: 6,
-            }}>
-              {c.value}{c.suffix}
-            </div>
-            <div style={{ fontSize: 11, color: 'var(--low)', letterSpacing: 1 }}>
-              {c.label}
-            </div>
-          </div>
+            {kw}
+          </span>
         ))}
       </div>
 

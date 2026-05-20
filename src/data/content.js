@@ -15,11 +15,14 @@ export const content = {
         contract: "CDI / Mission",
     },
 
-    counters: [
-        { value: 3, suffix: "+", label: "Ans d'expérience" },
-        { value: 40, suffix: "M€", label: "Portefeuille géré" },
-        { value: 8, suffix: "M", label: "Produits analysés" },
-    ],
+    keywords: [
+  "IA & Big Data",
+  "Supply Chain",
+  "Automatisation",
+  "Visualisation",
+  "Machine Learning",
+  "Data Engineering",
+],
 
     experience: [
         {
