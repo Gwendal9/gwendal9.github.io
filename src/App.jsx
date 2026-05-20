@@ -130,6 +130,15 @@ export default function App() {
     }
   }, [dark])
 
+  useEffect(() => {
+    if (typeof window.gtag !== 'undefined') {
+      window.gtag('event', 'page_view', {
+        page_title: active,
+        page_path: '/' + active,
+      })
+    }
+  }, [active])
+
   // Nav items mobile — on en prend 5 max pour la bottom bar
   const mobileNav = [
     { id: 'hero', icon: 'hero', label: 'Profil' },
