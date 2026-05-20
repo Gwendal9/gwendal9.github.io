@@ -16,7 +16,7 @@ export default function Particles() {
     resize()
     window.addEventListener('resize', resize)
 
-    const particles = Array.from({ length: 50 }, () => ({
+    const particles = Array.from({ length: 25 }, () => ({
       x: Math.random() * w,
       y: Math.random() * h,
       r: Math.random() * 3 + 1,

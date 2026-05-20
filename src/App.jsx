@@ -1,20 +1,21 @@
 import { useState, useEffect } from 'react'
-import Hero       from './components/Hero'
-import About      from './components/About'
+import Hero from './components/Hero'
+import About from './components/About'
 import Experience from './components/Experience'
-import Projects   from './components/Projects'
-import Stack      from './components/Stack'
-import Contact    from './components/Contact'
-import Footer     from './components/Footer'
-import Cursor     from './components/Cursor'
+import Projects from './components/Projects'
+import Stack from './components/Stack'
+import Contact from './components/Contact'
+import Footer from './components/Footer'
+import CV from './components/CV'
 
 const NAV = [
-  { id: 'hero',       icon: '👤', label: 'Profil'     },
-  { id: 'about',      icon: '🙋', label: 'A propos'   },
+  { id: 'hero', icon: '👤', label: 'Profil' },
+  { id: 'about', icon: '🙋', label: 'A propos' },
   { id: 'experience', icon: '💼', label: 'Experience' },
-  { id: 'projets',    icon: '🚀', label: 'Projets'    },
-  { id: 'stack',      icon: '⚙️', label: 'Stack'      },
-  { id: 'contact',    icon: '✉️', label: 'Contact'    },
+  { id: 'projets', icon: '🚀', label: 'Projets' },
+  { id: 'stack', icon: '⚙️', label: 'Stack' },
+  { id: 'contact', icon: '✉️', label: 'Contact' },
+  { id: 'cv', icon: '📄', label: 'Mon CV' },
 ]
 
 export default function App() {
@@ -31,22 +32,22 @@ export default function App() {
   useEffect(() => {
     const root = document.documentElement
     if (dark) {
-      root.style.setProperty('--cream',  '#0d0d0d')
+      root.style.setProperty('--cream', '#0d0d0d')
       root.style.setProperty('--cream2', '#111111')
       root.style.setProperty('--cream3', '#1a1a1a')
-      root.style.setProperty('--white',  '#161616')
-      root.style.setProperty('--ink',    '#f0ece4')
-      root.style.setProperty('--mid',    '#a09890')
-      root.style.setProperty('--low',    '#666666')
+      root.style.setProperty('--white', '#161616')
+      root.style.setProperty('--ink', '#f0ece4')
+      root.style.setProperty('--mid', '#a09890')
+      root.style.setProperty('--low', '#666666')
       root.style.setProperty('--border', '#222222')
     } else {
-      root.style.setProperty('--cream',  '#f7f3ec')
+      root.style.setProperty('--cream', '#f7f3ec')
       root.style.setProperty('--cream2', '#f0ebe0')
       root.style.setProperty('--cream3', '#e8e1d4')
-      root.style.setProperty('--white',  '#ffffff')
-      root.style.setProperty('--ink',    '#1a1a1a')
-      root.style.setProperty('--mid',    '#4a4540')
-      root.style.setProperty('--low',    '#7a7068')
+      root.style.setProperty('--white', '#ffffff')
+      root.style.setProperty('--ink', '#1a1a1a')
+      root.style.setProperty('--mid', '#4a4540')
+      root.style.setProperty('--low', '#7a7068')
       root.style.setProperty('--border', '#d8cfc2')
     }
   }, [dark])
@@ -54,8 +55,6 @@ export default function App() {
   return (
     <div style={{ display: 'flex', height: '100vh', overflow: 'hidden' }}>
 
-      {/* Curseur custom — desktop seulement */}
-      {!isMobile && <Cursor />}
 
       {/* SIDEBAR desktop */}
       {!isMobile && (
@@ -234,15 +233,31 @@ export default function App() {
         paddingBottom: isMobile ? 64 : 0,
       }}>
         <div style={{ flex: 1, overflow: 'hidden', position: 'relative' }}>
-          {active === 'hero'       && <Hero onNavigate={setActive} />}
-          {active === 'about'      && <About />}
+          {active === 'hero' && <Hero onNavigate={setActive} />}
+          {active === 'about' && <About />}
           {active === 'experience' && <Experience />}
-          {active === 'projets'    && <Projects />}
-          {active === 'stack'      && <Stack />}
-          {active === 'contact'    && <Contact />}
+          {active === 'projets' && <Projects />}
+          {active === 'stack' && <Stack />}
+          {active === 'contact' && <Contact />}
         </div>
         {!isMobile && <Footer />}
       </main>
+
+      {/* CV en pleine largeur */}
+      {active === 'cv' && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: isMobile ? 0 : 'var(--sidebar)',
+          right: 0,
+          bottom: 0,
+          zIndex: 100,
+        }}>
+          <CV isMobile={isMobile} />
+        </div>
+      )}
+
+
 
       {/* BOTTOM NAV mobile */}
       {isMobile && (
