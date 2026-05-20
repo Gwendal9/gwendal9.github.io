@@ -131,17 +131,14 @@ export default function App() {
   }, [dark])
 
   useEffect(() => {
-    const sendPageView = () => {
-      if (typeof window.gtag !== 'undefined') {
-        window.gtag('event', 'page_view', {
-          page_title: active,
-          page_path: '/' + active,
-        })
-      }
-    }
-    // Petit délai pour laisser gtag se charger
-    const timeout = setTimeout(sendPageView, 500)
-    return () => clearTimeout(timeout)
+    setTimeout(() => {
+      window.dataLayer = window.dataLayer || []
+      window.dataLayer.push({
+        event: 'page_view',
+        page_path: '/' + active,
+        page_title: active,
+      })
+    }, 1000)
   }, [active])
 
   // Nav items mobile — on en prend 5 max pour la bottom bar
