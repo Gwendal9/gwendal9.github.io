@@ -4,24 +4,26 @@ export const content = {
         firstName: "Gwendal",
         lastName: "Rolland",
         status: "Disponible · Paris",
-        roles: ["Data Analyst", "IA & Big Data", "Supply Chain"],
+        roles: ["Data Analyst", "Ingénieur sciences des données"],
         description: "Diplômé ingénieur IA & Big Data (eiCNAM), je transforme des données complexes en décisions actionnables. Curieux et rigoureux, je m'adapte rapidement aux outils et aux environnements.",
-        chips: ["Power BI", "Python", "SQL", "GCP", "n8n", "Machine Learning"],
         cvUrl: "/cv-gwendal-rolland.pdf",
-        phone: "06 51 93 76 72",
         email: "gwendal.rolland@yahoo.fr",
-        location: "Paris — Véhiculé",
+        location: "Paris — Permis B",
         disponibility: "Disponible immédiatement",
-        contract: "CDI / Mission",
+        contract: "CDI / CDD / Mission",
     },
 
     keywords: [
         "IA & Big Data",
-        "Supply Chain",
+        "Analyse et modélisation des données",
         "Automatisation",
-        "Visualisation",
-        "Machine Learning",
+        "Data visualisation",
+        "Machine learning",
         "Data Engineering",
+        "Modèles statistiques",
+        "Problèmes métier",
+        "Communication",
+        "Curiosité et apprentissage rapide",
     ],
 
     experience: [
@@ -31,13 +33,13 @@ export const content = {
             company: "Orange France",
             badge: "CDD",
             current: true,
-            description: "Modernisation des données SAP/Qlik vers GCP et Power BI. Conception d'un système automatisé de contrôle de facturation sur un portefeuille de 40M€. Dashboard sur les processus de reconditionnement (8M produits).",
-            tags: ["Power BI", "GCP", "SQL", "Power Query", "SAP"],
+            description: "Modernisation des données Qlik vers GCP pour Power BI. Industrialisation d'un système automatisé de contrôle de facturation sur un portefeuille de 40M€. Dashboard sur les processus de reconditionnement (8M produits). Mise en place d'une solution pour le reporting des activités de l'équipe + dashboard pour la direction",
             logos: [
                 { name: 'Power BI', img: 'https://upload.wikimedia.org/wikipedia/commons/c/cf/New_Power_BI_Logo.svg' },
-                { name: 'GCP', img: 'https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg' },
+                { name: 'GCP', img: 'https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg' },
                 { name: 'Python', img: 'https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg' },
-                { name: 'SAP', img: null },
+                { name: 'Excel', img: 'https://upload.wikimedia.org/wikipedia/commons/6/60/Microsoft_Office_Excel_%282025%E2%80%93present%29.svg?uselang=fr' },
+                { name: 'HTML', img: 'https://upload.wikimedia.org/wikipedia/commons/3/33/Hypertext_markup_language.png' },
             ],
         },
         {
@@ -46,8 +48,14 @@ export const content = {
             company: "URSSAF",
             badge: "Alternance",
             current: false,
-            description: "Déploiement de tableaux de bord pour le pilotage des directions métiers (+25M lignes). Automatisation des traitements récurrents — gains de 6 JA/mois. Fiabilisation des indicateurs et contrôles qualité.",
-            tags: ["Python", "SQL", "Power BI", "Excel", "Agile"],
+            description: "Déploiement de tableaux de bord pour le pilotage des directions métiers (+25M lignes). Requête SQL pour construction et fiabilisation des indicateurs + contrôles qualité. Étude sur les commentaires textuels des usagers (NLP, Embedding, Regex).",
+            logos: [
+                { name: 'SQL - Dbeaver', img: 'https://upload.wikimedia.org/wikipedia/commons/b/b5/DBeaver_logo.svg' },
+                { name: 'Tibco spotfire', img: 'https://upload.wikimedia.org/wikipedia/commons/d/d0/Spotfire_Large_Color.png' },
+                { name: 'Python', img: 'https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg' },
+                { name: 'Excel', img: 'https://upload.wikimedia.org/wikipedia/commons/6/60/Microsoft_Office_Excel_%282025%E2%80%93present%29.svg?uselang=fr' },
+                { name: 'R Studio', img: 'https://upload.wikimedia.org/wikipedia/commons/d/d0/RStudio_logo_flat.svg' },
+            ],
         },
         {
             date: "2023",
@@ -55,17 +63,27 @@ export const content = {
             company: "Skalup (start-up IA)",
             badge: "Stage",
             current: false,
-            description: "Benchmark de solutions pour détecter murs, plafonds et sols (IA et approches algorithmiques). Mise en œuvre de prototypes et recommandations techniques.",
-            tags: ["Python", "OpenCV", "YOLO", "Machine Learning"],
+            description: "Benchmark de solutions pour détecter murs, plafonds et sols dans une image puis une vidéo (IA et approches algorithmiques). Mise en œuvre de prototypes et recommandations techniques.",
+            logos: [
+                { name: 'Python', img: 'https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg' },
+                { name: 'OpenCV', img: 'https://upload.wikimedia.org/wikipedia/commons/d/d2/OpenCV_logo_black.svg' },
+                { name: 'YOLO', img: 'https://images.g2crowd.com/uploads/product/image/2e1d25e4ac8ebd8d5bb1cf26e508446c/ultralytics.png' },
+                { name: 'Blender', img: 'https://upload.wikimedia.org/wikipedia/commons/0/0c/Blender_logo_no_text.svg' },
+            ],
         },
         {
             date: "2022",
             title: "Projet VisioNER",
             company: "eiCNAM",
-            badge: "Projet",
+            badge: "Projet d'école",
             current: false,
             description: "Pipeline OCR → NER pour documents hétérogènes. Constitution et annotation du jeu de données, entraînement d'un modèle de détection de documents.",
-            tags: ["NLP", "SpaCy", "Hugging Face", "OCR", "Python"],
+            logos: [
+                { name: 'Python', img: 'https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg' },
+                { name: 'SpaCy', img: 'https://upload.wikimedia.org/wikipedia/commons/0/0d/SpaCy_logo.svg' },
+                { name: 'Hugging Face', img: 'logos/hugging-face-logo.svg' },
+                { name: 'OCR', img: 'logos/ocr-logo.svg' },
+            ],
         },
     ],
 
@@ -93,7 +111,7 @@ export const content = {
     projects: {
         pro: [
             {
-                color: 'blue',
+                color: 'Orange',
                 category: '📊 Power BI',
                 title: 'TARTOPOM — Orange',
                 description: 'Dashboard de reconditionnement sur 8M de produits. Hiérarchie de facturation multi-niveaux, migration SAP/Qlik vers GCP + Power BI.',
@@ -215,8 +233,8 @@ export const content = {
 
     hobbies: [
         { icon: "🎾", title: "Padel", desc: "Licencié TC Les Lilas · Tournois FFT réguliers · Interclub R3" },
-        { icon: "🎮", title: "Gaming", desc: "Wakfu et autres univers en ligne" },
-        { icon: "🌍", title: "Veille", desc: "Géopolitique & économique — lecture quotidienne" },
+        { icon: "🎮", title: "Gaming", desc: "Age of empire, Dofus, Football manager, Rematch, Valorant" },
+        { icon: "🌍", title: "Veille", desc: "Géopolitique & économique — Nouveautés dans le domaine de l'IA/data" },
         { icon: "📱", title: "Dev perso", desc: "Application mobile sortie sur les stores" },
     ],
 
@@ -229,6 +247,9 @@ export const content = {
         { name: 'Spark / Hive', img: 'https://upload.wikimedia.org/wikipedia/commons/f/f3/Apache_Spark_logo.svg' },
         { name: 'React / JS', img: 'https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg' },
         { name: 'Git', img: 'https://upload.wikimedia.org/wikipedia/commons/e/e0/Git-logo.svg' },
+        { name: 'Excel', img: 'https://upload.wikimedia.org/wikipedia/commons/3/34/Microsoft_Office_Excel_%282019%E2%80%93present%29.svg' },
+        { name: 'Docker', img: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/Docker_%28container_engine%29_logo.svg' },
+        { name: 'Flask', img: 'https://upload.wikimedia.org/wikipedia/commons/3/38/Flask_logo.svg' },
     ],
 
     contact: [
@@ -240,20 +261,20 @@ export const content = {
     references: [
         {
             name: "Matthieu Moreira",
-            role: "A compléter",
+            role: "Data analyst",
             company: "Orange",
-            email: "A compléter",
-            linkedin: "A compléter",
-            photo: "/references/matthieu.jpg",
-            companyLogo: "/logos/orange.png",
+            email: "matthieu.moreira@orange.com",
+            linkedin: "linkedin.com/in/moreira-m",
+            photo: "/references/matthieu_photo.jpg",
+            companyLogo: "https://upload.wikimedia.org/wikipedia/commons/c/c8/Orange_logo.svg",
         },
         {
             name: "Stephane Rondeau",
-            role: "A compléter",
-            company: "A compléter",
-            email: "A compléter",
-            linkedin: "A compléter",
-            photo: "/references/stephane.jpg",
+            role: "Responsable pôle data",
+            company: "Unedic",
+            email: "stephane.rondeau@outlook.fr",
+            linkedin: "linkedin.com/in/stéphane-rondeau-9aa385140",
+            photo: "/references/stephane_photo.jpg",
             companyLogo: "/logos/stephane-company.png",
         },
     ],
@@ -281,8 +302,5 @@ export const content = {
         'SQLite': null,
         'ETL': null,
         'Power Query': null,
-        'Excel': 'https://upload.wikimedia.org/wikipedia/commons/3/34/Microsoft_Office_Excel_%282019%E2%80%93present%29.svg',
-    },
-
-
+    }
 }

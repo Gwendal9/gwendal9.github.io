@@ -27,15 +27,8 @@ const MARQUEE_TOOLS = [
 function ToolTag({ name }) {
   const logo = content.toolLogos?.[name]
   return (
-    <span style={{
-      display: 'inline-flex', alignItems: 'center', gap: 4,
-      padding: '3px 8px', borderRadius: 4,
-      background: 'var(--cream2)', border: '1px solid var(--border)',
-      fontSize: 10, color: 'var(--low)', fontWeight: 500,
-    }}>
-      {logo && (
-        <img src={logo} alt={name} style={{ width: 12, height: 12, objectFit: 'contain' }} />
-      )}
+    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, padding: '3px 8px', borderRadius: 4, background: 'var(--cream2)', border: '1px solid var(--border)', fontSize: 10, color: 'var(--low)', fontWeight: 500, whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
+      {logo && <img src={logo} alt={name} style={{ width: 12, height: 12, objectFit: 'contain', flexShrink: 0 }} />}
       {name}
     </span>
   )
@@ -44,33 +37,15 @@ function ToolTag({ name }) {
 function ToolsMarquee() {
   const doubled = [...MARQUEE_TOOLS, ...MARQUEE_TOOLS, ...MARQUEE_TOOLS, ...MARQUEE_TOOLS]
   return (
-    <div style={{
-      overflow: 'hidden',
-      marginBottom: 24,
-      marginTop: 16,
-      padding: '10px 0',
-      borderTop: '1px solid var(--border)',
-      borderBottom: '1px solid var(--border)',
-      background: 'var(--cream2)',
-    }}>
-      <div
-        className="marquee-track"
-        style={{
-          display: 'flex',
-          gap: 40,
-          width: 'max-content',
-        }}
+    <div style={{ overflow: 'hidden', marginBottom: 24, marginTop: 16, padding: '10px 0', borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)', background: 'var(--cream2)' }}>
+      <div className="marquee-track" style={{ display: 'flex', gap: 40, width: 'max-content' }}
         onMouseEnter={e => e.currentTarget.style.animationPlayState = 'paused'}
         onMouseLeave={e => e.currentTarget.style.animationPlayState = 'running'}
       >
         {doubled.map((tool, i) => (
-          <div key={i} style={{
-            display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0,
-          }}>
+          <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
             <img src={tool.img} alt={tool.name} style={{ width: 18, height: 18, objectFit: 'contain', opacity: 0.65 }} />
-            <span style={{ fontSize: 11, color: 'var(--low)', fontWeight: 500, whiteSpace: 'nowrap' }}>
-              {tool.name}
-            </span>
+            <span style={{ fontSize: 11, color: 'var(--low)', fontWeight: 500, whiteSpace: 'nowrap' }}>{tool.name}</span>
           </div>
         ))}
       </div>
@@ -84,14 +59,8 @@ export default function Projects() {
   const projects = content.projects[tab]
 
   useEffect(() => {
-    setTimeout(() => {
-      const el = document.getElementById('proj-eyebrow')
-      if (el) { el.style.opacity = '1'; el.style.transform = 'translateY(0)' }
-    }, 100)
-    setTimeout(() => {
-      const el = document.getElementById('proj-title')
-      if (el) { el.style.opacity = '1'; el.style.transform = 'translateY(0)' }
-    }, 250)
+    setTimeout(() => { const el = document.getElementById('proj-eyebrow'); if (el) { el.style.opacity = '1'; el.style.transform = 'translateY(0)' } }, 100)
+    setTimeout(() => { const el = document.getElementById('proj-title'); if (el) { el.style.opacity = '1'; el.style.transform = 'translateY(0)' } }, 250)
   }, [])
 
   useEffect(() => {
@@ -101,145 +70,62 @@ export default function Projects() {
     })
     setTimeout(() => {
       content.projects[tab].forEach((_, i) => {
-        setTimeout(() => {
-          const card = document.getElementById('proj-card-' + i)
-          if (card) { card.style.opacity = '1'; card.style.transform = 'translateY(0)' }
-        }, i * 100)
+        setTimeout(() => { const card = document.getElementById('proj-card-' + i); if (card) { card.style.opacity = '1'; card.style.transform = 'translateY(0)' } }, i * 100)
       })
     }, 50)
   }, [tab])
 
   return (
-    <div style={{
-      height: '100vh', overflowY: 'auto', overflowX: 'hidden',
-      padding: isMobile ? '4px 16px 135px' : '48px 72px 0',
-      boxSizing: 'border-box',
-      maxWidth: 900,
-      margin: '0 auto',
-      width: '100%',
-    }}>
-
-      {/* Eyebrow */}
-      <div id="proj-eyebrow" style={{
-        fontSize: 10, letterSpacing: 4, textTransform: 'uppercase',
-        color: 'var(--lilas)', fontWeight: 700, marginBottom: 12,
-        display: 'flex', alignItems: 'center', gap: 10,
-        opacity: 0, transform: 'translateY(10px)',
-        transition: 'opacity 0.5s, transform 0.5s',
-      }}>
-        <span style={{ width: 16, height: 1, background: 'var(--lilas)', display: 'inline-block' }} />
-        Realisations
-      </div>
-
-      {/* Titre */}
-      <h2 id="proj-title" style={{
-        fontSize: 'clamp(24px, 4vw, 42px)', fontWeight: 800,
-        color: 'var(--ink)', lineHeight: 1.1, marginBottom: 24,
-        opacity: 0, transform: 'translateY(14px)',
-        transition: 'opacity 0.6s, transform 0.6s',
-      }}>
-        Mes{' '}
-        <em style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 300, color: 'var(--lilas)' }}>
-          projets
-        </em>
-      </h2>
-
-      {/* Tabs */}
-
+    <div style={{ height: '100vh', overflowY: 'auto', overflowX: 'hidden' }}>
       <div style={{
-        display: 'flex', gap: 8, marginBottom: isMobile ? 16 : 0,
-        borderBottom: '1px solid var(--border)',
+        maxWidth: 900,
+        margin: '0 auto',
+        padding: isMobile ? '4px 16px 135px' : '48px 40px 80px',
+        boxSizing: 'border-box',
       }}>
 
-        {[{ key: 'pro', label: 'Projets pro' }, { key: 'perso', label: 'Projets perso' }].map(t => (
-          <button
-            key={t.key}
-            onClick={() => setTab(t.key)}
-            style={{
-              padding: '8px 20px', background: 'transparent', border: 'none',
-              fontSize: 13,
-              fontWeight: tab === t.key ? 700 : 500,
-              color: tab === t.key ? 'var(--lilas)' : 'var(--low)',
-              borderBottom: tab === t.key ? '2px solid var(--lilas)' : '2px solid transparent',
-              cursor: 'pointer', marginBottom: '-1px',
-              transition: 'all 0.2s',
-              fontFamily: 'inherit',
-            }}
-          >
-            {t.label}
-          </button>
-        ))}
+        <div id="proj-eyebrow" style={{ fontSize: 10, letterSpacing: 4, textTransform: 'uppercase', color: 'var(--lilas)', fontWeight: 700, marginBottom: 12, display: 'flex', alignItems: 'center', gap: 10, opacity: 0, transform: 'translateY(10px)', transition: 'opacity 0.5s, transform 0.5s' }}>
+          <span style={{ width: 16, height: 1, background: 'var(--lilas)', display: 'inline-block' }} />
+          Realisations
+        </div>
+
+        <h2 id="proj-title" style={{ fontSize: 'clamp(24px, 4vw, 42px)', fontWeight: 800, color: 'var(--ink)', lineHeight: 1.1, marginBottom: 24, opacity: 0, transform: 'translateY(14px)', transition: 'opacity 0.6s, transform 0.6s' }}>
+          Mes{' '}
+          <em style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 300, color: 'var(--lilas)' }}>projets</em>
+        </h2>
+
+        <div style={{ display: 'flex', gap: 8, marginBottom: isMobile ? 16 : 0, borderBottom: '1px solid var(--border)' }}>
+          {[{ key: 'pro', label: 'Projets pro' }, { key: 'perso', label: 'Projets perso' }].map(t => (
+            <button key={t.key} onClick={() => setTab(t.key)} style={{ padding: '8px 20px', background: 'transparent', border: 'none', fontSize: 13, fontWeight: tab === t.key ? 700 : 500, color: tab === t.key ? 'var(--lilas)' : 'var(--low)', borderBottom: tab === t.key ? '2px solid var(--lilas)' : '2px solid transparent', cursor: 'pointer', marginBottom: '-1px', transition: 'all 0.2s', fontFamily: 'inherit' }}>
+              {t.label}
+            </button>
+          ))}
+        </div>
+
+        {!isMobile && <ToolsMarquee />}
+
+        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)', gap: 14, paddingBottom: 20, alignItems: 'stretch' }}>
+          {projects.map((proj, i) => {
+            const c = COLORS[proj.color] || COLORS.lilas
+            return (
+              <div key={i} id={'proj-card-' + i} onClick={() => setSelected(proj)}
+                style={{ background: 'var(--white)', border: '1px solid var(--border)', borderRadius: 12, padding: 20, opacity: 0, transform: 'translateY(16px)', transition: 'opacity 0.4s, transform 0.4s, border-color 0.2s, box-shadow 0.2s', cursor: 'pointer', display: 'flex', flexDirection: 'column' }}
+                onMouseEnter={e => { e.currentTarget.style.borderColor = c.border; e.currentTarget.style.boxShadow = '0 4px 24px ' + c.bg; e.currentTarget.style.transform = 'translateY(-2px)' }}
+                onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.transform = 'translateY(0)' }}
+              >
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '4px 10px', borderRadius: 100, fontSize: 11, fontWeight: 600, marginBottom: 12, color: c.text, background: c.bg, border: '1px solid ' + c.border }}>{proj.category}</div>
+                <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--ink)', marginBottom: 8 }}>{proj.title}</div>
+                <p style={{ fontSize: 13, color: 'var(--low)', lineHeight: 1.75, marginBottom: 14, whiteSpace: 'pre-line' }}>{proj.description}</p>
+                <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginTop: 'auto' }}>
+                  {proj.tags.map((tag, j) => <ToolTag key={j} name={tag} />)}
+                </div>
+              </div>
+            )
+          })}
+        </div>
+
+        {selected && <ProjectDrawer project={selected} onClose={() => setSelected(null)} />}
       </div>
-
-      {/* Marquee */}
-      {!isMobile && <ToolsMarquee />}
-
-      {/* Grille */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
-        gap: 14,
-        padding: isMobile ? '0' : '0 0 80px',
-        alignItems: 'stretch',
-      }}>
-        {projects.map((proj, i) => {
-          const c = COLORS[proj.color] || COLORS.lilas
-          return (
-            <div
-              key={i}
-              id={'proj-card-' + i}
-              onClick={() => setSelected(proj)}
-              style={{
-                background: 'var(--white)',
-                border: '1px solid var(--border)',
-                borderRadius: 12, padding: 20,
-                opacity: 0, transform: 'translateY(16px)',
-                transition: 'opacity 0.4s, transform 0.4s, border-color 0.2s, box-shadow 0.2s',
-                cursor: 'pointer',
-                display: 'flex',
-                flexDirection: 'column',
-              }}
-              onMouseEnter={e => {
-                e.currentTarget.style.borderColor = c.border
-                e.currentTarget.style.boxShadow = '0 4px 24px ' + c.bg
-                e.currentTarget.style.transform = 'translateY(-2px)'
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.borderColor = 'var(--border)'
-                e.currentTarget.style.boxShadow = 'none'
-                e.currentTarget.style.transform = 'translateY(0)'
-              }}
-            >
-              <div style={{
-                display: 'inline-flex', alignItems: 'center', gap: 6,
-                padding: '4px 10px', borderRadius: 100,
-                fontSize: 11, fontWeight: 600, marginBottom: 12,
-                color: c.text, background: c.bg, border: '1px solid ' + c.border,
-              }}>
-                {proj.category}
-              </div>
-
-              <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--ink)', marginBottom: 8 }}>
-                {proj.title}
-              </div>
-
-              <p style={{ fontSize: 13, color: 'var(--low)', lineHeight: 1.75, marginBottom: 14 }}>
-                {proj.description}
-              </p>
-
-              <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginTop: 'auto' }}>
-                {proj.tags.map((tag, j) => (
-                  <ToolTag key={j} name={tag} />
-                ))}
-              </div>
-            </div>
-          )
-        })}
-      </div>
-
-      {selected && (
-        <ProjectDrawer project={selected} onClose={() => setSelected(null)} />
-      )}
     </div>
   )
 }

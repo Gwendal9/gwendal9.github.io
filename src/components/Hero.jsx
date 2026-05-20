@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react'
 import { content } from '../data/content'
 import Particles from './Particles'
 
-const TYPING_TITLES = ['Data Analyst', 'IA & Big Data']
+const TYPING_TITLES = ['Data Analyst', 'Ingénieur sciences des données']
 
 function useTypingEffect(titles) {
   const [display, setDisplay] = useState('')
@@ -56,12 +56,8 @@ export default function Hero({ onNavigate, isMobile }) {
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
-      padding: window.innerWidth <= 768 ? '4px 16px 135px' : '48px 72px',
-
-      maxWidth: '900px',
-      margin: '0 auto',
+      padding: window.innerWidth <= 768 ? '4px 16px 135px' : 'clamp(48px, 5vw, 80px) clamp(40px, calc((100% - 820px) / 2), 400px)',
       position: 'relative',
-      width: '100%',
     }}>
 
       <Particles />
@@ -121,14 +117,14 @@ export default function Hero({ onNavigate, isMobile }) {
           fontSize: '11px', color: 'var(--lilas)', fontWeight: 500,
         }}>
           <span style={{
-            width: 6, height: 6, borderRadius: '50%',
+            width: 8, height: 8, borderRadius: '50%',
             background: 'var(--lilas)', display: 'inline-block',
             animation: 'blink 2.5s ease-in-out infinite',
           }} />
-          Disponible
+          Disponible immédiatement
         </span>
-        <span style={{ fontSize: 11, color: 'var(--low)' }}>📍 Paris</span>
-        <span style={{ fontSize: 11, color: 'var(--low)' }}>📄 CDI / Mission</span>
+        <span style={{ fontSize: 11, color: 'var(--low)' }}>📍 Paris - Permis B</span>
+        <span style={{ fontSize: 11, color: 'var(--low)' }}>📄 CDI / CDD / Mission</span>
       </div>
 
       {/* Nom */}

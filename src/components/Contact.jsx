@@ -6,8 +6,7 @@ const isMobile = window.innerWidth <= 768
 const ICONS = {
   email: (
     <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--mid)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="2" y="4" width="20" height="16" rx="2" />
-      <path d="M2 7l10 7 10-7" />
+      <rect x="2" y="4" width="20" height="16" rx="2" /><path d="M2 7l10 7 10-7" />
     </svg>
   ),
   linkedin: (
@@ -28,33 +27,18 @@ export default function Contact() {
   const [copied, setCopied] = useState(false)
 
   useEffect(() => {
-    setTimeout(() => {
-      const el = document.getElementById('contact-eyebrow')
-      if (el) { el.style.opacity = '1'; el.style.transform = 'translateY(0)' }
-    }, 100)
-    setTimeout(() => {
-      const el = document.getElementById('contact-title')
-      if (el) { el.style.opacity = '1'; el.style.transform = 'translateY(0)' }
-    }, 250)
-    setTimeout(() => {
-      const el = document.getElementById('contact-intro')
-      if (el) { el.style.opacity = '1'; el.style.transform = 'translateY(0)' }
-    }, 400)
+    setTimeout(() => { const el = document.getElementById('contact-eyebrow'); if (el) { el.style.opacity = '1'; el.style.transform = 'translateY(0)' } }, 100)
+    setTimeout(() => { const el = document.getElementById('contact-title'); if (el) { el.style.opacity = '1'; el.style.transform = 'translateY(0)' } }, 250)
+    setTimeout(() => { const el = document.getElementById('contact-intro'); if (el) { el.style.opacity = '1'; el.style.transform = 'translateY(0)' } }, 400)
     contact.forEach((_, i) => {
-      setTimeout(() => {
-        const card = document.getElementById('contact-card-' + i)
-        if (card) { card.style.opacity = '1'; card.style.transform = 'translateY(0)' }
-      }, 550 + i * 120)
+      setTimeout(() => { const card = document.getElementById('contact-card-' + i); if (card) { card.style.opacity = '1'; card.style.transform = 'translateY(0)' } }, 550 + i * 120)
     })
   }, [])
 
   const handleCopyEmail = (e, item) => {
     if (item.icon !== 'email') return
     e.preventDefault()
-    navigator.clipboard.writeText(item.value).then(() => {
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
-    })
+    navigator.clipboard.writeText(item.value).then(() => { setCopied(true); setTimeout(() => setCopied(false), 2000) })
   }
 
   const handleEnter = (e) => {
@@ -74,144 +58,78 @@ export default function Contact() {
   }
 
   return (
-    <div style={{
-      height: '100vh',
-      overflowY: 'auto',
-      padding: isMobile ? '4px 16px 135px' : '48px 72px',
-    }}>
-
-      <div id="contact-eyebrow" style={{
-        fontSize: 10, letterSpacing: 4, textTransform: 'uppercase',
-        color: 'var(--lilas)', fontWeight: 700, marginBottom: 16,
-        display: 'flex', alignItems: 'center', gap: 10,
-        opacity: 0, transform: 'translateY(10px)',
-        transition: 'opacity 0.5s, transform 0.5s',
+    <div style={{ height: '100vh', overflowY: 'auto', overflowX: 'hidden' }}>
+      <div style={{
+        maxWidth: 700,
+        margin: '0 auto',
+        padding: isMobile ? '4px 16px 135px' : '56px 40px 60px',
+        boxSizing: 'border-box',
       }}>
-        <span style={{ width: 16, height: 1, background: 'var(--lilas)', display: 'inline-block' }} />
-        Contact
-      </div>
 
-      <h2 id="contact-title" style={{
-        fontSize: 'clamp(28px, 4vw, 42px)', fontWeight: 800,
-        color: 'var(--ink)', lineHeight: 1.1, marginBottom: 20,
-        opacity: 0, transform: 'translateY(14px)',
-        transition: 'opacity 0.6s, transform 0.6s',
-      }}>
-        On se{' '}
-        <em style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 300, color: 'var(--lilas)' }}>
-          parle ?
-        </em>
-      </h2>
-
-      <p id="contact-intro" style={{
-        fontSize: 15, color: 'var(--low)', lineHeight: 1.8,
-        maxWidth: 440, marginBottom: 48,
-        opacity: 0, transform: 'translateY(12px)',
-        transition: 'opacity 0.6s, transform 0.6s',
-      }}>
-        Disponible pour des opportunites en Data et BI en Ile-de-France.
-        N'hesite pas a me contacter directement.
-      </p>
-
-      {/* Toast "Copie !" */}
-      {copied && (
-        <div style={{
-          position: 'fixed', bottom: isMobile ? 80 : 32, left: '50%',
-          transform: 'translateX(-50%)',
-          background: 'var(--ink)', color: 'var(--white)',
-          padding: '10px 20px', borderRadius: 8,
-          fontSize: 13, fontWeight: 600,
-          zIndex: 999, animation: 'fadeup 0.3s forwards',
-          display: 'flex', alignItems: 'center', gap: 8,
-        }}>
-          ✓ Email copie !
+        <div id="contact-eyebrow" style={{ fontSize: 10, letterSpacing: 4, textTransform: 'uppercase', color: 'var(--lilas)', fontWeight: 700, marginBottom: 16, display: 'flex', alignItems: 'center', gap: 10, opacity: 0, transform: 'translateY(10px)', transition: 'opacity 0.5s, transform 0.5s' }}>
+          <span style={{ width: 16, height: 1, background: 'var(--lilas)', display: 'inline-block' }} />
+          Contact
         </div>
-      )}
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 480 }}>
-        {contact.map((item, i) => (
-          <a
-            key={i}
-            id={'contact-card-' + i}
-            href={item.icon === 'email' ? undefined : item.href}
-            target={item.href.startsWith('mailto') ? '_self' : '_blank'}
-            rel="noreferrer"
-            onClick={(e) => handleCopyEmail(e, item)}
-            style={{
-              display: 'flex', alignItems: 'center', gap: 16,
-              padding: '20px 24px',
-              background: 'var(--white)', border: '1px solid var(--border)',
-              borderRadius: 12, textDecoration: 'none', color: 'inherit',
-              opacity: 0, transform: 'translateY(14px)',
-              transition: 'opacity 0.4s, transform 0.4s, border-color 0.2s, box-shadow 0.2s',
-              cursor: 'pointer',
-            }}
-            onMouseEnter={handleEnter}
-            onMouseLeave={handleLeave}
-          >
-            <div style={{
-              width: 44, height: 44, borderRadius: 10,
-              background: 'var(--cream2)', border: '1px solid var(--border)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              flexShrink: 0,
-            }}>
-              {ICONS[item.icon]}
-            </div>
-            <div>
-              <div style={{
-                fontSize: 10, color: 'var(--low)',
-                letterSpacing: 2, textTransform: 'uppercase',
-                marginBottom: 3, fontWeight: 500,
-              }}>
-                {item.label}
-              </div>
-              <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--ink)' }}>
-                {item.icon === 'email' && copied ? 'Copie !' : item.value}
-              </div>
-            </div>
-            <span className="arrow" style={{
-              marginLeft: 'auto', fontSize: 13,
-              color: 'var(--lilas)', opacity: 0,
-              transition: 'opacity 0.2s, transform 0.2s',
-            }}>
-              {item.icon === 'email' ? 'Copier' : '↗'}
-            </span>
-          </a>
-        ))}
+        <h2 id="contact-title" style={{ fontSize: 'clamp(28px, 4vw, 42px)', fontWeight: 800, color: 'var(--ink)', lineHeight: 1.1, marginBottom: 20, opacity: 0, transform: 'translateY(14px)', transition: 'opacity 0.6s, transform 0.6s' }}>
+          On se{' '}
+          <em style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 300, color: 'var(--lilas)' }}>parle ?</em>
+        </h2>
 
-        {/* References */}
-        <div style={{ marginTop: 48 }}>
-          <div style={{
-            fontSize: 11, letterSpacing: 3, textTransform: 'uppercase',
-            color: 'var(--mid)', fontWeight: 700, marginBottom: 20,
-          }}>
-            References
+        <p id="contact-intro" style={{ fontSize: 15, color: 'var(--low)', lineHeight: 1.8, maxWidth: 440, marginBottom: 48, opacity: 0, transform: 'translateY(12px)', transition: 'opacity 0.6s, transform 0.6s' }}>
+          Disponible pour des opportunites en Data et BI en Ile-de-France.
+          N'hesite pas a me contacter directement.
+        </p>
+
+        {copied && (
+          <div style={{ position: 'fixed', bottom: isMobile ? 80 : 32, left: '50%', transform: 'translateX(-50%)', background: 'var(--ink)', color: 'var(--white)', padding: '10px 20px', borderRadius: 8, fontSize: 13, fontWeight: 600, zIndex: 999, display: 'flex', alignItems: 'center', gap: 8 }}>
+            ✓ Email copie !
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 480 }}>
-            {content.references.map((ref, i) => (
-              <div key={i} style={{
-                padding: '20px 24px', background: 'var(--white)',
-                border: '1px solid var(--border)', borderRadius: 12,
-                display: 'flex', alignItems: 'center', gap: 16,
-              }}>
-                <div style={{
-                  width: 44, height: 44, borderRadius: '50%',
-                  background: 'var(--lilas-d)', border: '1px solid var(--lilas-b)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: 16, fontWeight: 700, color: 'var(--lilas)', flexShrink: 0,
-                }}>
-                  {ref.name.charAt(0)}
-                </div>
-                <div>
-                  <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink)', marginBottom: 2 }}>
-                    {ref.name}
-                  </div>
-                  <div style={{ fontSize: 12, color: 'var(--low)' }}>
-                    {ref.role} · {ref.company}
-                  </div>
-                </div>
+        )}
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          {contact.map((item, i) => (
+            <a key={i} id={'contact-card-' + i}
+              href={item.icon === 'email' ? undefined : item.href}
+              target={item.href && item.href.startsWith('mailto') ? '_self' : '_blank'}
+              rel="noreferrer"
+              onClick={(e) => handleCopyEmail(e, item)}
+              style={{ display: 'flex', alignItems: 'center', gap: 16, padding: '20px 24px', background: 'var(--white)', border: '1px solid var(--border)', borderRadius: 12, textDecoration: 'none', color: 'inherit', opacity: 0, transform: 'translateY(14px)', transition: 'opacity 0.4s, transform 0.4s, border-color 0.2s, box-shadow 0.2s', cursor: 'pointer' }}
+              onMouseEnter={handleEnter}
+              onMouseLeave={handleLeave}
+            >
+              <div style={{ width: 44, height: 44, borderRadius: 10, background: 'var(--cream2)', border: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                {ICONS[item.icon]}
               </div>
-            ))}
+              <div>
+                <div style={{ fontSize: 10, color: 'var(--low)', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 3, fontWeight: 500 }}>{item.label}</div>
+                <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--ink)' }}>{item.icon === 'email' && copied ? 'Copie !' : item.value}</div>
+              </div>
+              <span className="arrow" style={{ marginLeft: 'auto', fontSize: 13, color: 'var(--lilas)', opacity: 0, transition: 'opacity 0.2s, transform 0.2s' }}>
+                {item.icon === 'email' ? 'Copier' : '↗'}
+              </span>
+            </a>
+          ))}
+
+          <div style={{ marginTop: 48 }}>
+            <div style={{ fontSize: 11, letterSpacing: 3, textTransform: 'uppercase', color: 'var(--mid)', fontWeight: 700, marginBottom: 20 }}>References</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              {content.references && content.references.map((ref, i) => (
+                <div key={i} style={{ padding: '20px 24px', background: 'var(--white)', border: '1px solid var(--border)', borderRadius: 12, display: 'flex', alignItems: 'center', gap: 16 }}>
+                  <div style={{ width: 44, height: 44, borderRadius: '50%', background: 'var(--lilas-d)', border: '1px solid var(--lilas-b)', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16, fontWeight: 700, color: 'var(--lilas)', flexShrink: 0 }}>
+                    {ref.photo
+                      ? <img src={ref.photo} alt={ref.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                      : ref.name.charAt(0)
+                    }
+                  </div>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink)', marginBottom: 2 }}>{ref.name}</div>
+                    <div style={{ fontSize: 12, color: 'var(--low)' }}>{ref.role} · {ref.company}</div>
+                  </div>
+                  {ref.companyLogo && <img src={ref.companyLogo} alt={ref.company} style={{ height: 24, objectFit: 'contain', opacity: 0.7 }} />}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
