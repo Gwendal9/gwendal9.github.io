@@ -7,9 +7,40 @@ const SCHOOL_LOGOS = {
   'Lycee Paul Robert': null,
 }
 
+const HOBBY_ICONS = {
+  'Padel': (
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--lilas)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="9" cy="9" r="6"/>
+      <path d="M15 15l4 4"/>
+      <path d="M9 6v6M6 9h6"/>
+    </svg>
+  ),
+  'Gaming': (
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--lilas)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="6" width="20" height="12" rx="4"/>
+      <path d="M6 12h4M8 10v4"/>
+      <circle cx="16" cy="11" r="1" fill="var(--lilas)"/>
+      <circle cx="18" cy="13" r="1" fill="var(--lilas)"/>
+    </svg>
+  ),
+  'Veille': (
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--lilas)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="10"/>
+      <path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
+    </svg>
+  ),
+  'Dev perso': (
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--lilas)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="16 18 22 12 16 6"/>
+      <polyline points="8 6 2 12 8 18"/>
+    </svg>
+  ),
+}
+
+const isMobile = window.innerWidth <= 768
+
 export default function About() {
   const { formation, hobbies, hero } = content
-  const isMobile = window.innerWidth <= 768
 
   useEffect(() => {
     const ids = ['about-eyebrow', 'about-title', 'about-desc', 'about-form-title', 'about-hobbies-title']
@@ -44,7 +75,7 @@ export default function About() {
       height: '100vh',
       overflowY: 'auto',
       overflowX: 'hidden',
-      padding: window.innerWidth <= 768 ? '4px 16px 135px' : '48px 72px',
+      padding: isMobile ? '4px 16px 135px' : '48px 72px',
     }}>
 
       <div id="about-eyebrow" style={{
@@ -92,12 +123,9 @@ export default function About() {
             id={'form-item-' + i}
             style={{
               ...fadeStyle,
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              gap: 16,
-              padding: '14px 0',
-              borderBottom: '1px solid var(--border)',
+              display: 'flex', justifyContent: 'space-between',
+              alignItems: 'center', gap: 16,
+              padding: '14px 0', borderBottom: '1px solid var(--border)',
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
@@ -115,9 +143,12 @@ export default function About() {
                   width: 36, height: 36, borderRadius: 8,
                   background: 'var(--cream2)', border: '1px solid var(--border)',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  flexShrink: 0, fontSize: 16,
+                  flexShrink: 0,
                 }}>
-                  🎓
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--mid)" strokeWidth="1.8" strokeLinecap="round">
+                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                    <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                  </svg>
                 </div>
               )}
               <div>
@@ -161,7 +192,20 @@ export default function About() {
             onMouseEnter={e => e.currentTarget.style.borderColor = 'var(--lilas-b)'}
             onMouseLeave={e => e.currentTarget.style.borderColor = 'var(--border)'}
           >
-            <span style={{ fontSize: 20, flexShrink: 0 }}>{h.icon}</span>
+            {/* Icone SVG */}
+            <div style={{
+              width: 38, height: 38, borderRadius: 10,
+              background: 'var(--lilas-d)', border: '1px solid var(--lilas-b)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              flexShrink: 0,
+            }}>
+              {HOBBY_ICONS[h.title] || (
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--lilas)" strokeWidth="1.8" strokeLinecap="round">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M12 8v4l3 3"/>
+                </svg>
+              )}
+            </div>
             <div>
               <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--ink)', marginBottom: 3 }}>{h.title}</div>
               <div style={{ fontSize: 11, color: 'var(--low)', lineHeight: 1.5 }}>{h.desc}</div>
