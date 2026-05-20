@@ -33,6 +33,12 @@ export const content = {
             current: true,
             description: "Modernisation des données SAP/Qlik vers GCP et Power BI. Conception d'un système automatisé de contrôle de facturation sur un portefeuille de 40M€. Dashboard sur les processus de reconditionnement (8M produits).",
             tags: ["Power BI", "GCP", "SQL", "Power Query", "SAP"],
+            logos: [
+                { name: 'Power BI', img: 'https://upload.wikimedia.org/wikipedia/commons/c/cf/New_Power_BI_Logo.svg' },
+                { name: 'GCP', img: 'https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg' },
+                { name: 'Python', img: 'https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg' },
+                { name: 'SAP', img: null },
+            ],
         },
         {
             date: "2021 — 2024",
@@ -251,5 +257,32 @@ export const content = {
             companyLogo: "/logos/stephane-company.png",
         },
     ],
+
+    timeline: [
+        { year: '2019', label: 'Debut', tools: ['Excel', 'Stats'], description: 'Bac ES option maths — premiers outils analytiques' },
+        { year: '2021', label: 'IUT & URSSAF', tools: ['SQL', 'Power BI', 'Python', 'Excel avancé'], description: 'DUT STID + alternance URSSAF — dashboards sur 25M lignes' },
+        { year: '2023', label: 'IA & Vision', tools: ['NLP', 'OpenCV', 'YOLO', 'Hugging Face', 'OCR'], description: 'eiCNAM + Skalup — Machine Learning et Computer Vision' },
+        { year: '2024', label: 'Ingenieur IA', tools: ['Spark', 'Hive', 'GCP', 'Databricks'], description: 'Diplome ingenieur IA & Big Data eiCNAM' },
+        { year: '2025', label: 'Orange', tools: ['Power BI', 'GCP', 'SAP', 'n8n', 'Automatisation'], description: 'Supply Chain Orange — facturation 40M, 8M produits' },
+    ],
+    toolLogos: {
+        'Power BI': 'https://upload.wikimedia.org/wikipedia/commons/c/cf/New_Power_BI_Logo.svg',
+        'Python': 'https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg',
+        'SQL': 'https://upload.wikimedia.org/wikipedia/commons/2/29/Postgresql_elephant.svg',
+        'GCP': 'https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg',
+        'n8n': 'https://avatars.githubusercontent.com/u/45487711?s=200&v=4',
+        'React': 'https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg',
+        'Git': 'https://upload.wikimedia.org/wikipedia/commons/e/e0/Git-logo.svg',
+        'DAX': null,
+        'SAP': null,
+        'Docker': 'https://upload.wikimedia.org/wikipedia/commons/4/4e/Docker_%28container_engine%29_logo.svg',
+        'Flask': null,
+        'Playwright': null,
+        'SQLite': null,
+        'ETL': null,
+        'Power Query': null,
+        'Excel': 'https://upload.wikimedia.org/wikipedia/commons/3/34/Microsoft_Office_Excel_%282019%E2%80%93present%29.svg',
+    },
+
 
 }

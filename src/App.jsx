@@ -3,10 +3,10 @@ import Hero from './components/Hero'
 import About from './components/About'
 import Experience from './components/Experience'
 import Projects from './components/Projects'
-import Stack from './components/Stack'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import CV from './components/CV'
+
 
 // Icones SVG propres
 const ICONS = {
@@ -83,9 +83,9 @@ const NAV = [
   { id: 'about', icon: 'about', label: 'A propos' },
   { id: 'experience', icon: 'experience', label: 'Experience' },
   { id: 'projets', icon: 'projets', label: 'Projets' },
-  { id: 'stack', icon: 'stack', label: 'Stack' },
   { id: 'contact', icon: 'contact', label: 'Contact' },
   { id: 'cv', icon: 'cv', label: 'Mon CV' },
+
 ]
 
 export default function App() {
@@ -259,7 +259,6 @@ export default function App() {
           {active === 'about' && <About />}
           {active === 'experience' && <Experience />}
           {active === 'projets' && <Projects />}
-          {active === 'stack' && <Stack />}
           {active === 'contact' && <Contact />}
           {active === 'cv' && <CV isMobile={isMobile} />}
         </div>

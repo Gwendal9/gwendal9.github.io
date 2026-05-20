@@ -56,9 +56,8 @@ export default function Hero({ onNavigate, isMobile }) {
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
-      padding: isMobile
-        ? '32px 24px 32px'
-        : 'clamp(88px, 10vw, 120px) clamp(24px, 5vw, 60px) 72px',
+      padding: window.innerWidth <= 768 ? '4px 16px 135px' : '48px 72px',
+
       maxWidth: '900px',
       margin: '0 auto',
       position: 'relative',
@@ -125,7 +124,7 @@ export default function Hero({ onNavigate, isMobile }) {
             width: 6, height: 6, borderRadius: '50%',
             background: 'var(--lilas)', display: 'inline-block',
             animation: 'blink 2.5s ease-in-out infinite',
-          }}/>
+          }} />
           Disponible
         </span>
         <span style={{ fontSize: 11, color: 'var(--low)' }}>📍 Paris</span>
@@ -168,7 +167,7 @@ export default function Hero({ onNavigate, isMobile }) {
           display: 'inline-block', width: 2, height: '1em',
           background: 'var(--lilas)', marginLeft: 2,
           animation: 'blink 1s infinite',
-        }}/>
+        }} />
       </div>
 
       {/* Description */}
@@ -230,6 +229,7 @@ export default function Hero({ onNavigate, isMobile }) {
           </span>
         ))}
       </div>
+
 
     </section>
   )

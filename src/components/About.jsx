@@ -9,6 +9,7 @@ const SCHOOL_LOGOS = {
 
 export default function About() {
   const { formation, hobbies, hero } = content
+  const isMobile = window.innerWidth <= 768
 
   useEffect(() => {
     const ids = ['about-eyebrow', 'about-title', 'about-desc', 'about-form-title', 'about-hobbies-title']
@@ -42,76 +43,49 @@ export default function About() {
     <div style={{
       height: '100vh',
       overflowY: 'auto',
-      padding: 'clamp(40px, 6vw, 72px) clamp(32px, 6vw, 72px)',
-      scrollbarWidth: 'none',
-      paddingBottom: 80,
-
+      overflowX: 'hidden',
+      padding: window.innerWidth <= 768 ? '4px 16px 135px' : '48px 72px',
     }}>
 
-      {/* Eyebrow */}
       <div id="about-eyebrow" style={{
         ...fadeStyle,
-        fontSize: 10,
-        letterSpacing: 4,
-        textTransform: 'uppercase',
-        color: 'var(--lilas)',
-        fontWeight: 700,
-        marginBottom: 16,
-        display: 'flex',
-        alignItems: 'center',
-        gap: 10,
+        fontSize: 10, letterSpacing: 4, textTransform: 'uppercase',
+        color: 'var(--lilas)', fontWeight: 700, marginBottom: 12,
+        display: 'flex', alignItems: 'center', gap: 10,
       }}>
         <span style={{ width: 16, height: 1, background: 'var(--lilas)', display: 'inline-block' }} />
         A propos
       </div>
 
-      {/* Titre */}
       <h2 id="about-title" style={{
         ...fadeStyle,
-        fontSize: 'clamp(28px, 4vw, 42px)',
-        fontWeight: 800,
-        color: 'var(--ink)',
-        lineHeight: 1.1,
-        marginBottom: 24,
+        fontSize: 'clamp(24px, 4vw, 42px)', fontWeight: 800,
+        color: 'var(--ink)', lineHeight: 1.1, marginBottom: 16,
       }}>
         Qui{' '}
-        <em style={{
-          fontFamily: 'Fraunces, serif',
-          fontStyle: 'italic',
-          fontWeight: 300,
-          color: 'var(--lilas)',
-        }}>
+        <em style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 300, color: 'var(--lilas)' }}>
           suis-je ?
         </em>
       </h2>
 
-      {/* Description */}
       <p id="about-desc" style={{
         ...fadeStyle,
-        fontSize: 15,
-        color: 'var(--low)',
-        lineHeight: 1.8,
-        maxWidth: 560,
-        marginBottom: 56,
+        fontSize: isMobile ? 13 : 15,
+        color: 'var(--low)', lineHeight: 1.8,
+        maxWidth: 560, marginBottom: 36,
       }}>
         {hero.description}
       </p>
 
-      {/* Titre formation */}
       <div id="about-form-title" style={{
         ...fadeStyle,
-        fontSize: 11,
-        letterSpacing: 3,
-        textTransform: 'uppercase',
-        color: 'var(--mid)',
-        fontWeight: 700,
-        marginBottom: 20,
+        fontSize: 11, letterSpacing: 3, textTransform: 'uppercase',
+        color: 'var(--mid)', fontWeight: 700, marginBottom: 16,
       }}>
         Formation
       </div>
 
-      {/* Liste formation */}
-      <div style={{ marginBottom: 52 }}>
+      <div style={{ marginBottom: 36 }}>
         {formation.map((f, i) => (
           <div
             key={i}
@@ -121,89 +95,57 @@ export default function About() {
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
-              gap: 20,
-              padding: '16px 0',
+              gap: 16,
+              padding: '14px 0',
               borderBottom: '1px solid var(--border)',
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-              {/* Logo ecole */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
               {SCHOOL_LOGOS[f.school] ? (
                 <div style={{
-                  width: 40,
-                  height: 40,
-                  borderRadius: 8,
-                  overflow: 'hidden',
-                  background: 'var(--white)',
-                  border: '1px solid var(--border)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  flexShrink: 0,
-                  padding: 4,
+                  width: 36, height: 36, borderRadius: 8, overflow: 'hidden',
+                  background: 'var(--white)', border: '1px solid var(--border)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  flexShrink: 0, padding: 4,
                 }}>
-                  <img
-                    src={SCHOOL_LOGOS[f.school]}
-                    alt={f.school}
-                    style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-                  />
+                  <img src={SCHOOL_LOGOS[f.school]} alt={f.school} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
                 </div>
               ) : (
                 <div style={{
-                  width: 40,
-                  height: 40,
-                  borderRadius: 8,
-                  background: 'var(--cream2)',
-                  border: '1px solid var(--border)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  flexShrink: 0,
-                  fontSize: 18,
+                  width: 36, height: 36, borderRadius: 8,
+                  background: 'var(--cream2)', border: '1px solid var(--border)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  flexShrink: 0, fontSize: 16,
                 }}>
                   🎓
                 </div>
               )}
               <div>
-                <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink)', marginBottom: 3 }}>
+                <div style={{ fontSize: isMobile ? 12 : 14, fontWeight: 700, color: 'var(--ink)', marginBottom: 2 }}>
                   {f.title}
                 </div>
-                <div style={{ fontSize: 12, color: 'var(--low)' }}>
-                  {f.school}
-                </div>
+                <div style={{ fontSize: 11, color: 'var(--low)' }}>{f.school}</div>
               </div>
             </div>
-            <div style={{
-              fontSize: 11,
-              color: 'var(--lilas)',
-              fontWeight: 700,
-              whiteSpace: 'nowrap',
-              letterSpacing: 1,
-            }}>
+            <div style={{ fontSize: 11, color: 'var(--lilas)', fontWeight: 700, whiteSpace: 'nowrap' }}>
               {f.date}
             </div>
           </div>
         ))}
       </div>
 
-      {/* Titre hobbies */}
       <div id="about-hobbies-title" style={{
         ...fadeStyle,
-        fontSize: 11,
-        letterSpacing: 3,
-        textTransform: 'uppercase',
-        color: 'var(--mid)',
-        fontWeight: 700,
-        marginBottom: 20,
+        fontSize: 11, letterSpacing: 3, textTransform: 'uppercase',
+        color: 'var(--mid)', fontWeight: 700, marginBottom: 16,
       }}>
         Centres d'interet
       </div>
 
-      {/* Grille hobbies */}
       <div style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
-        gap: 12,
+        gridTemplateColumns: isMobile ? '1fr 1fr' : 'repeat(auto-fill, minmax(200px, 1fr))',
+        gap: 10,
       }}>
         {hobbies.map((h, i) => (
           <div
@@ -211,26 +153,18 @@ export default function About() {
             id={'hobby-' + i}
             style={{
               ...fadeStyle,
-              display: 'flex',
-              alignItems: 'flex-start',
-              gap: 14,
-              padding: '18px 20px',
-              background: 'var(--white)',
-              border: '1px solid var(--border)',
-              borderRadius: 12,
+              display: 'flex', alignItems: 'flex-start', gap: 12,
+              padding: '16px', background: 'var(--white)',
+              border: '1px solid var(--border)', borderRadius: 12,
               transition: 'opacity 0.4s, transform 0.4s, border-color 0.2s',
             }}
             onMouseEnter={e => e.currentTarget.style.borderColor = 'var(--lilas-b)'}
             onMouseLeave={e => e.currentTarget.style.borderColor = 'var(--border)'}
           >
-            <span style={{ fontSize: 24, flexShrink: 0 }}>{h.icon}</span>
+            <span style={{ fontSize: 20, flexShrink: 0 }}>{h.icon}</span>
             <div>
-              <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--ink)', marginBottom: 4 }}>
-                {h.title}
-              </div>
-              <div style={{ fontSize: 12, color: 'var(--low)', lineHeight: 1.5 }}>
-                {h.desc}
-              </div>
+              <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--ink)', marginBottom: 3 }}>{h.title}</div>
+              <div style={{ fontSize: 11, color: 'var(--low)', lineHeight: 1.5 }}>{h.desc}</div>
             </div>
           </div>
         ))}
