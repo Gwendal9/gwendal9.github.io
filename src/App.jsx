@@ -110,6 +110,10 @@ export default function App() {
       root.style.setProperty('--mid', '#a09890')
       root.style.setProperty('--low', '#666666')
       root.style.setProperty('--border', '#222222')
+      root.style.setProperty('--lilas', '#818cf8')
+      root.style.setProperty('--lilas-l', '#a5b4fc')
+      root.style.setProperty('--lilas-d', 'rgba(129,140,248,0.1)')
+      root.style.setProperty('--lilas-b', 'rgba(129,140,248,0.2)')
     } else {
       root.style.setProperty('--cream', '#f7f3ec')
       root.style.setProperty('--cream2', '#f0ebe0')
@@ -119,6 +123,10 @@ export default function App() {
       root.style.setProperty('--mid', '#4a4540')
       root.style.setProperty('--low', '#7a7068')
       root.style.setProperty('--border', '#d8cfc2')
+      root.style.setProperty('--lilas', '#7c3aed')
+      root.style.setProperty('--lilas-l', '#9f67fa')
+      root.style.setProperty('--lilas-d', 'rgba(124,58,237,0.08)')
+      root.style.setProperty('--lilas-b', 'rgba(124,58,237,0.18)')
     }
   }, [dark])
 
@@ -190,7 +198,8 @@ export default function App() {
                   background: active === id ? 'var(--lilas-d)' : 'transparent',
                   border: '1px solid ' + (active === id ? 'var(--lilas-b)' : 'transparent'),
                   cursor: 'pointer', marginBottom: '4px',
-                  transition: 'all 0.2s', userSelect: 'none', position: 'relative',
+                  transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+                  transform: active === id ? 'translateX(4px)' : 'translateX(0)',
                 }}
               >
                 <span style={{ color: active === id ? 'var(--lilas)' : 'var(--low)', display: 'flex', flexShrink: 0 }}>

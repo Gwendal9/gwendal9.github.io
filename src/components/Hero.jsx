@@ -99,7 +99,7 @@ export default function Hero({ onNavigate, isMobile }) {
           transition: 'transform 0.1s ease-out',
         }}>
           <div style={{
-            width: 130, height: 130, borderRadius: '50%',
+            width: 180, height: 180, borderRadius: '50%',
             overflow: 'hidden', border: '3px solid var(--white)',
             animation: 'photo-pulse 3s ease-in-out infinite',
           }}>
