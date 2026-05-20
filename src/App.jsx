@@ -3,6 +3,7 @@ import Hero from './components/Hero'
 import Experience from './components/Experience'
 import Projects from './components/Projects'
 import Stack from './components/Stack'
+import About from './components/About'
 import Contact from './components/Contact'
 
 const NAV = [
@@ -11,6 +12,7 @@ const NAV = [
   { id: 'projets', icon: '🚀', label: 'Projets' },
   { id: 'stack', icon: '⚙️', label: 'Stack' },
   { id: 'contact', icon: '✉️', label: 'Contact' },
+  { id: 'about', icon: '🙋', label: 'À propos' },
 ]
 
 export default function App() {
@@ -101,6 +103,7 @@ export default function App() {
         {active === 'projets' && <Projects key={Date.now()} />}
         {active === 'stack' && <Stack key={Date.now()} />}
         {active === 'contact' && <Contact key={Date.now()} />}
+        {active === 'about' && <About key={Date.now()} />}
       </main>
     </div>
   )

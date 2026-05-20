@@ -144,13 +144,13 @@ export default function Hero() {
                 opacity: 0, animation: 'fadeup 0.5s 1.35s forwards',
             }}>
                 <a href={hero.cvUrl} download style={{
-                    padding: '13px 28px', background: 'var(--blue)', color: '#fff',
+                    padding: '13px 28px', background: 'var(--ink)', color: 'var(--white)',
                     fontSize: '13px', fontWeight: 600, borderRadius: '8px',
                     textDecoration: 'none', display: 'inline-block',
-                    transition: 'transform 0.15s, opacity 0.2s',
-                }}>
+                    transition: 'background 0.2s, transform 0.15s',
+                    }}>
                     Télécharger CV
-                </a>
+                    </a>
                 <a href="#projets" style={{
                     padding: '13px 28px', background: 'transparent',
                     border: '1px solid var(--border)', color: 'var(--low)',

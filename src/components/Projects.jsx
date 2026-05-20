@@ -1,18 +1,18 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { content } from '../data/content'
 
 const COLORS = {
     blue: { text: '#2563eb', bg: 'rgba(37,99,235,0.06)', border: 'rgba(37,99,235,0.15)' },
-    lilas: { text: 'var(--lilas)', bg: 'var(--lilas-d)', border: 'var(--lilas-b)' },
+    lilas: { text: '#7c3aed', bg: 'rgba(124,58,237,0.06)', border: 'rgba(124,58,237,0.15)' },
     green: { text: '#059669', bg: 'rgba(5,150,105,0.06)', border: 'rgba(5,150,105,0.15)' },
     amber: { text: '#d97706', bg: 'rgba(217,119,6,0.06)', border: 'rgba(217,119,6,0.15)' },
 }
 
 export default function Projects() {
-    const { projects } = content
+    const [tab, setTab] = useState('pro')
+    const projects = content.projects[tab]
 
     useEffect(() => {
-        // Eyebrow + titre
         setTimeout(() => {
             const el = document.getElementById('proj-eyebrow')
             if (el) { el.style.opacity = '1'; el.style.transform = 'translateY(0)' }
@@ -21,23 +21,33 @@ export default function Projects() {
             const el = document.getElementById('proj-title')
             if (el) { el.style.opacity = '1'; el.style.transform = 'translateY(0)' }
         }, 250)
-
-        // Cards en cascade
-        projects.forEach((_, i) => {
-            setTimeout(() => {
-                const card = document.getElementById(`proj-card-${i}`)
-                if (card) { card.style.opacity = '1'; card.style.transform = 'translateY(0)' }
-            }, 400 + i * 120)
-        })
     }, [])
+
+    useEffect(() => {
+        content.projects[tab].forEach((_, i) => {
+            const card = document.getElementById(`proj-card-${i}`)
+            if (card) {
+                card.style.opacity = '0'
+                card.style.transform = 'translateY(16px)'
+            }
+        })
+        setTimeout(() => {
+            content.projects[tab].forEach((_, i) => {
+                setTimeout(() => {
+                    const card = document.getElementById(`proj-card-${i}`)
+                    if (card) { card.style.opacity = '1'; card.style.transform = 'translateY(0)' }
+                }, i * 100)
+            })
+        }, 50)
+    }, [tab])
 
     return (
         <div style={{
             height: '100vh', overflowY: 'auto',
             padding: 'clamp(40px,6vw,72px) clamp(32px,6vw,72px)',
+            scrollbarWidth: 'none',
         }}>
 
-            {/* Eyebrow */}
             <div id="proj-eyebrow" style={{
                 fontSize: 10, letterSpacing: 4, textTransform: 'uppercase',
                 color: 'var(--lilas)', fontWeight: 700, marginBottom: 16,
@@ -49,10 +59,9 @@ export default function Projects() {
                 Réalisations
             </div>
 
-            {/* Titre */}
             <h2 id="proj-title" style={{
                 fontSize: 'clamp(28px,4vw,42px)', fontWeight: 800,
-                color: 'var(--ink)', lineHeight: 1.1, marginBottom: 40,
+                color: 'var(--ink)', lineHeight: 1.1, marginBottom: 32,
                 opacity: 0, transform: 'translateY(14px)',
                 transition: 'opacity 0.6s, transform 0.6s',
             }}>
@@ -61,6 +70,33 @@ export default function Projects() {
                     projets
                 </em>
             </h2>
+
+            {/* Tabs pro/perso */}
+            <div style={{
+                display: 'flex', gap: 8, marginBottom: 32,
+                borderBottom: '1px solid var(--border)', paddingBottom: 0,
+            }}>
+                {[
+                    { key: 'pro', label: 'Projets pro' },
+                    { key: 'perso', label: 'Projets perso' },
+                ].map(t => (
+                    <button
+                        key={t.key}
+                        onClick={() => setTab(t.key)}
+                        style={{
+                            padding: '8px 20px',
+                            background: 'transparent', border: 'none',
+                            fontSize: 13, fontWeight: tab === t.key ? 700 : 500,
+                            color: tab === t.key ? 'var(--lilas)' : 'var(--low)',
+                            borderBottom: tab === t.key ? '2px solid var(--lilas)' : '2px solid transparent',
+                            cursor: 'pointer', marginBottom: '-1px',
+                            transition: 'all 0.2s',
+                        }}
+                    >
+                        {t.label}
+                    </button>
+                ))}
+            </div>
 
             {/* Grille */}
             <div style={{
@@ -79,7 +115,7 @@ export default function Projects() {
                                 border: '1px solid var(--border)',
                                 borderRadius: 12, padding: 24,
                                 opacity: 0, transform: 'translateY(16px)',
-                                transition: 'opacity 0.45s, transform 0.45s, border-color 0.2s, box-shadow 0.2s',
+                                transition: 'opacity 0.4s, transform 0.4s, border-color 0.2s, box-shadow 0.2s',
                                 cursor: proj.link ? 'pointer' : 'default',
                             }}
                             onMouseEnter={e => {
@@ -98,7 +134,6 @@ export default function Projects() {
                             }}
                             onClick={() => proj.link && window.open(proj.link, '_blank')}
                         >
-                            {/* Catégorie */}
                             <div style={{
                                 display: 'inline-flex', alignItems: 'center', gap: 6,
                                 padding: '4px 10px', borderRadius: 100,
@@ -107,24 +142,12 @@ export default function Projects() {
                             }}>
                                 {proj.category}
                             </div>
-
-                            {/* Titre */}
-                            <div style={{
-                                fontSize: 15, fontWeight: 700,
-                                color: 'var(--ink)', marginBottom: 8,
-                            }}>
+                            <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--ink)', marginBottom: 8 }}>
                                 {proj.title}
                             </div>
-
-                            {/* Description */}
-                            <p style={{
-                                fontSize: 13, color: 'var(--low)',
-                                lineHeight: 1.75, marginBottom: 18,
-                            }}>
+                            <p style={{ fontSize: 13, color: 'var(--low)', lineHeight: 1.75, marginBottom: 18 }}>
                                 {proj.description}
                             </p>
-
-                            {/* Footer */}
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                                 <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
                                     {proj.tags.map((tag, j) => (
