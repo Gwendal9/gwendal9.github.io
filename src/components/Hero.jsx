@@ -33,6 +33,10 @@ function useTypingEffect(titles) {
   return display
 }
 
+const _SIDEBAR = 220
+const _mainW = window.innerWidth <= 768 ? window.innerWidth : window.innerWidth - _SIDEBAR
+const _hPad = window.innerWidth <= 768 ? 16 : Math.max(40, (_mainW - 900) / 2)
+
 export default function Hero({ onNavigate, isMobile }) {
   const { hero } = content
   const typedTitle = useTypingEffect(TYPING_TITLES)
@@ -56,7 +60,10 @@ export default function Hero({ onNavigate, isMobile }) {
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
-      padding: window.innerWidth <= 768 ? '4px 16px 135px' : 'clamp(48px, 5vw, 80px) clamp(40px, calc((100% - 820px) / 2), 400px)',
+      paddingTop: isMobile ? 4 : 56,
+      paddingBottom: isMobile ? 135 : 60,
+      paddingLeft: _hPad,
+      paddingRight: _hPad,
       position: 'relative',
     }}>
 

@@ -1,7 +1,11 @@
 import { useEffect } from 'react'
 import { content } from '../data/content'
 
+const SIDEBAR = 220
 const isMobile = window.innerWidth <= 768
+const mainWidth = isMobile ? window.innerWidth : window.innerWidth - SIDEBAR
+const MAX_CONTENT = 900
+const hPad = isMobile ? 16 : Math.max(40, (mainWidth - MAX_CONTENT) / 2)
 
 export default function Experience() {
   const { experience } = content
@@ -24,13 +28,14 @@ export default function Experience() {
   }, [])
 
   return (
-    <div style={{ height: '100vh', overflowY: 'auto', overflowX: 'hidden' }}>
-      <div style={{
-        maxWidth: 860,
-        margin: '0 auto',
-        padding: isMobile ? '4px 16px 135px' : '56px 40px 80px',
-        boxSizing: 'border-box',
-      }}>
+    <div style={{
+      height: '100vh', overflowY: 'auto', overflowX: 'hidden',
+      paddingTop: isMobile ? 4 : 56,
+      paddingBottom: isMobile ? 135 : 80,
+      paddingLeft: hPad,
+      paddingRight: hPad,
+    }}>
+      <div style={{ maxWidth: MAX_CONTENT, width: '100%' }}>
 
         <div id="exp-eyebrow" style={{ fontSize: 10, letterSpacing: 4, textTransform: 'uppercase', color: 'var(--lilas)', fontWeight: 700, marginBottom: 12, display: 'flex', alignItems: 'center', gap: 10, opacity: 0, transform: 'translateY(10px)', transition: 'opacity 0.5s, transform 0.5s' }}>
           <span style={{ width: 16, height: 1, background: 'var(--lilas)', display: 'inline-block' }} />
@@ -57,7 +62,7 @@ export default function Experience() {
                 {item.company}
                 {item.badge && <span style={{ fontSize: 10, padding: '3px 8px', borderRadius: 4, background: 'var(--lilas-d)', color: 'var(--lilas)', border: '1px solid var(--lilas-b)', fontWeight: 700 }}>{item.badge}</span>}
               </div>
-              <p style={{ fontSize: 13, color: 'var(--low)', lineHeight: 1.8, maxWidth: 520, marginBottom: 16, whiteSpace: 'pre-line' }}>{item.description}</p>
+              <p style={{ fontSize: 13, color: 'var(--low)', lineHeight: 1.8, marginBottom: 16, whiteSpace: 'pre-line' }}>{item.description}</p>
 
               <div id={'tl-tools-' + i} style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'flex-start', opacity: 0, transform: 'translateY(6px)', transition: 'opacity 0.4s, transform 0.4s' }}>
                 {item.logos && item.logos.length > 0 ? (

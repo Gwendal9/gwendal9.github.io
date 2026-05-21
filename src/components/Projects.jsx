@@ -9,7 +9,11 @@ const COLORS = {
   amber: { text: '#d97706', bg: 'rgba(217,119,6,0.06)', border: 'rgba(217,119,6,0.15)' },
 }
 
+const SIDEBAR = 220
 const isMobile = window.innerWidth <= 768
+const mainWidth = isMobile ? window.innerWidth : window.innerWidth - SIDEBAR
+const MAX_CONTENT = 900
+const hPad = isMobile ? 16 : Math.max(40, (mainWidth - MAX_CONTENT) / 2)
 
 const MARQUEE_TOOLS = [
   { name: 'Power BI', img: 'https://upload.wikimedia.org/wikipedia/commons/c/cf/New_Power_BI_Logo.svg' },
@@ -76,13 +80,15 @@ export default function Projects() {
   }, [tab])
 
   return (
-    <div style={{ height: '100vh', overflowY: 'auto', overflowX: 'hidden' }}>
-      <div style={{
-        maxWidth: 900,
-        margin: '0 auto',
-        padding: isMobile ? '4px 16px 135px' : '48px 40px 80px',
-        boxSizing: 'border-box',
-      }}>
+    <div style={{
+      height: '100vh', overflowY: 'auto', overflowX: 'hidden',
+      paddingTop: isMobile ? 4 : 48,
+      paddingBottom: isMobile ? 135 : 80,
+      paddingLeft: hPad,
+      paddingRight: hPad,
+    }}>
+      {/* inner wrapper pour borner la taille des cartes */}
+      <div style={{ maxWidth: MAX_CONTENT, width: '100%' }}>
 
         <div id="proj-eyebrow" style={{ fontSize: 10, letterSpacing: 4, textTransform: 'uppercase', color: 'var(--lilas)', fontWeight: 700, marginBottom: 12, display: 'flex', alignItems: 'center', gap: 10, opacity: 0, transform: 'translateY(10px)', transition: 'opacity 0.5s, transform 0.5s' }}>
           <span style={{ width: 16, height: 1, background: 'var(--lilas)', display: 'inline-block' }} />

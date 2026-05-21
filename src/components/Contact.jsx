@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react'
 import { content } from '../data/content'
 
+const SIDEBAR = 220
 const isMobile = window.innerWidth <= 768
+const mainWidth = isMobile ? window.innerWidth : window.innerWidth - SIDEBAR
+const MAX_CONTENT = 700
+const hPad = isMobile ? 16 : Math.max(40, (mainWidth - MAX_CONTENT) / 2)
 
 const ICONS = {
   email: (
@@ -58,13 +62,14 @@ export default function Contact() {
   }
 
   return (
-    <div style={{ height: '100vh', overflowY: 'auto', overflowX: 'hidden' }}>
-      <div style={{
-        maxWidth: 700,
-        margin: '0 auto',
-        padding: isMobile ? '4px 16px 135px' : '56px 40px 60px',
-        boxSizing: 'border-box',
-      }}>
+    <div style={{
+      height: '100vh', overflowY: 'auto', overflowX: 'hidden',
+      paddingTop: isMobile ? 4 : 56,
+      paddingBottom: isMobile ? 135 : 60,
+      paddingLeft: hPad,
+      paddingRight: hPad,
+    }}>
+      <div style={{ maxWidth: MAX_CONTENT, width: '100%' }}>
 
         <div id="contact-eyebrow" style={{ fontSize: 10, letterSpacing: 4, textTransform: 'uppercase', color: 'var(--lilas)', fontWeight: 700, marginBottom: 16, display: 'flex', alignItems: 'center', gap: 10, opacity: 0, transform: 'translateY(10px)', transition: 'opacity 0.5s, transform 0.5s' }}>
           <span style={{ width: 16, height: 1, background: 'var(--lilas)', display: 'inline-block' }} />
@@ -76,7 +81,7 @@ export default function Contact() {
           <em style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 300, color: 'var(--lilas)' }}>parle ?</em>
         </h2>
 
-        <p id="contact-intro" style={{ fontSize: 15, color: 'var(--low)', lineHeight: 1.8, maxWidth: 440, marginBottom: 48, opacity: 0, transform: 'translateY(12px)', transition: 'opacity 0.6s, transform 0.6s' }}>
+        <p id="contact-intro" style={{ fontSize: 15, color: 'var(--low)', lineHeight: 1.8, marginBottom: 48, opacity: 0, transform: 'translateY(12px)', transition: 'opacity 0.6s, transform 0.6s' }}>
           Disponible pour des opportunites en Data et BI en Ile-de-France.
           N'hesite pas a me contacter directement.
         </p>
@@ -117,10 +122,7 @@ export default function Contact() {
               {content.references && content.references.map((ref, i) => (
                 <div key={i} style={{ padding: '20px 24px', background: 'var(--white)', border: '1px solid var(--border)', borderRadius: 12, display: 'flex', alignItems: 'center', gap: 16 }}>
                   <div style={{ width: 44, height: 44, borderRadius: '50%', background: 'var(--lilas-d)', border: '1px solid var(--lilas-b)', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16, fontWeight: 700, color: 'var(--lilas)', flexShrink: 0 }}>
-                    {ref.photo
-                      ? <img src={ref.photo} alt={ref.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                      : ref.name.charAt(0)
-                    }
+                    {ref.photo ? <img src={ref.photo} alt={ref.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : ref.name.charAt(0)}
                   </div>
                   <div style={{ flex: 1 }}>
                     <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink)', marginBottom: 2 }}>{ref.name}</div>
@@ -132,6 +134,7 @@ export default function Contact() {
             </div>
           </div>
         </div>
+
       </div>
     </div>
   )

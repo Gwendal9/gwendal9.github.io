@@ -31,7 +31,13 @@ const HOBBY_ICONS = {
   ),
 }
 
+const SIDEBAR = 220
 const isMobile = window.innerWidth <= 768
+const mainWidth = isMobile ? window.innerWidth : window.innerWidth - SIDEBAR
+const MAX_CONTENT = 900
+const hPad = isMobile ? 16 : Math.max(40, (mainWidth - MAX_CONTENT) / 2)
+const vPadTop = isMobile ? 4 : 56
+const vPadBottom = isMobile ? 135 : 60
 
 export default function About() {
   const { formation, hobbies, hero } = content
@@ -61,13 +67,16 @@ export default function About() {
   const fadeStyle = { opacity: 0, transform: 'translateY(12px)', transition: 'opacity 0.5s, transform 0.5s' }
 
   return (
-    <div style={{ height: '100vh', overflowY: 'auto', overflowX: 'hidden' }}>
-      <div style={{
-        maxWidth: 820,
-        margin: '0 auto',
-        padding: isMobile ? '4px 16px 135px' : '56px 40px 60px',
-        boxSizing: 'border-box',
-      }}>
+    <div style={{
+      height: '100vh',
+      overflowY: 'auto',
+      overflowX: 'hidden',
+      paddingTop: vPadTop,
+      paddingBottom: vPadBottom,
+      paddingLeft: hPad,
+      paddingRight: hPad,
+    }}>
+      <div style={{ maxWidth: MAX_CONTENT, width: '100%' }}>
 
         <div id="about-eyebrow" style={{ ...fadeStyle, fontSize: 10, letterSpacing: 4, textTransform: 'uppercase', color: 'var(--lilas)', fontWeight: 700, marginBottom: 12, display: 'flex', alignItems: 'center', gap: 10 }}>
           <span style={{ width: 16, height: 1, background: 'var(--lilas)', display: 'inline-block' }} />
@@ -79,7 +88,7 @@ export default function About() {
           <em style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 300, color: 'var(--lilas)' }}>suis-je ?</em>
         </h2>
 
-        <p id="about-desc" style={{ ...fadeStyle, fontSize: isMobile ? 13 : 15, color: 'var(--low)', lineHeight: 1.8, maxWidth: 560, marginBottom: 36, whiteSpace: 'pre-line' }}>
+        <p id="about-desc" style={{ ...fadeStyle, fontSize: isMobile ? 13 : 15, color: 'var(--low)', lineHeight: 1.8, marginBottom: 36, whiteSpace: 'pre-line' }}>
           {hero.aboutDescription || hero.description}
         </p>
 

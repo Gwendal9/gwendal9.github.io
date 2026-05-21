@@ -6,6 +6,7 @@ export const content = {
         status: "Disponible · Paris",
         roles: ["Data Analyst", "Ingénieur sciences des données"],
         description: "Diplômé ingénieur IA & Big Data (eiCNAM), je transforme des données complexes en décisions actionnables. Curieux et rigoureux, je m'adapte rapidement aux outils et aux environnements.",
+        aboutDescription: "Diplômé ingénieur IA & Big Data de l'eiCNAM, j'ai construit mon parcours entre alternance (URSSAF), stage en start-up IA (Skalup) et poste actuel chez Orange en Supply Chain.\n\nJe m'appuie sur une solide maîtrise de la donnée — de l'extraction SQL jusqu'à la restitution Power BI — avec une curiosité naturelle pour l'automatisation et les nouvelles approches IA.",
         cvUrl: "/cv-gwendal-rolland.pdf",
         email: "gwendal.rolland@yahoo.fr",
         location: "Paris — Permis B",
@@ -81,8 +82,8 @@ export const content = {
             logos: [
                 { name: 'Python', img: 'https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg' },
                 { name: 'SpaCy', img: 'https://upload.wikimedia.org/wikipedia/commons/0/0d/SpaCy_logo.svg' },
-                { name: 'Hugging Face', img: 'logos/hugging-face-logo.svg' },
-                { name: 'OCR', img: 'logos/ocr-logo.svg' },
+                { name: 'Hugging Face', img: '/logos/hf-logo-1.png' },
+                { name: 'OCR', img: null },
             ],
         },
     ],
@@ -111,7 +112,7 @@ export const content = {
     projects: {
         pro: [
             {
-                color: 'Orange',
+                color: 'amber',
                 category: '📊 Power BI',
                 title: 'TARTOPOM — Orange',
                 description: 'Dashboard de reconditionnement sur 8M de produits. Hiérarchie de facturation multi-niveaux, migration SAP/Qlik vers GCP + Power BI.',
@@ -275,7 +276,7 @@ export const content = {
             email: "stephane.rondeau@outlook.fr",
             linkedin: "linkedin.com/in/stéphane-rondeau-9aa385140",
             photo: "/references/stephane_photo.jpg",
-            companyLogo: "/logos/stephane-company.png",
+            companyLogo: "/logos/Unédic.svg.png",
         },
     ],
 
