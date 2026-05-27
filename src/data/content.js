@@ -4,9 +4,13 @@ export const content = {
         firstName: "Gwendal",
         lastName: "Rolland",
         status: "Disponible · Paris",
-        roles: ["Data Analyst", "Ingénieur sciences des données"],
-        description: "Diplômé ingénieur IA & Big Data (eiCNAM), je transforme des données complexes en décisions actionnables. Curieux et rigoureux, je m'adapte rapidement aux outils et aux environnements.",
-        aboutDescription: "Diplômé ingénieur IA & Big Data de l'eiCNAM, j'ai construit mon parcours entre alternance (URSSAF), stage en start-up IA (Skalup) et poste actuel chez Orange en Supply Chain.\n\nJe m'appuie sur une solide maîtrise de la donnée — de l'extraction SQL jusqu'à la restitution Power BI — avec une curiosité naturelle pour l'automatisation et les nouvelles approches IA.",
+        roles: ["Data Analyst", "Ingénieur IA & Big Data"],
+        description: "Conception et optimisation de pipelines data. Modélisation statistique, machine learning, dashboards, automatisation. Architecture de données, développement SQL/Python.",
+        aboutParagraphs: [
+            "J'ai grandi avec les maths, pas pour les formules en elles-mêmes, mais pour la logique qu'elles imposent. Au moment de choisir une orientation, la data et l'IA émergeaient à peine, et c'est exactement ce qui m'a attiré : un domaine en construction, où tout restait à inventer.",
+            "Depuis, j'ai travaillé sur des sujets très différents : des dashboards métier à l'URSSAF, de la computer vision chez Skalup, et aujourd'hui l'industrialisation de processus chez Orange. Ce qui revient à chaque fois, c'est de prendre le temps de comprendre le vrai besoin avant de toucher au code.",
+            "Ce qui me motive, c'est de voir une solution changer quelque chose pour les gens qui l'utilisent. Je reste curieux de ce qui sort, nouveaux outils et nouvelles approches, mais toujours avec un filtre : est-ce que ça résout un vrai problème ?",
+        ],
         cvUrl: "/cv-gwendal-rolland.pdf",
         email: "gwendal.rolland@yahoo.fr",
         location: "Paris — Permis B",
@@ -22,9 +26,10 @@ export const content = {
         "Machine learning",
         "Data Engineering",
         "Modèles statistiques",
-        "Problèmes métier",
+        "Impact métier",
         "Communication",
-        "Curiosité et apprentissage rapide",
+        "Rapidité d'exécution",
+        "Rigueur + pragmatisme",
     ],
 
     experience: [
@@ -32,27 +37,30 @@ export const content = {
             date: "2025 — 2026",
             title: "Data Analyst — Supply Chain",
             company: "Orange France",
+            companyLogo: 'https://upload.wikimedia.org/wikipedia/commons/c/c8/Orange_logo.svg',
+            companyColor: '#FF6600',
             badge: "CDD",
             current: true,
             description: "Modernisation des données Qlik vers GCP pour Power BI. Industrialisation d'un système automatisé de contrôle de facturation sur un portefeuille de 40M€. Dashboard sur les processus de reconditionnement (8M produits). Mise en place d'une solution pour le reporting des activités de l'équipe + dashboard pour la direction",
             logos: [
                 { name: 'Power BI', img: 'https://upload.wikimedia.org/wikipedia/commons/c/cf/New_Power_BI_Logo.svg' },
-                { name: 'GCP', img: 'https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg' },
                 { name: 'Python', img: 'https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg' },
                 { name: 'Excel', img: 'https://upload.wikimedia.org/wikipedia/commons/6/60/Microsoft_Office_Excel_%282025%E2%80%93present%29.svg?uselang=fr' },
-                { name: 'HTML', img: 'https://upload.wikimedia.org/wikipedia/commons/3/33/Hypertext_markup_language.png' },
+                { name: 'HTML', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg' },
             ],
         },
         {
             date: "2021 — 2024",
             title: "Apprenti Data Scientist",
-            company: "URSSAF",
+            company: "Urssaf Caisse nationale",
+            companyLogo: 'https://upload.wikimedia.org/wikipedia/fr/3/32/URSSAF_Logo.svg',
+            companyColor: '#003189',
             badge: "Alternance",
             current: false,
             description: "Déploiement de tableaux de bord pour le pilotage des directions métiers (+25M lignes). Requête SQL pour construction et fiabilisation des indicateurs + contrôles qualité. Étude sur les commentaires textuels des usagers (NLP, Embedding, Regex).",
             logos: [
                 { name: 'SQL - Dbeaver', img: 'https://upload.wikimedia.org/wikipedia/commons/b/b5/DBeaver_logo.svg' },
-                { name: 'Tibco spotfire', img: 'https://upload.wikimedia.org/wikipedia/commons/d/d0/Spotfire_Large_Color.png' },
+                { name: 'Tibco Spotfire', img: null },
                 { name: 'Python', img: 'https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg' },
                 { name: 'Excel', img: 'https://upload.wikimedia.org/wikipedia/commons/6/60/Microsoft_Office_Excel_%282025%E2%80%93present%29.svg?uselang=fr' },
                 { name: 'R Studio', img: 'https://upload.wikimedia.org/wikipedia/commons/d/d0/RStudio_logo_flat.svg' },
@@ -61,7 +69,9 @@ export const content = {
         {
             date: "2023",
             title: "Ingénieur IA Junior",
-            company: "Skalup (start-up IA)",
+            company: "Skalup",
+            companyLogo: 'https://www.skalup.com/wp-content/uploads/2016/04/cropped-logo_small-270x270.png',
+            companyColor: '#1A5276',
             badge: "Stage",
             current: false,
             description: "Benchmark de solutions pour détecter murs, plafonds et sols dans une image puis une vidéo (IA et approches algorithmiques). Mise en œuvre de prototypes et recommandations techniques.",
@@ -76,6 +86,8 @@ export const content = {
             date: "2022",
             title: "Projet VisioNER",
             company: "eiCNAM",
+            companyLogo: '/logos/CNAM_Logo.svg.png',
+            companyColor: '#1B3A7A',
             badge: "Projet d'école",
             current: false,
             description: "Pipeline OCR → NER pour documents hétérogènes. Constitution et annotation du jeu de données, entraînement d'un modèle de détection de documents.",
@@ -113,16 +125,17 @@ export const content = {
         pro: [
             {
                 color: 'amber',
-                category: '📊 Power BI',
-                title: 'TARTOPOM — Orange',
-                description: 'Dashboard de reconditionnement sur 8M de produits. Hiérarchie de facturation multi-niveaux, migration SAP/Qlik vers GCP + Power BI.',
-                tags: ['Power BI', 'DAX', 'GCP', 'SAP'],
+                category: 'Orange France',
+                companyLogo: 'https://upload.wikimedia.org/wikipedia/commons/c/c8/Orange_logo.svg',
+                companyColor: '#FF6600',
+                title: 'Modernisation contrôle facturation',
+                description: 'Adapter et industrialiser les sources de données pour moderniser le suivi de la facturation du refurbish de terminaux. SQL, Power BI, collaboration métiers.',
+                tags: ['Power BI', 'DAX', 'Power Query', 'GCP', 'SAP', 'BigQuery'],
                 link: null,
                 label: 'Voir →',
-                // Champs optionnels pour le drawer
-                longDescription: `Migration complète des données SAP et Qlik vers un environnement GCP et Power BI. 
-      Conception d'un tableau de bord interactif sur les processus de reconditionnement de 8 millions de produits. 
-      Hiérarchie de facturation multi-niveaux avec mesures DAX complexes.`,
+                longDescription: `Contexte : Supply Chain devait moderniser le suivi de la facturation sur le recyclage des terminaux. Les sources de données provenaient de systèmes disparates (SAP, fichiers métier...) et n'étaient pas industrialisables.
+Approche : Collaboration avec les métiers et fournisseurs pour identifier les sources et les adapter. Extraction via SQL/DBeaver, transformation des données, modélisation dans Power BI (Excel, DAX, Power Query) en fonction des besoins des décideurs.
+Résultat : Pipeline de données stabilisé et reproductible. Dashboard temps réel sur les reconditionnements et la facturation.`,
                 context: 'Orange France — Supply Chain — 2025/2026',
                 stack: ['Power BI', 'DAX', 'Power Query', 'GCP', 'SAP', 'BigQuery'],
                 github: null,
@@ -130,34 +143,76 @@ export const content = {
                 screenshot: null,
             },
             {
-                color: 'blue',
-                category: '💰 Facturation',
-                title: 'Contrôle facturation 40M€',
-                description: "Système automatisé de contrôle de facturation Supply Chain chez Orange. Détection d'anomalies sur un portefeuille de 40M€.",
-                tags: ['Power BI', 'SQL', 'Power Query'],
+                color: 'amber',
+                category: 'Orange France',
+                companyLogo: 'https://upload.wikimedia.org/wikipedia/commons/c/c8/Orange_logo.svg',
+                companyColor: '#FF6600',
+                title: 'Dashboard reporting équipe ',
+                description: 'Application front-end (HTML/CSS) pour générer automatiquement le reporting hebdomadaire de l\'équipe vibe codé car délais très court et amélioration continue via feedback en direct',
+                tags: ['Power BI', 'HTML', 'Claude'],
                 link: null,
                 label: 'Voir →',
-                longDescription: `Conception et mise en oeuvre d'un système automatisé de contrôle de facturation pour un portefeuille de 40M€. 
-      Détection d'anomalies, réconciliation billing et reporting automatisé.`,
+                longDescription: `Application front-end (HTML/CSS) interfacée avec l'IA intégrée d'Orange pour générer automatiquement un reporting hebdomadaire. Affichage des tâches, avancements et métriques de l'équipe Supply Chain pour le directeur.`,
                 context: 'Orange France — Supply Chain — 2025/2026',
-                stack: ['Power BI', 'SQL', 'Power Query', 'Excel'],
+                stack: ['Power BI', 'HTML', 'Claude'],
+                github: null,
+                demo: null,
+                screenshot: null,
+            },
+            {
+                color: 'blue',
+                category: 'Urssaf',
+                companyLogo: 'https://upload.wikimedia.org/wikipedia/fr/3/32/URSSAF_Logo.svg',
+                companyColor: '#003189',
+                title: 'Tableaux de bord cotisants',
+                description: "Extraction SQL et intégration Tibco Spotfire pour suivre les indicateurs de demandes et réitérations cotisants. Travail en méthode scrum agile.",
+                tags: ['Tibco Spotfire', 'SQL', 'Excel', 'Jira'],
+                link: null,
+                label: 'Voir →',
+                longDescription: `Contexte : Les cotisants contactent l'URSSAF par différents canaux (téléphone, mail, guichet...). Besoin de traçabilité et visibilité sur ces demandes.
+Approche : Extraction des données via SQL (DBeaver) depuis les systèmes métier. Intégration et modélisation dans Tibco Spotfire. Adaptation du dashboard pour les décideurs (KPIs, tendances, segmentations).
+Contexte de travail : Équipe pluridisciplinaire, méthode agile, tests approfondis du dashboard et des données.`,
+                context: 'URSSAF — 2021/2024',
+                stack: ['Tibco Spotfire', 'SQL', 'Excel', 'Jira'],
+                github: null,
+                demo: null,
+                screenshot: null,
+            },
+            {
+                color: 'blue',
+                category: 'Urssaf',
+                companyLogo: 'https://upload.wikimedia.org/wikipedia/fr/3/32/URSSAF_Logo.svg',
+                companyColor: '#003189',
+                title: 'Étude NLP commentaires agent',
+                description: 'Analyse autonome en Python et R Studio des commentaires d\'appels cotisants. NLP, classification, prédictions temporelles pour détecter problèmes et anticiper les flux.',
+                tags: ['Rstudio', 'Python', 'NLP', 'Classification', 'Prédiction temporelle'],
+                link: null,
+                label: 'Voir →',
+                longDescription: `Contexte : Les agents saississaient des commentaires libres lors des appels cotisants. Objectif : extraire des patterns pour améliorer les processus.
+Approche : Pipeline NLP complet en Python et R Studio. Nettoyage et structuration du texte, extraction de features, classifications (clustering d'appels). Prédictions temporelles pour anticiper les flux. Détection d'anomalies et problèmes récurrents.
+Résultat : Insights sur les problèmes de processus, données pour les futures améliorations (ex: callback automatique)
+Contexte : Projet en autonomie complète.`,
+                context: 'Urssaf — 2021/2024',
+                stack: ['R Studio', 'Python', 'NLP', 'Classification', 'Prédiction temporelle'],
                 github: null,
                 demo: null,
                 screenshot: null,
             },
             {
                 color: 'green',
-                category: '📈 URSSAF',
-                title: 'Tableaux de bord pilotage',
-                description: 'Déploiement de dashboards pour les directions métiers sur +25M lignes. Automatisation des reportings — gains de 6 JA/mois.',
-                tags: ['Power BI', 'SQL', 'Python', 'ETL'],
+                category: 'Skalup',
+                companyLogo: 'https://www.skalup.com/wp-content/uploads/2016/04/cropped-logo_small-270x270.png',
+                companyColor: '#1A5276',
+                title: 'Exploration Computer Vision',
+                description: 'Tests et entraînement de modèles YOLO pour détecter coins/rainures dans les pièces. Outil d\'aperçu produit pour acheteurs.',
+                tags: ['Python', 'OpenCV', 'YOLO', 'Blender'],
                 link: null,
                 label: 'Voir →',
-                longDescription: `Conception et déploiement de tableaux de bord pour le pilotage des directions métiers sur plus de 25M de lignes.
-      Automatisation des traitements récurrents et standardisation des chaînes de données.
-      Gains mesurés de 6 journées agents par mois.`,
-                context: 'URSSAF — 2021/2024',
-                stack: ['Power BI', 'SQL', 'Python', 'ETL', 'Excel'],
+                longDescription: `Contexte : Développer un outil montrant aux acheteurs l'aperçu d'un produit dans leur environnement (moulure, mobilier...).
+Approche : Veille technologique sur la détection d'objets et la géométrie. Tests et entraînement de modèles YOLO pour détecter les éléments structurels clés (rainures, coins) dans les pièces.
+Résultat : Prototypes fonctionnels en Python. Approche itérative, évaluation des performances.`,
+                context: 'Skalup — 2023',
+                stack: ['Python', 'OpenCV', 'YOLO', 'Blender'],
                 github: null,
                 demo: null,
                 screenshot: null,
@@ -166,64 +221,64 @@ export const content = {
         perso: [
             {
                 color: 'lilas',
-                category: '🤖 Automatisation',
-                title: 'Job Hunter n8n',
-                description: "Workflow n8n d'agrégation d'offres depuis Adzuna, France Travail et WTTJ. Output vers Google Sheets avec filtrage automatique.",
-                tags: ['n8n', 'API', 'Google Sheets'],
+                companyLogo: 'https://avatars.githubusercontent.com/u/45487711?s=200&v=4',
+                companyColor: '#ea4b71',
+                category: 'Automatisation',
+                title: 'Job Hunter — Veille auto',
+                description: "Workflow n8n qui agrège chaque jour des centaines d'offres (Adzuna, France Travail, WTTJ), filtre les pertinentes via LLM (GPT-4o), et alimente un Google Sheet automatiquement.",
+                tags: ['n8n', 'Docker', 'OpenAI API', 'Google Sheets', 'Python'],
                 link: null,
-                label: 'Voir →',
-                longDescription: `Workflow d'automatisation qui agrège les offres d'emploi depuis plusieurs sources (Adzuna, France Travail, WTTJ) 
-      et les envoie vers Google Sheets avec filtrage automatique par mots-clés et localisation.
-      Tourne en local sur Docker (CorsicaPC).`,
+                label: 'GitHub →',
+                longDescription: `Workflow d'automatisation qui tourne en local sur Docker et s'exécute chaque jour sans intervention.
+
+Il agrège des centaines d'offres d'emploi depuis plusieurs sources (Adzuna, France Travail, WTTJ) via leurs APIs, puis applique un filtrage en deux phases :
+
+Phase 1 — Filtrage par règles : exclusion des alternances, stages, et termes blacklistés. Filtre rapide et sans coût.
+
+Phase 2 — Filtrage LLM (en cours) : chaque offre restante est soumise à GPT-4o qui évalue si la mission correspond au profil cible. Bien plus précis que les mots-clés.
+
+Les offres retenues sont envoyées automatiquement vers un Google Sheet partagé, structuré et mis à jour chaque matin.`,
                 context: 'Projet personnel — 2026',
-                stack: ['n8n', 'Docker', 'Google Sheets API', 'Adzuna API', 'France Travail API'],
+                stack: ['n8n', 'Docker', 'OpenAI API', 'Adzuna API', 'France Travail API', 'Google Sheets API'],
                 github: 'https://github.com/Gwendal9',
                 demo: null,
                 screenshot: null,
             },
             {
                 color: 'green',
-                category: '🎾 Sport & Data',
-                title: 'Padel Stats — TC Les Lilas',
-                description: 'Dashboard interclub Hommes R3 Île-de-France. Classements, stats joueurs, analyse des matchs saison 2026.',
-                tags: ['Excel', 'Power BI', 'Scraping'],
+                companyColor: '#16a34a',
+                category: 'Sport & Data',
+                title: 'Padel Analytics — TC Les Lilas',
+                description: "Scraping de la plateforme Tenup/FFT + dashboard de suivi de la saison interclub Hommes R3 Île-de-France. Classements, stats joueurs et analyse des matchs.",
+                tags: ['Python', 'Flask', 'Playwright', 'SQLite', 'Power BI'],
                 link: null,
                 label: 'Voir →',
-                longDescription: `Dashboard de suivi de la saison interclub Hommes R3 Île-de-France pour le TC Les Lilas.
-      Scraping de la plateforme Tenup/FFT, nettoyage des données et visualisation des performances par joueur et par match.`,
-                context: 'Projet personnel — 2026',
-                stack: ['Excel', 'Power BI', 'Python', 'Scraping', 'FFT API'],
-                github: null,
-                demo: 'https://gwendal9.github.io',
-                screenshot: null,
-            },
-            {
-                color: 'amber',
-                category: '🕷️ Scraping',
-                title: 'Tenup Scraper',
-                description: 'Scraper de la plateforme Tenup/FFT. Flask + Playwright + SQLite pour extraire données tournois et joueurs.',
-                tags: ['Python', 'Flask', 'Playwright', 'SQLite'],
-                link: 'https://github.com/Gwendal9',
-                label: 'GitHub →',
-                longDescription: `Scraper complet de la plateforme Tenup/FFT pour extraire les données de tournois et profils joueurs.
-      Interface Flask locale, scraping avec Playwright, stockage SQLite.
-      Inclut une recherche de tournois et un scraper de profils joueurs en cascade.`,
+                longDescription: `Deux briques complémentaires autour de la même passion.
+
+Le scraper extrait les données de la plateforme Tenup/FFT (tournois, profils joueurs, résultats de matchs) via Playwright. Une interface Flask locale permet de déclencher les crawls à la demande. Le scraping fonctionne en cascade : recherche des tournois, puis extraction du profil de chaque joueur impliqué. Tout est stocké dans une base SQLite.
+
+Ces données alimentent un dashboard Power BI qui suit la saison interclub Hommes R3 Île-de-France du TC Les Lilas : classement de l'équipe, performances individuelles, évolution au fil des matchs.`,
                 context: 'Projet personnel — 2025/2026',
-                stack: ['Python', 'Flask', 'Playwright', 'SQLite', 'BeautifulSoup'],
+                stack: ['Python', 'Flask', 'Playwright', 'SQLite', 'BeautifulSoup', 'Power BI', 'Excel'],
                 github: 'https://github.com/Gwendal9',
                 demo: null,
                 screenshot: null,
             },
             {
                 color: 'amber',
-                category: '📱 Dev',
-                title: 'Application mobile',
-                description: 'Application mobile développée à deux, disponible sur les stores.',
-                tags: ['Mobile', 'Dev'],
+                companyColor: '#d97706',
+                category: 'Dev mobile',
+                title: 'App Pronostics Sport',
+                description: "Application mobile de pronostics développée à deux. Une app par compétition (foot, rugby) — éphémère par nature, sans monétisation.",
+                tags: ['Mobile'],
                 link: null,
                 label: 'Voir →',
-                longDescription: `Application mobile développée en binôme, disponible sur les stores iOS et Android.`,
-                context: 'Projet personnel',
+                longDescription: `Application mobile développée en binôme avec un ami, disponible sur iOS et Android.
+
+Le principe : une app par compétition (Coupe du Monde, Tournoi des 6 Nations…). Les utilisateurs posent leurs pronostics avant chaque match, l'app les score en live au fil des résultats. À la fin de la compétition, l'app est retirée — pas de version "permanente".
+
+Pas de monétisation, pas d'ambition commerciale. Un projet passion qui permet de jouer entre amis de façon organisée, avec classements et stats à la clé.`,
+                context: 'Projet personnel — 2024/2025',
                 stack: ['Mobile'],
                 github: null,
                 demo: null,
@@ -251,6 +306,26 @@ export const content = {
         { name: 'Excel', img: 'https://upload.wikimedia.org/wikipedia/commons/3/34/Microsoft_Office_Excel_%282019%E2%80%93present%29.svg' },
         { name: 'Docker', img: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/Docker_%28container_engine%29_logo.svg' },
         { name: 'Flask', img: 'https://upload.wikimedia.org/wikipedia/commons/3/38/Flask_logo.svg' },
+    ],
+
+    // Librairies Python — affichées en tooltip au survol de Python dans la stack
+    pythonLibs: [
+        // Data & ML
+        { name: 'pandas', img: 'https://upload.wikimedia.org/wikipedia/commons/e/ed/Pandas_logo.svg' },
+        { name: 'NumPy', img: 'https://upload.wikimedia.org/wikipedia/commons/3/31/NumPy_logo_2020.svg' },
+        { name: 'scikit-learn', img: 'https://upload.wikimedia.org/wikipedia/commons/0/05/Scikit_learn_logo_small.svg' },
+        { name: 'PyTorch', img: 'https://upload.wikimedia.org/wikipedia/commons/1/10/PyTorch_logo_icon.svg' },
+        { name: 'TensorFlow', img: 'https://upload.wikimedia.org/wikipedia/commons/2/2d/Tensorflow_logo.svg' },
+        // NLP (projet VisioNER, étude URSSAF)
+        { name: 'Hugging Face', img: '/logos/hf-logo-1.png' },
+        { name: 'spaCy', img: 'https://upload.wikimedia.org/wikipedia/commons/0/0d/SpaCy_logo.svg' },
+        { name: 'NLTK', img: null },
+        // Viz
+        { name: 'matplotlib', img: 'https://upload.wikimedia.org/wikipedia/commons/8/84/Matplotlib_icon.svg' },
+        { name: 'seaborn', img: null },
+        // Scraping (projet Tenup)
+        { name: 'BeautifulSoup', img: null },
+        { name: 'Playwright', img: 'https://playwright.dev/img/playwright-logo.svg' },
     ],
 
     contact: [
@@ -287,21 +362,52 @@ export const content = {
         { year: '2024', label: 'Ingenieur IA', tools: ['Spark', 'Hive', 'GCP', 'Databricks'], description: 'Diplome ingenieur IA & Big Data eiCNAM' },
         { year: '2025', label: 'Orange', tools: ['Power BI', 'GCP', 'SAP', 'n8n', 'Automatisation'], description: 'Supply Chain Orange — facturation 40M, 8M produits' },
     ],
+
     toolLogos: {
+        // BI & Data
         'Power BI': 'https://upload.wikimedia.org/wikipedia/commons/c/cf/New_Power_BI_Logo.svg',
+        'DAX': 'https://upload.wikimedia.org/wikipedia/commons/c/cf/New_Power_BI_Logo.svg',
+        'Power Query': 'https://upload.wikimedia.org/wikipedia/commons/c/cf/New_Power_BI_Logo.svg',
+        'Tibco Spotfire': 'https://www.vectorlogo.zone/logos/tibcosoftware/tibcosoftware-icon.svg',
+        // Languages
         'Python': 'https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg',
-        'SQL': 'https://upload.wikimedia.org/wikipedia/commons/2/29/Postgresql_elephant.svg',
+        'SQL': 'https://upload.wikimedia.org/wikipedia/commons/b/b5/DBeaver_logo.svg',
+        'HTML': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg',
+        'R Studio': 'https://upload.wikimedia.org/wikipedia/commons/d/d0/RStudio_logo_flat.svg',
+        'Rstudio': 'https://upload.wikimedia.org/wikipedia/commons/d/d0/RStudio_logo_flat.svg',
+        // Cloud & Infra
         'GCP': 'https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg',
-        'n8n': 'https://avatars.githubusercontent.com/u/45487711?s=200&v=4',
-        'React': 'https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg',
-        'Git': 'https://upload.wikimedia.org/wikipedia/commons/e/e0/Git-logo.svg',
-        'DAX': null,
-        'SAP': null,
+        'BigQuery': 'https://www.vectorlogo.zone/logos/google_bigquery/google_bigquery-icon.svg',
+        'SAP': 'https://upload.wikimedia.org/wikipedia/commons/5/59/SAP_2011_logo.svg',
         'Docker': 'https://upload.wikimedia.org/wikipedia/commons/4/4e/Docker_%28container_engine%29_logo.svg',
-        'Flask': null,
-        'Playwright': null,
-        'SQLite': null,
+        // Dev & Web
+        'React': 'https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg',
+        'Flask': 'https://upload.wikimedia.org/wikipedia/commons/3/38/Flask_logo.svg',
+        'Git': 'https://upload.wikimedia.org/wikipedia/commons/e/e0/Git-logo.svg',
+        // Data tools
+        'n8n': 'https://avatars.githubusercontent.com/u/45487711?s=200&v=4',
+        'Excel': 'https://upload.wikimedia.org/wikipedia/commons/6/60/Microsoft_Office_Excel_%282025%E2%80%93present%29.svg',
+        'Google Sheets': 'https://upload.wikimedia.org/wikipedia/commons/3/30/Google_Sheets_logo_%282014-2020%29.svg',
+        'Jira': 'https://upload.wikimedia.org/wikipedia/commons/8/8a/Jira_Logo.svg',
+        // DB
+        'SQLite': 'https://upload.wikimedia.org/wikipedia/commons/3/38/SQLite370.svg',
+        // Scraping
+        'Playwright': 'https://playwright.dev/img/playwright-logo.svg',
+        // AI/ML/CV
+        'OpenCV': 'https://upload.wikimedia.org/wikipedia/commons/d/d2/OpenCV_logo_black.svg',
+        'YOLO': 'https://images.g2crowd.com/uploads/product/image/2e1d25e4ac8ebd8d5bb1cf26e508446c/ultralytics.png',
+        'Blender': 'https://upload.wikimedia.org/wikipedia/commons/0/0c/Blender_logo_no_text.svg',
+        'SpaCy': 'https://upload.wikimedia.org/wikipedia/commons/0/0d/SpaCy_logo.svg',
+        'Hugging Face': '/logos/hf-logo-1.png',
+        // Misc
         'ETL': null,
-        'Power Query': null,
+        'NLP': null,
+        'Classification': null,
+        'Prédiction temporelle': null,
+        'Claude': 'https://upload.wikimedia.org/wikipedia/commons/b/b0/Claude_AI_symbol.svg',
+        'API': null,
+        'Scraping': null,
+        'Mobile': null,
+        'Dev': null,
     }
 }

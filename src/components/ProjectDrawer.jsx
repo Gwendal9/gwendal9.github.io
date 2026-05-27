@@ -1,21 +1,31 @@
 import { useEffect } from 'react'
+import { content } from '../data/content'
 
 const COLORS = {
-  blue:  { text: '#2563eb', bg: 'rgba(37,99,235,0.06)',  border: 'rgba(37,99,235,0.15)'  },
+  blue: { text: '#2563eb', bg: 'rgba(37,99,235,0.06)', border: 'rgba(37,99,235,0.15)' },
   lilas: { text: '#7c3aed', bg: 'rgba(124,58,237,0.06)', border: 'rgba(124,58,237,0.15)' },
-  green: { text: '#059669', bg: 'rgba(5,150,105,0.06)',  border: 'rgba(5,150,105,0.15)'  },
-  amber: { text: '#d97706', bg: 'rgba(217,119,6,0.06)',  border: 'rgba(217,119,6,0.15)'  },
+  green: { text: '#059669', bg: 'rgba(5,150,105,0.06)', border: 'rgba(5,150,105,0.15)' },
+  amber: { text: '#d97706', bg: 'rgba(217,119,6,0.06)', border: 'rgba(217,119,6,0.15)' },
+}
+
+function getColors(project) {
+  if (project.companyColor) {
+    return {
+      text: project.companyColor,
+      bg: project.companyColor + '18',
+      border: project.companyColor + '40',
+    }
+  }
+  return COLORS[project.color] || COLORS.lilas
 }
 
 export default function ProjectDrawer({ project, onClose }) {
-  const c = COLORS[project.color] || COLORS.lilas
+  const c = getColors(project)
 
   useEffect(() => {
-    // Fermer avec Escape
     const handleKey = (e) => { if (e.key === 'Escape') onClose() }
     document.addEventListener('keydown', handleKey)
 
-    // Swipe droite pour fermer sur mobile
     let startX = 0
     const drawer = document.getElementById('project-drawer')
     const onTouchStart = (e) => { startX = e.touches[0].clientX }
@@ -81,12 +91,21 @@ export default function ProjectDrawer({ project, onClose }) {
           zIndex: 1,
         }}>
           <div>
+            {/* Badge catégorie avec logo */}
             <div style={{
-              display: 'inline-flex', alignItems: 'center', gap: 6,
-              padding: '4px 10px', borderRadius: 100,
+              display: 'inline-flex', alignItems: 'center', gap: 7,
+              padding: '5px 12px', borderRadius: 100,
               fontSize: 11, fontWeight: 600, marginBottom: 10,
               color: c.text, background: c.bg, border: '1px solid ' + c.border,
             }}>
+              {project.companyLogo && (
+                <img
+                  src={project.companyLogo}
+                  alt=""
+                  style={{ width: 18, height: 18, objectFit: 'contain', flexShrink: 0 }}
+                  onError={e => { e.target.style.display = 'none' }}
+                />
+              )}
               {project.category}
             </div>
             <h2 style={{ fontSize: 22, fontWeight: 800, color: 'var(--ink)', lineHeight: 1.2 }}>
@@ -148,15 +167,27 @@ export default function ProjectDrawer({ project, onClose }) {
                 Stack technique
               </div>
               <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                {project.stack.map((s, i) => (
-                  <span key={i} style={{
-                    padding: '6px 12px', borderRadius: 6,
-                    background: 'var(--white)', border: '1px solid var(--border)',
-                    fontSize: 12, color: 'var(--mid)', fontWeight: 500,
-                  }}>
-                    {s}
-                  </span>
-                ))}
+                {project.stack.map((s, i) => {
+                  const logo = content.toolLogos?.[s]
+                  return (
+                    <span key={i} style={{
+                      display: 'inline-flex', alignItems: 'center', gap: 6,
+                      padding: '6px 12px', borderRadius: 6,
+                      background: 'var(--white)', border: '1px solid var(--border)',
+                      fontSize: 12, color: 'var(--mid)', fontWeight: 500,
+                    }}>
+                      {logo && (
+                        <img
+                          src={logo}
+                          alt=""
+                          style={{ width: 16, height: 16, objectFit: 'contain', flexShrink: 0 }}
+                          onError={e => { e.target.style.display = 'none' }}
+                        />
+                      )}
+                      {s}
+                    </span>
+                  )
+                })}
               </div>
             </div>
           )}

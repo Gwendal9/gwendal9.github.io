@@ -88,9 +88,21 @@ export default function About() {
           <em style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 300, color: 'var(--lilas)' }}>suis-je ?</em>
         </h2>
 
-        <p id="about-desc" style={{ ...fadeStyle, fontSize: isMobile ? 13 : 15, color: 'var(--low)', lineHeight: 1.8, marginBottom: 36, whiteSpace: 'pre-line' }}>
-          {hero.aboutDescription || hero.description}
-        </p>
+        <div id="about-desc" style={{ ...fadeStyle, marginBottom: 40 }}>
+          {(hero.aboutParagraphs || []).map((para, i) => (
+            <p key={i} style={{
+              fontSize: isMobile ? 14 : 16,
+              color: 'var(--low)',
+              lineHeight: 1.85,
+              margin: 0,
+              marginBottom: i < (hero.aboutParagraphs.length - 1) ? 20 : 0,
+              paddingLeft: 16,
+              borderLeft: i === 0 ? '2px solid var(--lilas)' : '2px solid var(--border)',
+            }}>
+              {para}
+            </p>
+          ))}
+        </div>
 
         <div id="about-form-title" style={{ ...fadeStyle, fontSize: 11, letterSpacing: 3, textTransform: 'uppercase', color: 'var(--mid)', fontWeight: 700, marginBottom: 16 }}>
           Formation

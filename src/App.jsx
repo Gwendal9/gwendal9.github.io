@@ -90,11 +90,28 @@ const NAV = [
 
 export default function App() {
   const [active, setActive] = useState('hero')
+  const [displayed, setDisplayed] = useState('hero')
+  const [fading, setFading] = useState(false)
   const [dark, setDark] = useState(false)
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768)
+  const [isCompact, setIsCompact] = useState(window.innerWidth > 768 && window.innerWidth <= 1100)
+
+  const navigate = (id) => {
+    if (id === active) return
+    setActive(id)
+    setFading(true)
+    setTimeout(() => {
+      setDisplayed(id)
+      setFading(false)
+    }, 160)
+  }
 
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth <= 768)
+    const handleResize = () => {
+      const w = window.innerWidth
+      setIsMobile(w <= 768)
+      setIsCompact(w > 768 && w <= 1100)
+    }
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
   }, [])
@@ -102,18 +119,18 @@ export default function App() {
   useEffect(() => {
     const root = document.documentElement
     if (dark) {
-      root.style.setProperty('--cream', '#0d0d0d')
-      root.style.setProperty('--cream2', '#111111')
-      root.style.setProperty('--cream3', '#1a1a1a')
-      root.style.setProperty('--white', '#161616')
-      root.style.setProperty('--ink', '#f0ece4')
-      root.style.setProperty('--mid', '#a09890')
-      root.style.setProperty('--low', '#666666')
-      root.style.setProperty('--border', '#222222')
-      root.style.setProperty('--lilas', '#818cf8')
-      root.style.setProperty('--lilas-l', '#a5b4fc')
-      root.style.setProperty('--lilas-d', 'rgba(129,140,248,0.1)')
-      root.style.setProperty('--lilas-b', 'rgba(129,140,248,0.2)')
+      root.style.setProperty('--cream', '#111113')
+      root.style.setProperty('--cream2', '#17171a')
+      root.style.setProperty('--cream3', '#1f1f23')
+      root.style.setProperty('--white', '#1c1c20')
+      root.style.setProperty('--ink', '#f2efe8')
+      root.style.setProperty('--mid', '#c4bdb5')
+      root.style.setProperty('--low', '#9b948c')
+      root.style.setProperty('--border', '#2e2e34')
+      root.style.setProperty('--lilas', '#9d8ffc')
+      root.style.setProperty('--lilas-l', '#b8adfd')
+      root.style.setProperty('--lilas-d', 'rgba(157,143,252,0.12)')
+      root.style.setProperty('--lilas-b', 'rgba(157,143,252,0.22)')
     } else {
       root.style.setProperty('--cream', '#f7f3ec')
       root.style.setProperty('--cream2', '#f0ebe0')
@@ -157,8 +174,8 @@ export default function App() {
       {/* SIDEBAR desktop */}
       {!isMobile && (
         <aside style={{
-          width: 'var(--sidebar)',
-          minWidth: 'var(--sidebar)',
+          width: isCompact ? 64 : 'var(--sidebar)',
+          minWidth: isCompact ? 64 : 'var(--sidebar)',
           height: '100vh',
           background: 'var(--cream2)',
           borderRight: '1px solid var(--border)',
@@ -166,43 +183,62 @@ export default function App() {
           flexDirection: 'column',
           padding: '40px 0',
           flexShrink: 0,
+          transition: 'width 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+          overflow: 'hidden',
         }}>
 
           <div style={{
-            padding: '0 28px 40px',
+            padding: isCompact ? '0 0 40px' : '0 28px 40px',
             borderBottom: '1px solid var(--border)',
             marginBottom: '32px',
             display: 'flex',
-            alignItems: 'flex-start',
-            justifyContent: 'space-between',
+            alignItems: 'center',
+            justifyContent: 'center',
           }}>
-            <div onClick={() => setActive('hero')} style={{ cursor: 'pointer' }}>
-              <div style={{ fontSize: 16, fontWeight: 800, color: 'var(--ink)' }}>Gwendal</div>
-              <div style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 300, fontSize: 13, color: 'var(--lilas)' }}>
-                Rolland
-              </div>
-            </div>
-            <button
-              onClick={() => setDark(!dark)}
-              style={{
-                width: 32, height: 32, borderRadius: '50%',
-                border: '1px solid var(--border)', background: 'var(--cream)',
-                cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                color: 'var(--mid)',
-              }}
-            >
-              {dark ? ICONS.sun : ICONS.moon}
-            </button>
+            {isCompact ? (
+              <button
+                onClick={() => setDark(!dark)}
+                style={{
+                  width: 32, height: 32, borderRadius: '50%',
+                  border: '1px solid var(--border)', background: 'var(--cream)',
+                  cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  color: 'var(--mid)',
+                }}
+              >
+                {dark ? ICONS.sun : ICONS.moon}
+              </button>
+            ) : (
+              <>
+                <div onClick={() => navigate('hero')} style={{ cursor: 'pointer', flex: 1 }}>
+                  <div style={{ fontSize: 16, fontWeight: 800, color: 'var(--ink)' }}>Gwendal</div>
+                  <div style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 300, fontSize: 13, color: 'var(--lilas)' }}>
+                    Rolland
+                  </div>
+                </div>
+                <button
+                  onClick={() => setDark(!dark)}
+                  style={{
+                    width: 32, height: 32, borderRadius: '50%',
+                    border: '1px solid var(--border)', background: 'var(--cream)',
+                    cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    color: 'var(--mid)',
+                  }}
+                >
+                  {dark ? ICONS.sun : ICONS.moon}
+                </button>
+              </>
+            )}
           </div>
 
-          <nav style={{ flex: 1, padding: '0 16px' }}>
+          <nav style={{ flex: 1, padding: isCompact ? '0 8px' : '0 16px' }}>
             {NAV.map(({ id, icon, label }) => (
               <div
                 key={id}
-                onClick={() => setActive(id)}
+                onClick={() => navigate(id)}
+                title={isCompact ? label : undefined}
                 style={{
-                  display: 'flex', alignItems: 'center', gap: '12px',
-                  padding: '11px 14px', borderRadius: '8px',
+                  display: 'flex', alignItems: 'center', justifyContent: isCompact ? 'center' : 'flex-start', gap: '12px',
+                  padding: isCompact ? '12px 0' : '11px 14px', borderRadius: '8px',
                   fontSize: 13,
                   fontWeight: active === id ? 600 : 500,
                   color: active === id ? 'var(--lilas)' : 'var(--low)',
@@ -210,15 +246,15 @@ export default function App() {
                   border: '1px solid ' + (active === id ? 'var(--lilas-b)' : 'transparent'),
                   cursor: 'pointer', marginBottom: '4px',
                   transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
-                  transform: active === id ? 'translateX(4px)' : 'translateX(0)',
-
+                  transform: (!isCompact && active === id) ? 'translateX(4px)' : 'translateX(0)',
+                  position: 'relative',
                 }}
               >
                 <span style={{ color: active === id ? 'var(--lilas)' : 'var(--low)', display: 'flex', flexShrink: 0 }}>
                   {ICONS[icon]}
                 </span>
-                <span>{label}</span>
-                {active === id && (
+                {!isCompact && <span>{label}</span>}
+                {!isCompact && active === id && (
                   <span style={{
                     position: 'absolute', right: 14,
                     width: 5, height: 5, borderRadius: '50%',
@@ -229,20 +265,32 @@ export default function App() {
             ))}
           </nav>
 
-          <div style={{
-            padding: '24px 28px 0',
-            borderTop: '1px solid var(--border)',
-            display: 'flex', alignItems: 'center', gap: 8,
-            fontSize: 11, color: 'var(--low)',
-          }}>
-            <span style={{
-              width: 6, height: 6, borderRadius: '50%',
-              background: '#22c55e', flexShrink: 0,
-              boxShadow: '0 0 0 2px rgba(34,197,94,0.2)',
-              animation: 'pulse-green 2s infinite', display: 'inline-block',
-            }} />
-            Disponible
-          </div>
+          {!isCompact && (
+            <div style={{
+              padding: '24px 28px 0',
+              borderTop: '1px solid var(--border)',
+              display: 'flex', alignItems: 'center', gap: 8,
+              fontSize: 11, color: 'var(--low)',
+            }}>
+              <span style={{
+                width: 6, height: 6, borderRadius: '50%',
+                background: '#22c55e', flexShrink: 0,
+                boxShadow: '0 0 0 2px rgba(34,197,94,0.2)',
+                animation: 'pulse-green 2s infinite', display: 'inline-block',
+              }} />
+              Disponible
+            </div>
+          )}
+          {isCompact && (
+            <div style={{ display: 'flex', justifyContent: 'center', paddingTop: 16, borderTop: '1px solid var(--border)' }}>
+              <span style={{
+                width: 6, height: 6, borderRadius: '50%',
+                background: '#22c55e',
+                boxShadow: '0 0 0 2px rgba(34,197,94,0.2)',
+                animation: 'pulse-green 2s infinite', display: 'inline-block',
+              }} />
+            </div>
+          )}
         </aside>
       )}
 
@@ -254,7 +302,7 @@ export default function App() {
           zIndex: 200, display: 'flex', alignItems: 'center',
           justifyContent: 'space-between', padding: '0 20px',
         }}>
-          <div onClick={() => setActive('hero')} style={{ fontWeight: 800, fontSize: 15, color: 'var(--ink)', cursor: 'pointer' }}>
+          <div onClick={() => navigate('hero')} style={{ fontWeight: 800, fontSize: 15, color: 'var(--ink)', cursor: 'pointer' }}>
             G.{' '}
             <span style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 300, color: 'var(--lilas)' }}>
               Rolland
@@ -282,13 +330,13 @@ export default function App() {
         paddingBottom: isMobile ? 64 : 0,
         overflowX: 'hidden',
       }}>
-        <div style={{ flex: 1, overflow: 'hidden', position: 'relative' }}>
-          {active === 'hero' && <Hero onNavigate={setActive} isMobile={isMobile} />}
-          {active === 'about' && <About />}
-          {active === 'experience' && <Experience />}
-          {active === 'projets' && <Projects />}
-          {active === 'contact' && <Contact />}
-          {active === 'cv' && <CV isMobile={isMobile} />}
+        <div style={{ flex: 1, overflow: 'hidden', position: 'relative', opacity: fading ? 0 : 1, transition: 'opacity 0.16s ease' }}>
+          {displayed === 'hero' && <Hero onNavigate={navigate} isMobile={isMobile} />}
+          {displayed === 'about' && <About />}
+          {displayed === 'experience' && <Experience />}
+          {displayed === 'projets' && <Projects />}
+          {displayed === 'contact' && <Contact />}
+          {displayed === 'cv' && <CV isMobile={isMobile} />}
         </div>
         {!isMobile && <Footer />}
       </main>
@@ -304,7 +352,7 @@ export default function App() {
           {mobileNav.map(({ id, icon, label }) => (
             <button
               key={id}
-              onClick={() => setActive(id)}
+              onClick={() => navigate(id)}
               style={{
                 display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3,
                 background: 'transparent', border: 'none', cursor: 'pointer',

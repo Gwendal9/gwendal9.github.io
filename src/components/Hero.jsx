@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react'
 import { content } from '../data/content'
 import Particles from './Particles'
 
-const TYPING_TITLES = ['Data Analyst', 'Ingénieur sciences des données']
+const TYPING_TITLES = ['Data Analyst', 'Ingénieur IA & Big Data']
 
 function useTypingEffect(titles) {
   const [display, setDisplay] = useState('')
@@ -220,14 +220,28 @@ export default function Hero({ onNavigate, isMobile }) {
         opacity: 0, animation: 'fadeup 0.5s 1.4s forwards',
       }}>
         {content.keywords.map((kw, i) => (
-          <span key={i} style={{
-            padding: isMobile ? '6px 12px' : '8px 16px',
-            borderRadius: 8,
-            background: i === 0 ? 'var(--lilas-d)' : 'var(--white)',
-            border: '1px solid ' + (i === 0 ? 'var(--lilas-b)' : 'var(--border)'),
-            fontSize: 11, fontWeight: 600,
-            color: i === 0 ? 'var(--lilas)' : 'var(--mid)',
-          }}>
+          <span key={i}
+            style={{
+              padding: isMobile ? '6px 12px' : '8px 16px',
+              borderRadius: 8,
+              background: 'var(--white)',
+              border: '1px solid var(--border)',
+              fontSize: 11, fontWeight: 600,
+              color: 'var(--mid)',
+              cursor: 'default',
+              transition: 'background 0.2s, border-color 0.2s, color 0.2s',
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.background = 'var(--lilas-d)'
+              e.currentTarget.style.borderColor = 'var(--lilas-b)'
+              e.currentTarget.style.color = 'var(--lilas)'
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.background = 'var(--white)'
+              e.currentTarget.style.borderColor = 'var(--border)'
+              e.currentTarget.style.color = 'var(--mid)'
+            }}
+          >
             {kw}
           </span>
         ))}

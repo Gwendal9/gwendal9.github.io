@@ -82,8 +82,8 @@ export default function Contact() {
         </h2>
 
         <p id="contact-intro" style={{ fontSize: 15, color: 'var(--low)', lineHeight: 1.8, marginBottom: 48, opacity: 0, transform: 'translateY(12px)', transition: 'opacity 0.6s, transform 0.6s' }}>
-          Disponible pour des opportunites en Data et BI en Ile-de-France.
-          N'hesite pas a me contacter directement.
+          Disponible pour des opportunités en Data et BI en Île-de-France.
+          N'hésite pas à me contacter directement.
         </p>
 
         {copied && (

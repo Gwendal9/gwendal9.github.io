@@ -1,8 +1,9 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { content } from '../data/content'
 
 export default function Stack() {
-    const { stack } = content
+    const { stack, pythonLibs } = content
+    const [pyTooltip, setPyTooltip] = useState(null) // { top, left } ou null
 
     useEffect(() => {
         setTimeout(() => {
@@ -25,6 +26,7 @@ export default function Stack() {
     }, [])
 
     return (
+        <>
         <div style={{
             height: '100vh', overflowY: 'auto', overflowX: 'hidden',
             padding: window.innerWidth <= 768 ? '4px 16px 135px' : '48px 72px',
@@ -76,11 +78,16 @@ export default function Stack() {
                             e.currentTarget.style.transform = 'translateY(-4px) scale(1.05)'
                             const img = e.currentTarget.querySelector('img')
                             if (img) img.style.filter = 'drop-shadow(0 4px 10px rgba(124,58,237,0.2))'
+                            if (item.name === 'Python') {
+                                const rect = e.currentTarget.getBoundingClientRect()
+                                setPyTooltip({ top: rect.bottom + 10, left: rect.left + rect.width / 2 })
+                            }
                         }}
                         onMouseLeave={e => {
                             e.currentTarget.style.transform = 'translateY(0) scale(1)'
                             const img = e.currentTarget.querySelector('img')
                             if (img) img.style.filter = 'none'
+                            if (item.name === 'Python') setPyTooltip(null)
                         }}
                     >
                         <img
@@ -91,9 +98,59 @@ export default function Stack() {
                         <div style={{ fontSize: 11, fontWeight: 600, color: 'var(--mid)', lineHeight: 1.3 }}>
                             {item.name}
                         </div>
+                        {item.name === 'Python' && (
+                            <div style={{ fontSize: 9, fontWeight: 600, color: 'var(--lilas)', opacity: 0.7, marginTop: -4, letterSpacing: 0.5 }}>
+                                +{pythonLibs.length} libs
+                            </div>
+                        )}
                     </div>
                 ))}
             </div>
         </div>
+
+        {/* Tooltip librairies Python */}
+        {pyTooltip && (
+            <div style={{
+                position: 'fixed',
+                top: pyTooltip.top,
+                left: pyTooltip.left,
+                transform: 'translateX(-50%)',
+                background: 'var(--white)',
+                border: '1px solid var(--border)',
+                borderRadius: 12,
+                padding: '12px 14px',
+                boxShadow: '0 8px 32px rgba(0,0,0,0.12)',
+                zIndex: 1000,
+                minWidth: 230,
+                pointerEvents: 'none',
+            }}>
+                <div style={{ fontSize: 9, fontWeight: 700, color: 'var(--low)', marginBottom: 8, letterSpacing: 2, textTransform: 'uppercase' }}>
+                    Librairies & Frameworks
+                </div>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5 }}>
+                    {pythonLibs.map((lib, idx) => (
+                        <span key={idx} style={{
+                            display: 'inline-flex', alignItems: 'center', gap: 4,
+                            padding: '3px 8px',
+                            background: 'rgba(37,99,235,0.06)',
+                            border: '1px solid rgba(37,99,235,0.15)',
+                            borderRadius: 4,
+                            fontSize: 10, fontWeight: 500, color: 'var(--mid)',
+                        }}>
+                            {lib.img && (
+                                <img
+                                    src={lib.img}
+                                    alt={lib.name}
+                                    style={{ width: 11, height: 11, objectFit: 'contain' }}
+                                    onError={e => { e.target.style.display = 'none' }}
+                                />
+                            )}
+                            {lib.name}
+                        </span>
+                    ))}
+                </div>
+            </div>
+        )}
+        </>
     )
 }
