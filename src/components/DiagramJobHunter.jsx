@@ -45,7 +45,7 @@ function WorkflowSVG({ uid='a' }) {
 
       {[[`${uid}-ps`,ROSE,'0s'],[`${uid}-psh`,GR,'0.35s'],[`${uid}-pd`,VI,'0.65s']].map(([ref,stroke,delay])=>(
         <g key={ref}>
-          <use href={`#${ref}`} fill="none" stroke={BRD} strokeWidth="1.5"/>
+          <use href={`#${ref}`} fill="none" stroke='var(--border)' strokeWidth="1.5"/>
           <use href={`#${ref}`} fill="none" stroke={stroke} strokeWidth="1.5" strokeOpacity="0.5"
             strokeDasharray="5 5" style={{animation:`${anim} 0.85s linear infinite`,animationDelay:delay}}/>
         </g>
@@ -70,21 +70,21 @@ function WorkflowSVG({ uid='a' }) {
       <image href={N8N_LOGO} x={PX+12} y={PY+9} width={22} height={22}/>
       <text x={PX+38} y={PY+24} fontSize="10" fontWeight="700" letterSpacing="2"
         fill={ROSE} fontFamily="monospace">WORKFLOW N8N</text>
-      <text x={PR-10} y={PY+24} fontSize="7.5" fill={LOW} fontFamily="monospace" textAnchor="end">VPS · cron 8h lun-ven</text>
-      <line x1={PX+1} y1={PY+PHDR} x2={PR-1} y2={PY+PHDR} stroke={BRD} strokeWidth="1"/>
+      <text x={PR-10} y={PY+24} fontSize="7.5" fill='var(--low)' fontFamily="monospace" textAnchor="end">VPS · cron 8h lun-ven</text>
+      <line x1={PX+1} y1={PY+PHDR} x2={PR-1} y2={PY+PHDR} stroke='var(--border)' strokeWidth="1"/>
 
       {STEPS.map((s,i)=>{
         const cy=stepCY(i), rowY=PY+PHDR+i*stepH
         return (
           <g key={i}>
-            {i>0 && <line x1={PX+8} y1={rowY} x2={PR-8} y2={rowY} stroke={BRD} strokeWidth="1"/>}
+            {i>0 && <line x1={PX+8} y1={rowY} x2={PR-8} y2={rowY} stroke='var(--border)' strokeWidth="1"/>}
             <circle cx={PX+16} cy={cy} r="4" fill={s.color} opacity="0.9"/>
             {s.logo
               ? <image href={s.logo} x={PX+27} y={cy-10} width={20} height={20}/>
               : <text x={PX+27} y={cy+6} fontSize="13">{s.emoji}</text>
             }
-            <text x={PX+52} y={cy-5} fontSize="10.5" fontWeight="700" fill={INK} fontFamily="system-ui,sans-serif">{s.label}</text>
-            <text x={PX+52} y={cy+10} fontSize="8" fill={LOW} fontFamily="monospace">{s.detail}</text>
+            <text x={PX+52} y={cy-5} fontSize="10.5" fontWeight="700" fill='var(--ink)' fontFamily="system-ui,sans-serif">{s.label}</text>
+            <text x={PX+52} y={cy+10} fontSize="8" fill='var(--low)' fontFamily="monospace">{s.detail}</text>
           </g>
         )
       })}
@@ -92,22 +92,22 @@ function WorkflowSVG({ uid='a' }) {
       {/* Schedule pill */}
       <rect x={SX} y={SY} width={SW} height={SH} rx={10} fill="var(--white)" stroke={ROSEB} strokeWidth="1.2"/>
       <text x={SX+SW/2} y={CY-5} textAnchor="middle" fontSize="14">⏰</text>
-      <text x={SX+SW/2} y={CY+9} textAnchor="middle" fontSize="9.5" fontWeight="700" fill={INK} fontFamily="system-ui,sans-serif">Schedule</text>
-      <text x={SX+SW/2} y={CY+21} textAnchor="middle" fontSize="7.5" fill={LOW} fontFamily="monospace">8h · lun-ven</text>
+      <text x={SX+SW/2} y={CY+9} textAnchor="middle" fontSize="9.5" fontWeight="700" fill='var(--ink)' fontFamily="system-ui,sans-serif">Schedule</text>
+      <text x={SX+SW/2} y={CY+21} textAnchor="middle" fontSize="7.5" fill='var(--low)' fontFamily="monospace">8h · lun-ven</text>
 
       {/* Sheets */}
       <rect x={SHX} y={SHY} width={SHW} height={SHH} rx={10} fill="var(--white)" stroke={GRB} strokeWidth="1.2"/>
       <image href={SHEETS_LOGO} x={SHCX-13} y={CY-28} width={26} height={26}/>
-      <text x={SHCX} y={CY+10} textAnchor="middle" fontSize="10" fontWeight="700" fill={INK} fontFamily="system-ui,sans-serif">Google Sheets</text>
-      <text x={SHCX} y={CY+24} textAnchor="middle" fontSize="7.5" fill={LOW} fontFamily="monospace">source of truth</text>
+      <text x={SHCX} y={CY+10} textAnchor="middle" fontSize="10" fontWeight="700" fill='var(--ink)' fontFamily="system-ui,sans-serif">Google Sheets</text>
+      <text x={SHCX} y={CY+24} textAnchor="middle" fontSize="7.5" fill='var(--low)' fontFamily="monospace">source of truth</text>
 
       {/* Dashboard */}
       <rect x={DX} y={DY} width={DW} height={DH} rx={10} fill="var(--white)" stroke={VIB} strokeWidth="1.2"/>
       <image href={REACT_LOGO} x={DCX-13} y={CY-28} width={26} height={26}/>
-      <text x={DCX} y={CY+10} textAnchor="middle" fontSize="10" fontWeight="700" fill={INK} fontFamily="system-ui,sans-serif">Dashboard</text>
-      <text x={DCX} y={CY+24} textAnchor="middle" fontSize="7.5" fill={LOW} fontFamily="monospace">GitHub Pages</text>
+      <text x={DCX} y={CY+10} textAnchor="middle" fontSize="10" fontWeight="700" fill='var(--ink)' fontFamily="system-ui,sans-serif">Dashboard</text>
+      <text x={DCX} y={CY+24} textAnchor="middle" fontSize="7.5" fill='var(--low)' fontFamily="monospace">GitHub Pages</text>
 
-      <text x={(DCX+PX+PW/2)/2} y={H+40} textAnchor="middle" fontSize="7.5" fill={LOW} fontFamily="monospace" fillOpacity="0.6">
+      <text x={(DCX+PX+PW/2)/2} y={H+40} textAnchor="middle" fontSize="7.5" fill='var(--low)' fontFamily="monospace" fillOpacity="0.6">
         webhook · update statut kanban
       </text>
     </svg>
