@@ -250,7 +250,7 @@ Le dashboard React (GitHub Pages) lit le sheet en direct et affiche les offres e
                 color: 'green',
                 companyColor: '#16a34a',
                 category: 'Sport & Data',
-                title: 'FFT Padel Rankings Explorer',
+                title: 'Padel — Classements joueurs FFT',
                 description: "Reverse engineering de l'API non-documentée TenUp/FFT pour collecter 156k joueurs et 273k participations. Scraper async 15 workers, API Flask, dashboard HTML/JS interactif.",
                 tags: ['Python', 'asyncio', 'Flask', 'PostgreSQL', 'Docker'],
                 link: null,
@@ -425,5 +425,8 @@ Pas de monétisation, pas d'ambition commerciale. Un projet passion qui permet d
         'Scraping': null,
         'Mobile': null,
         'Dev': null,
+    }
+}
+
     }
 }

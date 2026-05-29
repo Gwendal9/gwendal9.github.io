@@ -68,7 +68,7 @@ export default function ProjectDrawer({ project, onClose }) {
         style={{
           position: 'fixed',
           top: 0, right: 0, bottom: 0,
-          width: 'min(520px, 90vw)',
+          width: 'min(680px, 92vw)',
           background: 'var(--cream)',
           borderLeft: '1px solid var(--border)',
           zIndex: 301,
@@ -93,7 +93,7 @@ export default function ProjectDrawer({ project, onClose }) {
           zIndex: 1,
         }}>
           <div>
-            {/* Badge catégorie avec logo */}
+            {/* Badge categorie avec logo */}
             <div style={{
               display: 'inline-flex', alignItems: 'center', gap: 7,
               padding: '5px 12px', borderRadius: 100,
@@ -130,7 +130,7 @@ export default function ProjectDrawer({ project, onClose }) {
               flexShrink: 0, color: 'var(--mid)',
             }}
           >
-            ✕
+            x
           </button>
         </div>
 
@@ -146,8 +146,8 @@ export default function ProjectDrawer({ project, onClose }) {
             </div>
           )}
 
-          {project.title === 'Job Hunter — Veille auto' && <DiagramJobHunter />}
-          {project.title === 'FFT Padel Rankings Explorer' && <DiagramPadel />}
+          {project.title === 'Job Hunter \u2014 Veille auto' && <DiagramJobHunter />}
+          {project.title === 'Padel \u2014 Classements joueurs FFT' && <DiagramPadel />}
 
           {project.longDescription && (
             <div style={{ marginBottom: 28 }}>
@@ -212,7 +212,7 @@ export default function ProjectDrawer({ project, onClose }) {
                     borderRadius: 8, fontSize: 13, fontWeight: 600,
                     textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8,
                   }}>
-                    GitHub →
+                    {'GitHub ->'}
                   </a>
                 )}
                 {project.demo && (
@@ -222,7 +222,7 @@ export default function ProjectDrawer({ project, onClose }) {
                     borderRadius: 8, fontSize: 13, fontWeight: 600,
                     textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8,
                   }}>
-                    Demo →
+                    {'Demo ->'}
                   </a>
                 )}
               </div>
@@ -235,11 +235,11 @@ export default function ProjectDrawer({ project, onClose }) {
             alignItems: 'center', gap: 6, marginTop: 24,
             fontSize: 11, color: 'var(--low)', opacity: 0.6,
           }}>
-            <span>→</span>
+            <span>{'->'}</span>
             <span>Glisser vers la droite pour fermer</span>
           </div>
         </div>
-      </div>
+            </div>
     </>
   )
 }
