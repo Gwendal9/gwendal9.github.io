@@ -427,6 +427,3 @@ Pas de monétisation, pas d'ambition commerciale. Un projet passion qui permet d
         'Dev': null,
     }
 }
-
-    }
-}
