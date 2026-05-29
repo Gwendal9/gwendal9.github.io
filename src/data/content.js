@@ -225,23 +225,25 @@ Résultat : Prototypes fonctionnels en Python. Approche itérative, évaluation 
                 companyColor: '#ea4b71',
                 category: 'Automatisation',
                 title: 'Job Hunter — Veille auto',
-                description: "Workflow n8n qui agrège chaque jour des centaines d'offres (Adzuna, France Travail, WTTJ), filtre les pertinentes via LLM (GPT-4o), et alimente un Google Sheet automatiquement.",
-                tags: ['n8n', 'Docker', 'OpenAI API', 'Google Sheets', 'Python'],
+                description: "Workflow n8n sur VPS qui scrape ~1 250 offres APEC chaque matin, filtre et score chacune via GPT-4o-mini, puis alimente un dashboard React public pour piloter sa recherche d'emploi.",
+                tags: ['n8n', 'VPS', 'OpenAI API', 'React', 'Google Sheets'],
                 link: null,
-                label: 'GitHub →',
-                longDescription: `Workflow d'automatisation qui tourne en local sur Docker et s'exécute chaque jour sans intervention.
+                label: 'Voir le dashboard →',
+                longDescription: `Deux systèmes liés pour automatiser complètement la veille offres d'emploi.
 
-Il agrège des centaines d'offres d'emploi depuis plusieurs sources (Adzuna, France Travail, WTTJ) via leurs APIs, puis applique un filtrage en deux phases :
+Le workflow n8n tourne sur VPS et se déclenche chaque matin en semaine à 8h. Il interroge l'API APEC sur 5 mots-clés (data analyst, BI analyst Power BI, supply chain analyst, data engineer, ingénieur IA) × 5 pages × 50 résultats, soit jusqu'à 1 250 offres brutes par exécution.
 
-Phase 1 — Filtrage par règles : exclusion des alternances, stages, et termes blacklistés. Filtre rapide et sans coût.
+Chaque offre passe un double filtre :
+— Règles (instantané) : exclusion des alternances, stages, freelances, postes direction, et localisations DOM-TOM. Dédoublonnage par titre + entreprise.
+— Dédup LLM : les offres déjà présentes dans Sheets avec un score sont renvoyées directement sans rappel OpenAI (économie d'API). Seules les nouvelles passent par GPT-4o-mini (score 0-10, résumé 2 phrases, température 0.2, JSON strict).
 
-Phase 2 — Filtrage LLM (en cours) : chaque offre restante est soumise à GPT-4o qui évalue si la mission correspond au profil cible. Bien plus précis que les mots-clés.
+Les résultats sont écrits dans Google Sheets via Service Account, avec upsert sur l'URL pour éviter les doublons entre exécutions.
 
-Les offres retenues sont envoyées automatiquement vers un Google Sheet partagé, structuré et mis à jour chaque matin.`,
+Le dashboard React (GitHub Pages) lit le sheet en direct et affiche les offres en kanban (nouveau → à postuler → postulé → relancé → ignoré). Chaque changement de statut déclenche un webhook vers n8n sur le VPS, qui met à jour Sheets en temps réel.`,
                 context: 'Projet personnel — 2026',
-                stack: ['n8n', 'Docker', 'OpenAI API', 'Adzuna API', 'France Travail API', 'Google Sheets API'],
+                stack: ['n8n', 'VPS', 'APEC API', 'GPT-4o-mini', 'Google Sheets', 'React', 'Vite'],
                 github: 'https://github.com/Gwendal9',
-                demo: null,
+                demo: 'https://gwendal9.github.io/offres-emploi/',
                 screenshot: null,
             },
             {
@@ -380,6 +382,7 @@ Pas de monétisation, pas d'ambition commerciale. Un projet passion qui permet d
         'BigQuery': 'https://www.vectorlogo.zone/logos/google_bigquery/google_bigquery-icon.svg',
         'SAP': 'https://upload.wikimedia.org/wikipedia/commons/5/59/SAP_2011_logo.svg',
         'Docker': 'https://upload.wikimedia.org/wikipedia/commons/4/4e/Docker_%28container_engine%29_logo.svg',
+        'VPS': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg',
         // Dev & Web
         'React': 'https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg',
         'Flask': 'https://upload.wikimedia.org/wikipedia/commons/3/38/Flask_logo.svg',
@@ -393,7 +396,14 @@ Pas de monétisation, pas d'ambition commerciale. Un projet passion qui permet d
         'SQLite': 'https://upload.wikimedia.org/wikipedia/commons/3/38/SQLite370.svg',
         // Scraping
         'Playwright': 'https://playwright.dev/img/playwright-logo.svg',
-        // AI/ML/CV
+        // AI/LLM
+        'OpenAI API': 'https://upload.wikimedia.org/wikipedia/commons/4/4d/OpenAI_Logo.svg',
+        'GPT-4o-mini': 'https://upload.wikimedia.org/wikipedia/commons/4/4d/OpenAI_Logo.svg',
+        'Claude': 'https://upload.wikimedia.org/wikipedia/commons/b/b0/Claude_AI_symbol.svg',
+        // Infra
+        'Render': 'https://images.ctfassets.net/qf4deux3kp2c/6A6bFBDimOnpJCQ8lZQXcT/79b40ccb5c2af2ac1bd45d3e9fc2cc37/Render_square.png',
+        'Vite': 'https://upload.wikimedia.org/wikipedia/commons/f/f1/Vitejs-logo.svg',
+        // ML/CV
         'OpenCV': 'https://upload.wikimedia.org/wikipedia/commons/d/d2/OpenCV_logo_black.svg',
         'YOLO': 'https://images.g2crowd.com/uploads/product/image/2e1d25e4ac8ebd8d5bb1cf26e508446c/ultralytics.png',
         'Blender': 'https://upload.wikimedia.org/wikipedia/commons/0/0c/Blender_logo_no_text.svg',

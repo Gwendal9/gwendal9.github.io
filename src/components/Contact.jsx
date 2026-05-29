@@ -88,7 +88,7 @@ export default function Contact() {
 
         {copied && (
           <div style={{ position: 'fixed', bottom: isMobile ? 80 : 32, left: '50%', transform: 'translateX(-50%)', background: 'var(--ink)', color: 'var(--white)', padding: '10px 20px', borderRadius: 8, fontSize: 13, fontWeight: 600, zIndex: 999, display: 'flex', alignItems: 'center', gap: 8 }}>
-            ✓ Email copie !
+            ✓ Email copié !
           </div>
         )}
 
@@ -108,7 +108,7 @@ export default function Contact() {
               </div>
               <div>
                 <div style={{ fontSize: 10, color: 'var(--low)', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 3, fontWeight: 500 }}>{item.label}</div>
-                <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--ink)' }}>{item.icon === 'email' && copied ? 'Copie !' : item.value}</div>
+                <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--ink)' }}>{item.icon === 'email' && copied ? 'Copié !' : item.value}</div>
               </div>
               <span className="arrow" style={{ marginLeft: 'auto', fontSize: 13, color: 'var(--lilas)', opacity: 0, transition: 'opacity 0.2s, transform 0.2s' }}>
                 {item.icon === 'email' ? 'Copier' : '↗'}

@@ -80,12 +80,11 @@ const ICONS = {
 
 const NAV = [
   { id: 'hero', icon: 'hero', label: 'Profil' },
-  { id: 'about', icon: 'about', label: 'A propos' },
-  { id: 'experience', icon: 'experience', label: 'Experience' },
+  { id: 'about', icon: 'about', label: 'À propos' },
+  { id: 'experience', icon: 'experience', label: 'Expérience' },
   { id: 'projets', icon: 'projets', label: 'Projets' },
   { id: 'contact', icon: 'contact', label: 'Contact' },
   { id: 'cv', icon: 'cv', label: 'Mon CV' },
-
 ]
 
 export default function App() {
@@ -158,14 +157,13 @@ export default function App() {
     }, 1000)
   }, [active])
 
-  // Nav items mobile — on en prend 5 max pour la bottom bar
+  // Nav items mobile — 5 max pour la bottom bar (CV accessible via Hero)
   const mobileNav = [
     { id: 'hero', icon: 'hero', label: 'Profil' },
-    { id: 'about', icon: 'about', label: 'A propos' },
-    { id: 'experience', icon: 'experience', label: 'Experience' },
+    { id: 'about', icon: 'about', label: 'À propos' },
+    { id: 'experience', icon: 'experience', label: 'Expérience' },
     { id: 'projets', icon: 'projets', label: 'Projets' },
     { id: 'contact', icon: 'contact', label: 'Contact' },
-    { id: 'cv', icon: 'cv', label: 'Mon CV' },
   ]
 
   return (

@@ -80,7 +80,7 @@ export default function About() {
 
         <div id="about-eyebrow" style={{ ...fadeStyle, fontSize: 10, letterSpacing: 4, textTransform: 'uppercase', color: 'var(--lilas)', fontWeight: 700, marginBottom: 12, display: 'flex', alignItems: 'center', gap: 10 }}>
           <span style={{ width: 16, height: 1, background: 'var(--lilas)', display: 'inline-block' }} />
-          A propos
+          À propos
         </div>
 
         <h2 id="about-title" style={{ ...fadeStyle, fontSize: 'clamp(24px, 4vw, 42px)', fontWeight: 800, color: 'var(--ink)', lineHeight: 1.1, marginBottom: 16 }}>
@@ -134,7 +134,7 @@ export default function About() {
         </div>
 
         <div id="about-hobbies-title" style={{ ...fadeStyle, fontSize: 11, letterSpacing: 3, textTransform: 'uppercase', color: 'var(--mid)', fontWeight: 700, marginBottom: 16 }}>
-          Centres d'interet
+          Centres d'intérêt
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr 1fr' : 'repeat(auto-fill, minmax(200px, 1fr))', gap: 10 }}>

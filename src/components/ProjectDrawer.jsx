@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { content } from '../data/content'
+import DiagramJobHunter from './DiagramJobHunter'
 
 const COLORS = {
   blue: { text: '#2563eb', bg: 'rgba(37,99,235,0.06)', border: 'rgba(37,99,235,0.15)' },
@@ -143,6 +144,8 @@ export default function ProjectDrawer({ project, onClose }) {
               <img src={project.screenshot} alt={project.title} style={{ width: '100%', display: 'block' }} />
             </div>
           )}
+
+          {project.title === 'Job Hunter — Veille auto' && <DiagramJobHunter />}
 
           {project.longDescription && (
             <div style={{ marginBottom: 28 }}>

@@ -112,15 +112,32 @@ function PythonTooltip({ pos }) {
 function ToolsMarquee() {
   const doubled = [...MARQUEE_TOOLS, ...MARQUEE_TOOLS, ...MARQUEE_TOOLS, ...MARQUEE_TOOLS]
   return (
-    <div style={{ overflow: 'hidden', marginBottom: 24, marginTop: 16, padding: '10px 0', borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)', background: 'var(--cream2)' }}>
-      <div className="marquee-track" style={{ display: 'flex', gap: 40, width: 'max-content' }}
+    <div style={{
+      overflow: 'hidden',
+      marginBottom: 28, marginTop: 20,
+      padding: '14px 0',
+      borderTop: '1px solid var(--border)',
+      borderBottom: '1px solid var(--border)',
+      background: 'var(--cream2)',
+      WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)',
+      maskImage: 'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)',
+    }}>
+      <div
+        className="marquee-track"
+        style={{ display: 'flex', gap: 48, width: 'max-content' }}
         onMouseEnter={e => e.currentTarget.style.animationPlayState = 'paused'}
         onMouseLeave={e => e.currentTarget.style.animationPlayState = 'running'}
       >
         {doubled.map((tool, i) => (
-          <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
-            <img src={tool.img} alt={tool.name} style={{ width: 18, height: 18, objectFit: 'contain', opacity: 0.65 }} />
-            <span style={{ fontSize: 11, color: 'var(--low)', fontWeight: 500, whiteSpace: 'nowrap' }}>{tool.name}</span>
+          <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 9, flexShrink: 0 }}>
+            <img
+              src={tool.img}
+              alt={tool.name}
+              style={{ width: 22, height: 22, objectFit: 'contain', opacity: 0.7, flexShrink: 0 }}
+              onError={e => { e.target.style.display = 'none' }}
+            />
+            <span style={{ fontSize: 12, color: 'var(--mid)', fontWeight: 500, whiteSpace: 'nowrap', letterSpacing: 0.1 }}>{tool.name}</span>
+            <span style={{ width: 3, height: 3, borderRadius: '50%', background: 'var(--border)', flexShrink: 0, marginLeft: 6 }} />
           </div>
         ))}
       </div>
