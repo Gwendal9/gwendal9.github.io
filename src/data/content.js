@@ -250,20 +250,26 @@ Le dashboard React (GitHub Pages) lit le sheet en direct et affiche les offres e
                 color: 'green',
                 companyColor: '#16a34a',
                 category: 'Sport & Data',
-                title: 'Padel Analytics — TC Les Lilas',
-                description: "Scraping de la plateforme Tenup/FFT + dashboard de suivi de la saison interclub Hommes R3 Île-de-France. Classements, stats joueurs et analyse des matchs.",
-                tags: ['Python', 'Flask', 'Playwright', 'SQLite', 'Power BI'],
+                title: 'FFT Padel Rankings Explorer',
+                description: "Reverse engineering de l'API non-documentée TenUp/FFT pour collecter 156k joueurs et 273k participations. Scraper async 15 workers, API Flask, dashboard HTML/JS interactif.",
+                tags: ['Python', 'asyncio', 'Flask', 'PostgreSQL', 'Docker'],
                 link: null,
-                label: 'Voir →',
-                longDescription: `Deux briques complémentaires autour de la même passion.
+                label: 'Voir le dashboard →',
+                longDescription: `La FFT publie les classements padel (~156k joueurs) sur TenUp sans aucun export ni API publique. L'objectif : collecter, stocker et visualiser ces données pour des analyses impossibles sur le site officiel — historique, progression, stats par club/ville, parcours tournoi.
 
-Le scraper extrait les données de la plateforme Tenup/FFT (tournois, profils joueurs, résultats de matchs) via Playwright. Une interface Flask locale permet de déclencher les crawls à la demande. Le scraping fonctionne en cascade : recherche des tournois, puis extraction du profil de chaque joueur impliqué. Tout est stocké dans une base SQLite.
+Reverse engineering d'abord : analyse des requêtes réseau, identification des endpoints non-documentés, gestion de l'authentification par cookies rotatifs.
 
-Ces données alimentent un dashboard Power BI qui suit la saison interclub Hommes R3 Île-de-France du TC Les Lilas : classement de l'équipe, performances individuelles, évolution au fil des matchs.`,
+Le scraper v1 (Playwright headless) a été remplacé par une version HTTP pure 10× plus rapide — 15 workers asyncio en parallèle, avec une table de queue SQLite (pending / processing / done / error). Résultat : 156k joueurs et 273k participations sur 12 mois glissants collectés en avril 2026.
+
+Le data pipeline normalise les données (villes, clubs, partenaires) et gère les snapshots mensuels : chaque 1er mardi du mois correspond à une mise à jour FFT, backfillée dans une table classements_historique.
+
+Le backend Flask expose une API REST avec séparation stricte des pools H/F. Le dashboard HTML/JS vanilla permet la recherche par joueur, le classement filtré par ville ou club, la visualisation des tournois et l'évolution du classement dans le temps.
+
+Déployé avec Docker + nginx sur Render, migration prévue vers Hetzner VPS.`,
                 context: 'Projet personnel — 2025/2026',
-                stack: ['Python', 'Flask', 'Playwright', 'SQLite', 'BeautifulSoup', 'Power BI', 'Excel'],
+                stack: ['Python', 'asyncio', 'aiohttp', 'Flask', 'PostgreSQL', 'SQLite', 'Docker', 'nginx', 'HTML/JS'],
                 github: 'https://github.com/Gwendal9',
-                demo: null,
+                demo: 'https://padel.gwendev.eu/',
                 screenshot: null,
             },
             {

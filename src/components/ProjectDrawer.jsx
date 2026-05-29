@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { content } from '../data/content'
 import DiagramJobHunter from './DiagramJobHunter'
+import DiagramPadel from './DiagramPadel'
 
 const COLORS = {
   blue: { text: '#2563eb', bg: 'rgba(37,99,235,0.06)', border: 'rgba(37,99,235,0.15)' },
@@ -146,6 +147,7 @@ export default function ProjectDrawer({ project, onClose }) {
           )}
 
           {project.title === 'Job Hunter — Veille auto' && <DiagramJobHunter />}
+          {project.title === 'FFT Padel Rankings Explorer' && <DiagramPadel />}
 
           {project.longDescription && (
             <div style={{ marginBottom: 28 }}>
