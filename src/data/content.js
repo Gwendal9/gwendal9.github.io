@@ -338,7 +338,7 @@ Pas de monétisation, pas d'ambition commerciale. Un projet passion qui permet d
 
     contact: [
         { icon: 'email', label: "Email", value: "gwendal.rolland@yahoo.fr", href: "mailto:gwendal.rolland@yahoo.fr" },
-        { icon: 'linkedin', label: "LinkedIn", value: "/gwendal-rolland", href: "https://linkedin.com/in/gwendal-rolland" },
+        { icon: 'linkedin', label: "LinkedIn", value: "linkedin.com/in/gwendal-rolland", href: "https://linkedin.com/in/gwendal-rolland" },
         { icon: 'github', label: "GitHub", value: "Gwendal9", href: "https://github.com/Gwendal9" },
     ],
 

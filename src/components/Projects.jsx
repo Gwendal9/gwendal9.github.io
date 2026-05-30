@@ -10,10 +10,7 @@ const COLORS = {
 }
 
 const SIDEBAR = 220
-const isMobile = window.innerWidth <= 768
-const mainWidth = isMobile ? window.innerWidth : window.innerWidth - SIDEBAR
 const MAX_CONTENT = 900
-const hPad = isMobile ? 16 : Math.max(40, (mainWidth - MAX_CONTENT) / 2)
 
 const MARQUEE_TOOLS = [
   { name: 'Power BI', img: 'https://upload.wikimedia.org/wikipedia/commons/c/cf/New_Power_BI_Logo.svg' },
@@ -145,7 +142,9 @@ function ToolsMarquee() {
   )
 }
 
-export default function Projects() {
+export default function Projects({ isMobile }) {
+  const mainWidth = isMobile ? window.innerWidth : window.innerWidth - SIDEBAR
+  const hPad = isMobile ? 16 : Math.max(40, (mainWidth - MAX_CONTENT) / 2)
   const [tab, setTab] = useState('pro')
   const [selected, setSelected] = useState(null)
   const [pyTooltip, setPyTooltip] = useState(null)
@@ -239,7 +238,7 @@ export default function Projects() {
             })}
           </div>
 
-          {selected && <ProjectDrawer project={selected} onClose={() => setSelected(null)} />}
+          {selected && <ProjectDrawer project={selected} onClose={() => setSelected(null)} isMobile={isMobile} />}
         </div>
       </div>
 

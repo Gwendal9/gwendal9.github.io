@@ -2,10 +2,7 @@ import { useEffect, useState } from 'react'
 import { content } from '../data/content'
 
 const SIDEBAR = 220
-const isMobile = window.innerWidth <= 768
-const mainWidth = isMobile ? window.innerWidth : window.innerWidth - SIDEBAR
 const MAX_CONTENT = 700
-const hPad = isMobile ? 16 : Math.max(40, (mainWidth - MAX_CONTENT) / 2)
 
 const ICONS = {
   email: (
@@ -26,7 +23,9 @@ const ICONS = {
   ),
 }
 
-export default function Contact() {
+export default function Contact({ isMobile }) {
+  const mainWidth = isMobile ? window.innerWidth : window.innerWidth - SIDEBAR
+  const hPad = isMobile ? 16 : Math.max(40, (mainWidth - MAX_CONTENT) / 2)
   const { contact } = content
   const [copied, setCopied] = useState(false)
 

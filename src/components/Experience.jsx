@@ -3,11 +3,10 @@ import { content } from '../data/content'
 
 const SIDEBAR = 220
 const MAX_CONTENT = 900
-const isMobile = window.innerWidth <= 768
-const mainWidth = isMobile ? window.innerWidth : window.innerWidth - SIDEBAR
-const hPad = isMobile ? 16 : Math.max(40, (mainWidth - MAX_CONTENT) / 2)
 
-export default function Experience() {
+export default function Experience({ isMobile }) {
+  const mainWidth = isMobile ? window.innerWidth : window.innerWidth - SIDEBAR
+  const hPad = isMobile ? 16 : Math.max(40, (mainWidth - MAX_CONTENT) / 2)
   const { experience } = content
 
   // All animation state — survives re-renders triggered by mouse events

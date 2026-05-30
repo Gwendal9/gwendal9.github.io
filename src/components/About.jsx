@@ -32,14 +32,13 @@ const HOBBY_ICONS = {
 }
 
 const SIDEBAR = 220
-const isMobile = window.innerWidth <= 768
-const mainWidth = isMobile ? window.innerWidth : window.innerWidth - SIDEBAR
 const MAX_CONTENT = 900
-const hPad = isMobile ? 16 : Math.max(40, (mainWidth - MAX_CONTENT) / 2)
-const vPadTop = isMobile ? 4 : 56
-const vPadBottom = isMobile ? 135 : 60
 
-export default function About() {
+export default function About({ isMobile }) {
+  const mainWidth = isMobile ? window.innerWidth : window.innerWidth - SIDEBAR
+  const hPad = isMobile ? 16 : Math.max(40, (mainWidth - MAX_CONTENT) / 2)
+  const vPadTop = isMobile ? 4 : 56
+  const vPadBottom = isMobile ? 135 : 60
   const { formation, hobbies, hero } = content
 
   useEffect(() => {

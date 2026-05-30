@@ -330,10 +330,10 @@ export default function App() {
       }}>
         <div style={{ flex: 1, overflow: 'hidden', position: 'relative', opacity: fading ? 0 : 1, transition: 'opacity 0.16s ease' }}>
           {displayed === 'hero' && <Hero onNavigate={navigate} isMobile={isMobile} />}
-          {displayed === 'about' && <About />}
-          {displayed === 'experience' && <Experience />}
-          {displayed === 'projets' && <Projects />}
-          {displayed === 'contact' && <Contact />}
+          {displayed === 'about' && <About isMobile={isMobile} />}
+          {displayed === 'experience' && <Experience isMobile={isMobile} />}
+          {displayed === 'projets' && <Projects isMobile={isMobile} />}
+          {displayed === 'contact' && <Contact isMobile={isMobile} />}
           {displayed === 'cv' && <CV isMobile={isMobile} />}
         </div>
         {!isMobile && <Footer />}
