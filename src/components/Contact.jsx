@@ -119,15 +119,50 @@ export default function Contact({ isMobile }) {
             <div style={{ fontSize: 11, letterSpacing: 3, textTransform: 'uppercase', color: 'var(--mid)', fontWeight: 700, marginBottom: 20 }}>References</div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               {content.references && content.references.map((ref, i) => (
-                <div key={i} style={{ padding: '20px 24px', background: 'var(--white)', border: '1px solid var(--border)', borderRadius: 12, display: 'flex', alignItems: 'center', gap: 16 }}>
-                  <div style={{ width: 44, height: 44, borderRadius: '50%', background: 'var(--lilas-d)', border: '1px solid var(--lilas-b)', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16, fontWeight: 700, color: 'var(--lilas)', flexShrink: 0 }}>
-                    {ref.photo ? <img src={ref.photo} alt={ref.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : ref.name.charAt(0)}
+                <div key={i} style={{ padding: '20px 24px', background: 'var(--white)', border: '1px solid var(--border)', borderRadius: 12 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: ref.linkedin || ref.email ? 14 : 0 }}>
+                    <div style={{ width: 44, height: 44, borderRadius: '50%', background: 'var(--lilas-d)', border: '1px solid var(--lilas-b)', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16, fontWeight: 700, color: 'var(--lilas)', flexShrink: 0 }}>
+                      {ref.photo ? <img src={ref.photo} alt={ref.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : ref.name.charAt(0)}
+                    </div>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink)', marginBottom: 2 }}>{ref.name}</div>
+                      <div style={{ fontSize: 12, color: 'var(--low)' }}>{ref.role} · {ref.company}</div>
+                    </div>
+                    {ref.companyLogo && <img src={ref.companyLogo} alt={ref.company} style={{ height: 24, objectFit: 'contain', opacity: 0.7 }} />}
                   </div>
-                  <div style={{ flex: 1 }}>
-                    <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink)', marginBottom: 2 }}>{ref.name}</div>
-                    <div style={{ fontSize: 12, color: 'var(--low)' }}>{ref.role} · {ref.company}</div>
-                  </div>
-                  {ref.companyLogo && <img src={ref.companyLogo} alt={ref.company} style={{ height: 24, objectFit: 'contain', opacity: 0.7 }} />}
+                  {(ref.linkedin || ref.email) && (
+                    <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                      {ref.linkedin && (
+                        <a href={`https://${ref.linkedin.replace('https://', '')}`} target="_blank" rel="noreferrer"
+                          style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '6px 12px', borderRadius: 7, background: 'var(--cream2)', border: '1px solid var(--border)', fontSize: 12, color: 'var(--mid)', fontWeight: 500, textDecoration: 'none', transition: 'border-color 0.15s' }}
+                          onMouseEnter={e => e.currentTarget.style.borderColor = 'var(--lilas-b)'}
+                          onMouseLeave={e => e.currentTarget.style.borderColor = 'var(--border)'}
+                        >
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="var(--lilas)">
+                            <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/>
+                          </svg>
+                          LinkedIn
+                        </a>
+                      )}
+                      {ref.email && (
+                        <button
+                          onClick={() => navigator.clipboard.writeText(ref.email).then(() => {
+                            const btn = document.getElementById(`ref-email-${i}`)
+                            if (btn) { btn.textContent = 'Copie !'; setTimeout(() => { btn.textContent = ref.email }, 2000) }
+                          })}
+                          id={`ref-email-${i}`}
+                          style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '6px 12px', borderRadius: 7, background: 'var(--cream2)', border: '1px solid var(--border)', fontSize: 12, color: 'var(--mid)', fontWeight: 500, cursor: 'pointer', transition: 'border-color 0.15s', fontFamily: 'inherit' }}
+                          onMouseEnter={e => e.currentTarget.style.borderColor = 'var(--lilas-b)'}
+                          onMouseLeave={e => e.currentTarget.style.borderColor = 'var(--border)'}
+                        >
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--lilas)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/>
+                          </svg>
+                          {ref.email}
+                        </button>
+                      )}
+                    </div>
+                  )}
                 </div>
               ))}
             </div>

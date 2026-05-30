@@ -7,108 +7,142 @@ const SHEETS_LOGO = 'https://upload.wikimedia.org/wikipedia/commons/3/30/Google_
 const REACT_LOGO  = 'https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg'
 
 const STEPS = [
-  { color: '#2563eb', label: 'APEC API',    detail: '5 mots-cles x 5p x 50 -> ~1 250 offres/jour', emoji: null, logo: null },
-  { color: '#d97706', label: 'Filtre',       detail: 'exclusions · dedup titre / entreprise',        emoji: '⚡', logo: null },
-  { color: '#059669', label: 'GPT-4o-mini',  detail: 'score 0-10 · resume · si non score',           emoji: null, logo: OPENAI_LOGO },
-  { color: '#059669', label: 'Sheets write', detail: 'upsert par URL · Service Account',             emoji: null, logo: SHEETS_LOGO },
+  { color: '#3b82f6', label: 'APEC API',    detail: '~1 250 offres / execution', logo: null, emoji: null },
+  { color: '#f59e0b', label: 'Filtre',       detail: 'exclusions + dedup',        logo: null, emoji: '⚡' },
+  { color: '#10b981', label: 'GPT-4o-mini',  detail: 'score 0-10 + resume',       logo: OPENAI_LOGO, emoji: null },
+  { color: '#10b981', label: 'Sheets write', detail: 'upsert par URL',            logo: SHEETS_LOGO, emoji: null },
 ]
 
-const RI = 'rgba(234,75,113,0.22)', GR = '#059669', GRB = 'rgba(5,150,105,0.22)'
-const VI = '#7c3aed', VIB = 'rgba(124,58,237,0.22)'
-const INK = '#1a1a1a', LOW = '#7a7068', BRD = '#d8cfc2'
-const ROSE = '#ea4b71', ROSEB = 'rgba(234,75,113,0.22)'
-
-const W=780, H=210, CY=H/2
-const SX=8,SY=CY-22,SW=110,SH=44
-const PX=136,PY=8,PW=328,PH=H-16,PR=PX+PW,PHDR=40
-const stepH=(PH-PHDR)/STEPS.length
-const stepCY=(i)=>PY+PHDR+i*stepH+stepH/2
-const SHX=484,SHY=CY-37,SHW=130,SHH=74,SHCX=SHX+SHW/2
-const DX=634,DY=CY-37,DW=138,DH=74,DCX=DX+DW/2
+const W=860, H=210, CY=H/2
+const SX=8,  SY=CY-24, SW=108, SH=48
+const PX=164, PY=8, PW=318, PH=H-16, PR=PX+PW, PHDR=36
+const stepH = (PH-PHDR)/STEPS.length
+const stepCY = i => PY+PHDR+i*stepH+stepH/2
+const SHX=538, SHY=CY-36, SHW=132, SHH=72, SHCX=SHX+SHW/2
+const DX=722,  DY=CY-36,  DW=130,  DH=72,  DCX=DX+DW/2
 
 const pSched    = `M ${SX+SW},${CY} L ${PX},${CY}`
 const pToSheets = `M ${PR},${CY} L ${SHX},${CY}`
 const pToDash   = `M ${SHX+SHW},${CY} L ${DX},${CY}`
-const pWebhook  = `M ${DCX},${DY+DH} C ${DCX},${H+28} ${PX+PW/2},${H+28} ${PX+20},${PY+PH-8}`
+const pWebhook  = `M ${DCX},${DY+DH} C ${DCX},${H+32} ${PX+PW/2},${H+32} ${PX+20},${PY+PH-8}`
+
+const ROSE='#e11d48', GR='#059669', VI='#7c3aed'
 
 function WorkflowSVG({ uid='a' }) {
-  const anim = `jh${uid}`
+  const a = `jh${uid}`
   return (
     <svg viewBox={`0 0 ${W} ${H+44}`} width="100%" style={{display:'block',overflow:'visible'}}>
       <defs>
-        <style>{`@keyframes ${anim}{to{stroke-dashoffset:-20}}`}</style>
+        <style>{`@keyframes ${a}{to{stroke-dashoffset:-20}}`}</style>
+        <filter id={`${uid}-gr`} x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="3" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id={`${uid}-gg`} x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="3" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id={`${uid}-gv`} x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="3" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
         <path id={`${uid}-ps`}  d={pSched}/>
         <path id={`${uid}-psh`} d={pToSheets}/>
         <path id={`${uid}-pd`}  d={pToDash}/>
         <path id={`${uid}-pw`}  d={pWebhook}/>
       </defs>
 
-      {[[`${uid}-ps`,ROSE,'0s'],[`${uid}-psh`,GR,'0.35s'],[`${uid}-pd`,VI,'0.65s']].map(([ref,stroke,delay])=>(
+      {/* Connection lines */}
+      {[
+        [`${uid}-ps`,  ROSE, '0s'],
+        [`${uid}-psh`, GR,   '0.3s'],
+        [`${uid}-pd`,  VI,   '0.6s'],
+      ].map(([ref, clr, delay]) => (
         <g key={ref}>
-          <use href={`#${ref}`} fill="none" stroke='var(--border)' strokeWidth="1.5"/>
-          <use href={`#${ref}`} fill="none" stroke={stroke} strokeWidth="1.5" strokeOpacity="0.5"
-            strokeDasharray="5 5" style={{animation:`${anim} 0.85s linear infinite`,animationDelay:delay}}/>
+          <use href={`#${ref}`} fill="none" stroke="var(--border)" strokeWidth="1.5"/>
+          <use href={`#${ref}`} fill="none" stroke={clr} strokeWidth="1.5" strokeOpacity="0.6"
+            strokeDasharray="5 5" style={{animation:`${a} 0.9s linear infinite`, animationDelay:delay}}/>
         </g>
       ))}
-      <use href={`#${uid}-pw`} fill="none" stroke={VI} strokeWidth="1.1" strokeOpacity="0.2" strokeDasharray="4 7"/>
+      <use href={`#${uid}-pw`} fill="none" stroke={VI} strokeWidth="1" strokeOpacity="0.2" strokeDasharray="3 7"/>
 
-      {[[`${uid}-ps`,ROSE,'1.1s','0s'],[`${uid}-psh`,GR,'1.3s','0.4s'],[`${uid}-pd`,VI,'1.0s','0.75s']].map(([href,fill,dur,begin])=>(
-        <circle key={href} r="3.5" fill={fill} opacity="0.8">
-          <animateMotion dur={dur} repeatCount="indefinite" begin={begin}><mpath href={`#${href}`}/></animateMotion>
+      {/* Glowing dots */}
+      {[
+        [`${uid}-ps`,  ROSE, `${uid}-gr`, '1.1s', '0s'],
+        [`${uid}-psh`, GR,   `${uid}-gg`, '1.3s', '0.35s'],
+        [`${uid}-pd`,  VI,   `${uid}-gv`, '1.0s', '0.7s'],
+      ].map(([href, clr, filt, dur, begin]) => (
+        <circle key={href} r="2.5" fill={clr} filter={`url(#${filt})`}>
+          <animateMotion dur={dur} repeatCount="indefinite" begin={begin}>
+            <mpath href={`#${href}`}/>
+          </animateMotion>
         </circle>
       ))}
 
-      <circle cx={PX}      cy={CY} r="4" fill={ROSE} opacity="0.7"/>
-      <circle cx={PR}      cy={CY} r="4" fill={GR}   opacity="0.7"/>
-      <circle cx={SHX}     cy={CY} r="4" fill={GR}   opacity="0.7"/>
-      <circle cx={SHX+SHW} cy={CY} r="4" fill={VI}   opacity="0.7"/>
-      <circle cx={DX}      cy={CY} r="4" fill={VI}   opacity="0.7"/>
+      {/* Junction dots */}
+      {[[PX,CY,ROSE],[PR,CY,GR],[SHX,CY,GR],[SHX+SHW,CY,VI],[DX,CY,VI]].map(([cx,cy,clr],i)=>(
+        <circle key={i} cx={cx} cy={cy} r="2.5" fill={clr} opacity="0.8"/>
+      ))}
 
-      {/* n8n Panel */}
-      <rect x={PX} y={PY} width={PW} height={PH} rx={11}
-        fill="var(--cream2)" stroke={ROSEB} strokeWidth="1.2" strokeDasharray="8 4"/>
-      <image href={N8N_LOGO} x={PX+12} y={PY+9} width={22} height={22}/>
-      <text x={PX+38} y={PY+24} fontSize="10" fontWeight="700" letterSpacing="2"
+      {/* Schedule */}
+      <rect x={SX} y={SY} width={SW} height={SH} rx={10}
+        fill="rgba(225,29,72,0.06)" stroke="rgba(225,29,72,0.2)" strokeWidth="1"/>
+      <text x={SX+SW/2} y={CY-7} textAnchor="middle" fontSize="15">&#x23F0;</text>
+      <text x={SX+SW/2} y={CY+8} textAnchor="middle" fontSize="10" fontWeight="600"
+        fill={ROSE} fontFamily="system-ui,sans-serif">Schedule</text>
+      <text x={SX+SW/2} y={CY+20} textAnchor="middle" fontSize="7.5"
+        fill="var(--low)" fontFamily="monospace">8h · lun-ven</text>
+
+      {/* n8n panel — clean card */}
+      <rect x={PX} y={PY} width={PW} height={PH} rx={12}
+        fill="var(--white)" stroke="var(--border)" strokeWidth="1"/>
+      {/* Header strip */}
+      <rect x={PX} y={PY} width={PW} height={PHDR} rx={12} fill="rgba(225,29,72,0.04)"/>
+      <rect x={PX} y={PY+PHDR-1} width={PW} height={1} fill="var(--border)"/>
+      <image href={N8N_LOGO} x={PX+14} y={PY+8} width={20} height={20}/>
+      <text x={PX+40} y={PY+22} fontSize="10" fontWeight="700" letterSpacing="1.5"
         fill={ROSE} fontFamily="monospace">WORKFLOW N8N</text>
-      <text x={PR-10} y={PY+24} fontSize="7.5" fill='var(--low)' fontFamily="monospace" textAnchor="end">VPS · cron 8h lun-ven</text>
-      <line x1={PX+1} y1={PY+PHDR} x2={PR-1} y2={PY+PHDR} stroke='var(--border)' strokeWidth="1"/>
+      <text x={PR-14} y={PY+22} fontSize="7.5" fill="var(--low)" fontFamily="monospace" textAnchor="end">
+        VPS · cron
+      </text>
 
       {STEPS.map((s,i)=>{
         const cy=stepCY(i), rowY=PY+PHDR+i*stepH
         return (
           <g key={i}>
-            {i>0 && <line x1={PX+8} y1={rowY} x2={PR-8} y2={rowY} stroke='var(--border)' strokeWidth="1"/>}
-            <circle cx={PX+16} cy={cy} r="4" fill={s.color} opacity="0.9"/>
+            {i>0 && <line x1={PX+1} y1={rowY} x2={PR-1} y2={rowY} stroke="var(--border)" strokeWidth="0.8"/>}
+            <circle cx={PX+18} cy={cy} r="4.5" fill={s.color} opacity="0.9"/>
             {s.logo
-              ? <image href={s.logo} x={PX+27} y={cy-10} width={20} height={20}/>
-              : <text x={PX+27} y={cy+6} fontSize="13">{s.emoji}</text>
+              ? <image href={s.logo} x={PX+30} y={cy-10} width={20} height={20}/>
+              : s.emoji && <text x={PX+30} y={cy+6} fontSize="13">{s.emoji}</text>
             }
-            <text x={PX+52} y={cy-5} fontSize="10.5" fontWeight="700" fill='var(--ink)' fontFamily="system-ui,sans-serif">{s.label}</text>
-            <text x={PX+52} y={cy+10} fontSize="8" fill='var(--low)' fontFamily="monospace">{s.detail}</text>
+            <text x={PX+56} y={cy-4} fontSize="11" fontWeight="600" fill="var(--ink)" fontFamily="system-ui,sans-serif">{s.label}</text>
+            <text x={PX+56} y={cy+10} fontSize="8.5" fill="var(--low)" fontFamily="monospace">{s.detail}</text>
           </g>
         )
       })}
 
-      {/* Schedule pill */}
-      <rect x={SX} y={SY} width={SW} height={SH} rx={10} fill="var(--white)" stroke={ROSEB} strokeWidth="1.2"/>
-      <text x={SX+SW/2} y={CY-5} textAnchor="middle" fontSize="14">⏰</text>
-      <text x={SX+SW/2} y={CY+9} textAnchor="middle" fontSize="9.5" fontWeight="700" fill='var(--ink)' fontFamily="system-ui,sans-serif">Schedule</text>
-      <text x={SX+SW/2} y={CY+21} textAnchor="middle" fontSize="7.5" fill='var(--low)' fontFamily="monospace">8h · lun-ven</text>
-
       {/* Sheets */}
-      <rect x={SHX} y={SHY} width={SHW} height={SHH} rx={10} fill="var(--white)" stroke={GRB} strokeWidth="1.2"/>
-      <image href={SHEETS_LOGO} x={SHCX-13} y={CY-28} width={26} height={26}/>
-      <text x={SHCX} y={CY+10} textAnchor="middle" fontSize="10" fontWeight="700" fill='var(--ink)' fontFamily="system-ui,sans-serif">Google Sheets</text>
-      <text x={SHCX} y={CY+24} textAnchor="middle" fontSize="7.5" fill='var(--low)' fontFamily="monospace">source of truth</text>
+      <rect x={SHX} y={SHY} width={SHW} height={SHH} rx={10}
+        fill="rgba(5,150,105,0.06)" stroke="rgba(5,150,105,0.2)" strokeWidth="1"/>
+      <image href={SHEETS_LOGO} x={SHCX-13} y={CY-26} width={26} height={26}/>
+      <text x={SHCX} y={CY+14} textAnchor="middle" fontSize="10" fontWeight="600"
+        fill="var(--ink)" fontFamily="system-ui,sans-serif">Google Sheets</text>
+      <text x={SHCX} y={CY+26} textAnchor="middle" fontSize="7.5"
+        fill="var(--low)" fontFamily="monospace">source of truth</text>
 
       {/* Dashboard */}
-      <rect x={DX} y={DY} width={DW} height={DH} rx={10} fill="var(--white)" stroke={VIB} strokeWidth="1.2"/>
-      <image href={REACT_LOGO} x={DCX-13} y={CY-28} width={26} height={26}/>
-      <text x={DCX} y={CY+10} textAnchor="middle" fontSize="10" fontWeight="700" fill='var(--ink)' fontFamily="system-ui,sans-serif">Dashboard</text>
-      <text x={DCX} y={CY+24} textAnchor="middle" fontSize="7.5" fill='var(--low)' fontFamily="monospace">GitHub Pages</text>
+      <rect x={DX} y={DY} width={DW} height={DH} rx={10}
+        fill="rgba(124,58,237,0.06)" stroke="rgba(124,58,237,0.2)" strokeWidth="1"/>
+      <image href={REACT_LOGO} x={DCX-13} y={CY-26} width={26} height={26}/>
+      <text x={DCX} y={CY+14} textAnchor="middle" fontSize="10" fontWeight="600"
+        fill="var(--ink)" fontFamily="system-ui,sans-serif">Dashboard</text>
+      <text x={DCX} y={CY+26} textAnchor="middle" fontSize="7.5"
+        fill="var(--low)" fontFamily="monospace">GitHub Pages</text>
 
-      <text x={(DCX+PX+PW/2)/2} y={H+40} textAnchor="middle" fontSize="7.5" fill='var(--low)' fontFamily="monospace" fillOpacity="0.6">
-        webhook · update statut kanban
+      <text x={(DCX+PX+PW/2)/2} y={H+42} textAnchor="middle"
+        fontSize="7.5" fill="var(--low)" fontFamily="monospace" fillOpacity="0.5">
+        webhook · kanban
       </text>
     </svg>
   )
@@ -116,14 +150,12 @@ function WorkflowSVG({ uid='a' }) {
 
 function DiagramCard({ uid, onExpand }) {
   return (
-    <div style={{background:'var(--white)',border:'1px solid var(--border)',borderRadius:14,padding:'14px 18px 20px',marginBottom:28}}>
-      <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:14}}>
-        <div style={{fontSize:8,letterSpacing:3,textTransform:'uppercase',color:'var(--lilas)',fontWeight:700,fontFamily:'monospace'}}>
-          Architecture du workflow
-        </div>
+    <div style={{background:'var(--white)',border:'1px solid var(--border)',borderRadius:12,padding:'16px 20px 20px',marginBottom:28}}>
+      <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:16}}>
+        <span style={{fontSize:9,letterSpacing:3,textTransform:'uppercase',color:'var(--lilas)',fontWeight:700,fontFamily:'monospace'}}>Architecture</span>
         {onExpand && (
-          <button onClick={onExpand} style={{fontSize:9,color:'var(--low)',background:'var(--cream2)',border:'1px solid var(--border)',borderRadius:6,padding:'3px 9px',cursor:'pointer',fontFamily:'monospace',letterSpacing:1}}>
-            agrandir
+          <button onClick={onExpand} style={{all:'unset',fontSize:11,color:'var(--low)',cursor:'pointer',fontFamily:'monospace',textDecoration:'underline',textUnderlineOffset:3}}>
+            Agrandir
           </button>
         )}
       </div>
@@ -136,24 +168,23 @@ export default function DiagramJobHunter() {
   const [expanded, setExpanded] = useState(false)
   useEffect(() => {
     if (!expanded) return
-    const fn = (e) => { if (e.key === 'Escape') setExpanded(false) }
+    const fn = e => { if (e.key==='Escape') setExpanded(false) }
     document.addEventListener('keydown', fn)
     return () => document.removeEventListener('keydown', fn)
   }, [expanded])
-
   return (
     <>
-      <DiagramCard uid="inline" onExpand={() => setExpanded(true)}/>
+      <DiagramCard uid="jh-i" onExpand={() => setExpanded(true)}/>
       {expanded && createPortal(
-        <div onClick={() => setExpanded(false)} style={{position:'fixed',inset:0,zIndex:9999,background:'rgba(0,0,0,0.4)',display:'flex',alignItems:'center',justifyContent:'center',padding:'5vw'}}>
-          <div onClick={e => e.stopPropagation()} style={{width:'100%',maxWidth:1100,background:'var(--cream)',border:'1px solid var(--border)',borderRadius:20,padding:'20px 28px 28px',boxShadow:'0 32px 80px rgba(0,0,0,0.15)'}}>
-            <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:20}}>
-              <div style={{fontSize:8,letterSpacing:3,textTransform:'uppercase',color:'var(--lilas)',fontWeight:700,fontFamily:'monospace'}}>
-                Architecture du workflow — Job Hunter
-              </div>
-              <button onClick={() => setExpanded(false)} style={{width:30,height:30,borderRadius:'50%',border:'1px solid var(--border)',background:'var(--white)',cursor:'pointer',fontSize:14,color:'var(--mid)',display:'flex',alignItems:'center',justifyContent:'center'}}>✕</button>
+        <div onClick={() => setExpanded(false)} style={{position:'fixed',inset:0,zIndex:9999,background:'rgba(0,0,0,0.4)',display:'flex',alignItems:'center',justifyContent:'center',padding:'4vw'}}>
+          <div onClick={e => e.stopPropagation()} style={{width:'100%',maxWidth:1320,background:'var(--cream)',border:'1px solid var(--border)',borderRadius:16,padding:'24px 40px 36px',boxShadow:'0 32px 80px rgba(0,0,0,0.1)'}}>
+            <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:28}}>
+              <span style={{fontSize:9,letterSpacing:3,textTransform:'uppercase',color:'var(--lilas)',fontWeight:700,fontFamily:'monospace'}}>Architecture — Job Hunter</span>
+              <button onClick={() => setExpanded(false)} style={{all:'unset',width:28,height:28,borderRadius:'50%',border:'1px solid var(--border)',background:'var(--white)',cursor:'pointer',fontSize:16,color:'var(--mid)',display:'flex',alignItems:'center',justifyContent:'center',lineHeight:1}}>
+                {'×'}
+              </button>
             </div>
-            <WorkflowSVG uid="modal"/>
+            <WorkflowSVG uid="jh-m"/>
           </div>
         </div>,
         document.body
