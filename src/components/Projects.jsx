@@ -212,7 +212,7 @@ export default function Projects({ isMobile }) {
                       <img
                         src={proj.companyLogo}
                         alt=""
-                        style={{ width: 18, height: 18, objectFit: 'contain', flexShrink: 0 }}
+                        style={{ width: 24, height: 24, objectFit: 'contain', flexShrink: 0 }}
                         onError={e => { e.target.style.display = 'none' }}
                       />
                     )}

@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { content } from '../data/content'
 import DiagramJobHunter from './DiagramJobHunter'
 import DiagramPadel from './DiagramPadel'
+import DiagramOprono from './DiagramOprono'
 
 const COLORS = {
   blue:  { text: '#2563eb', bg: 'rgba(37,99,235,0.06)',  border: 'rgba(37,99,235,0.15)'  },
@@ -87,7 +88,7 @@ export default function ProjectDrawer({ project, onClose, isMobile }) {
               color: c.text, background: c.bg, border: '1px solid ' + c.border,
             }}>
               {project.companyLogo && (
-                <img src={project.companyLogo} alt="" style={{ width: 16, height: 16, objectFit: 'contain' }}
+                <img src={project.companyLogo} alt="" style={{ width: 22, height: 22, objectFit: 'contain' }}
                   onError={e => { e.target.style.display = 'none' }}/>
               )}
               {project.category}
@@ -157,6 +158,7 @@ export default function ProjectDrawer({ project, onClose, isMobile }) {
 
           {project.title === 'Job Hunter — Veille auto' && <DiagramJobHunter />}
           {project.title === 'Padel — Classements joueurs FFT' && <DiagramPadel />}
+          {project.title === "O'PRONO" && <DiagramOprono />}
 
           {project.longDescription && (
             <div style={{ marginBottom: 28 }}>
@@ -184,7 +186,7 @@ export default function ProjectDrawer({ project, onClose, isMobile }) {
                       background: 'var(--white)', border: '1px solid var(--border)',
                       fontSize: 12, color: 'var(--mid)', fontWeight: 500,
                     }}>
-                      {logo && <img src={logo} alt="" style={{ width: 16, height: 16, objectFit: 'contain' }} onError={e => { e.target.style.display = 'none' }}/>}
+                      {logo && <img src={logo} alt="" style={{ width: 22, height: 22, objectFit: 'contain' }} onError={e => { e.target.style.display = 'none' }}/>}
                       {s}
                     </span>
                   )

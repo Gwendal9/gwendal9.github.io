@@ -248,6 +248,7 @@ Le dashboard React (GitHub Pages) lit le sheet en direct et affiche les offres e
             },
             {
                 color: 'green',
+                companyLogo: '/logos/tenup.png',
                 companyColor: '#16a34a',
                 category: 'Sport & Data',
                 title: 'Padel — Classements joueurs FFT',
@@ -274,20 +275,35 @@ Déployé avec Docker + nginx sur Render, migration prévue vers Hetzner VPS.`,
             },
             {
                 color: 'amber',
-                companyColor: '#d97706',
+                companyLogo: '/logos/oprono.png',
+                companyColor: '#6C63C7',
                 category: 'Dev mobile',
-                title: 'App Pronostics Sport',
-                description: "Application mobile de pronostics développée à deux. Une app par compétition (foot, rugby) — éphémère par nature, sans monétisation.",
-                tags: ['Mobile'],
+                title: "O'PRONO",
+                description: "App mobile de pronostics sportifs publiée sur iOS & Android. ~300 utilisateurs sans aucune pub, uniquement bouche-à-oreille. Projet en binôme : concept + frontend (moi), backend (mon ami).",
+                tags: ['React Native', 'Expo', 'TypeScript', 'Node.js', 'Express', 'Prisma', 'PostgreSQL', 'AWS', 'Azure'],
                 link: null,
                 label: 'Voir →',
-                longDescription: `Application mobile développée en binôme avec un ami, disponible sur iOS et Android.
+                longDescription: `Application mobile de pronostics sportifs développée en binôme : j'ai porté l'idée, le design et le frontend, mon ami a développé le backend.
 
-Le principe : une app par compétition (Coupe du Monde, Tournoi des 6 Nations…). Les utilisateurs posent leurs pronostics avant chaque match, l'app les score en live au fil des résultats. À la fin de la compétition, l'app est retirée — pas de version "permanente".
+Le principe : une app par compétition (Euro 2024, Coupe du Monde, Tournoi des 6 Nations…). Les utilisateurs posent leurs pronostics avant chaque match, l'app les score en live. À la fin de la compétition, l'app est retirée — éphémère par nature.
 
-Pas de monétisation, pas d'ambition commerciale. Un projet passion qui permet de jouer entre amis de façon organisée, avec classements et stats à la clé.`,
+~300 utilisateurs inscrits pour l'Euro 2024, sans aucune pub — uniquement le bouche-à-oreille auprès de nos proches.
+
+Fonctionnalités principales :
+— Créer son compte avec gestion sécurisée des mots de passe chiffrés
+— Placer et modifier ses pronostics, activer des bonus pour doubler les gains
+— Profil avec stats personnalisées, équipes favorites et classement
+— Créer une ligue privée pour défier ses amis
+
+Stack :
+— Frontend : React Native + Expo, TypeScript, Axios, Expo Router, React Navigation
+— Backend : Node.js + Express (TypeScript), Prisma ORM
+— Base de données : PostgreSQL sur AWS RDS
+— Hébergement backend : Azure App Service
+— APIs externes : Soccer API + Sportradar Football API, sync automatique chaque nuit
+— Local : Docker (BDD), VS Code, Expo pour tester sur téléphone`,
                 context: 'Projet personnel — 2024/2025',
-                stack: ['Mobile'],
+                stack: ['React Native', 'Expo', 'TypeScript', 'Node.js', 'Express', 'Prisma', 'PostgreSQL', 'AWS RDS', 'Azure', 'Docker'],
                 github: null,
                 demo: null,
                 screenshot: null,
@@ -425,5 +441,14 @@ Pas de monétisation, pas d'ambition commerciale. Un projet passion qui permet d
         'Scraping': null,
         'Mobile': null,
         'Dev': null,
+        'React Native': 'https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg',
+        'Expo': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/expo/expo-original.svg',
+        'TypeScript': 'https://upload.wikimedia.org/wikipedia/commons/4/4c/Typescript_logo_2020.svg',
+        'Node.js': 'https://upload.wikimedia.org/wikipedia/commons/d/d9/Node.js_logo.svg',
+        'Express': 'https://upload.wikimedia.org/wikipedia/commons/6/64/Expressjs.png',
+        'Prisma': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prisma/prisma-original.svg',
+        'PostgreSQL': 'https://upload.wikimedia.org/wikipedia/commons/2/29/Postgresql_elephant.svg',
+        'AWS RDS': 'https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg',
+        'Azure': 'https://upload.wikimedia.org/wikipedia/commons/a/a8/Microsoft_Azure_Logo.svg',
     }
 }
