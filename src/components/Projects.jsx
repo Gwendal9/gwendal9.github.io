@@ -48,7 +48,13 @@ function ToolTag({ name, onPyEnter, onPyLeave }) {
       onMouseEnter={isPython ? onPyEnter : undefined}
       onMouseLeave={isPython ? onPyLeave : undefined}
     >
-      {logo && <img src={logo} alt={name} style={{ width: 16, height: 16, objectFit: 'contain', flexShrink: 0 }} onError={e => { e.target.style.display = 'none' }} />}
+      {logo && <img src={logo} alt={name} style={{ width: 16, height: 16, objectFit: 'contain', flexShrink: 0 }}
+        onError={e => {
+          e.target.style.display = 'none'
+          const fb = e.target.nextSibling
+          if (fb && fb.classList?.contains('logo-fb')) fb.style.display = 'inline'
+        }} />}
+      {logo && <span className="logo-fb" style={{ display: 'none', fontSize: 9, fontWeight: 700, color: 'var(--lilas)', background: 'var(--lilas-d)', borderRadius: 3, padding: '1px 3px', flexShrink: 0 }}>{name.slice(0,2).toUpperCase()}</span>}
       {name}
       {isPython && content.pythonLibs?.length > 0 && (
         <span style={{ fontSize: 9, color: 'var(--lilas)', fontWeight: 700, marginLeft: 2 }}>
@@ -150,6 +156,18 @@ export default function Projects({ isMobile }) {
   const [pyTooltip, setPyTooltip] = useState(null)
   const projects = content.projects[tab]
 
+  // Préchargement de tous les logos dès le mount
+  useEffect(() => {
+    const urls = new Set()
+    // Logos des outils
+    Object.values(content.toolLogos || {}).forEach(u => u && urls.add(u))
+    // Logos des sociétés dans les projets
+    ;[...( content.projects.pro || []), ...(content.projects.perso || [])].forEach(p => {
+      if (p.companyLogo) urls.add(p.companyLogo)
+    })
+    urls.forEach(url => { const img = new window.Image(); img.src = url })
+  }, [])
+
   useEffect(() => {
     setTimeout(() => { const el = document.getElementById('proj-eyebrow'); if (el) { el.style.opacity = '1'; el.style.transform = 'translateY(0)' } }, 100)
     setTimeout(() => { const el = document.getElementById('proj-title'); if (el) { el.style.opacity = '1'; el.style.transform = 'translateY(0)' } }, 250)
@@ -188,12 +206,45 @@ export default function Projects({ isMobile }) {
             <em style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 300, color: 'var(--lilas)' }}>projets</em>
           </h2>
 
-          <div style={{ display: 'flex', gap: 8, marginBottom: isMobile ? 16 : 0, borderBottom: '1px solid var(--border)' }}>
-            {[{ key: 'pro', label: 'Projets pro' }, { key: 'perso', label: 'Projets perso' }].map(t => (
-              <button key={t.key} onClick={() => setTab(t.key)} style={{ padding: '8px 20px', background: 'transparent', border: 'none', fontSize: 13, fontWeight: tab === t.key ? 700 : 500, color: tab === t.key ? 'var(--lilas)' : 'var(--low)', borderBottom: tab === t.key ? '2px solid var(--lilas)' : '2px solid transparent', cursor: 'pointer', marginBottom: '-1px', transition: 'all 0.2s', fontFamily: 'inherit' }}>
-                {t.label}
-              </button>
-            ))}
+          <div style={{ display: 'flex', gap: 0, marginBottom: isMobile ? 20 : 28, borderBottom: '1px solid var(--border)', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', gap: 0 }}>
+              {[{ key: 'pro', label: 'Projets pro' }, { key: 'perso', label: 'Projets perso' }].map(t => {
+                const count = content.projects[t.key]?.length || 0
+                const active = tab === t.key
+                return (
+                  <button key={t.key} onClick={() => setTab(t.key)} style={{
+                    padding: '10px 20px',
+                    background: 'transparent',
+                    border: 'none',
+                    fontSize: 13,
+                    fontWeight: active ? 700 : 400,
+                    color: active ? 'var(--ink)' : 'var(--mid)',
+                    borderBottom: active ? '2px solid var(--lilas)' : '2px solid transparent',
+                    cursor: 'pointer',
+                    marginBottom: '-1px',
+                    transition: 'all 0.2s',
+                    fontFamily: 'inherit',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 7,
+                  }}>
+                    {t.label}
+                    <span style={{
+                      fontSize: 10,
+                      fontWeight: 600,
+                      background: active ? 'var(--lilas)' : 'var(--cream2)',
+                      color: active ? '#fff' : 'var(--low)',
+                      borderRadius: 99,
+                      padding: '1px 6px',
+                      transition: 'all 0.2s',
+                      minWidth: 18,
+                      textAlign: 'center',
+                    }}>{count}</span>
+                  </button>
+                )
+              })}
+            </div>
+            <span style={{ fontSize: 11, color: 'var(--low)', paddingRight: 4, opacity: 0.6, letterSpacing: 0.3 }}>⇄ basculer</span>
           </div>
 
           {!isMobile && <ToolsMarquee />}
@@ -203,9 +254,9 @@ export default function Projects({ isMobile }) {
               const c = getColors(proj)
               return (
                 <div key={i} id={'proj-card-' + i} onClick={() => setSelected(proj)}
-                  style={{ background: 'var(--white)', border: '1px solid var(--border)', borderRadius: 12, padding: 20, opacity: 0, transform: 'translateY(16px)', transition: 'opacity 0.4s, transform 0.4s, border-color 0.2s, box-shadow 0.2s', cursor: 'pointer', display: 'flex', flexDirection: 'column' }}
-                  onMouseEnter={e => { e.currentTarget.style.borderColor = c.border; e.currentTarget.style.boxShadow = '0 4px 24px ' + c.bg; e.currentTarget.style.transform = 'translateY(-2px)' }}
-                  onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.transform = 'translateY(0)' }}
+                  style={{ background: 'var(--white)', border: '1px solid var(--border)', borderRadius: 12, padding: 20, paddingBottom: 40, opacity: 0, transform: 'translateY(16px)', transition: 'opacity 0.4s, transform 0.4s, border-color 0.2s, box-shadow 0.2s', cursor: 'pointer', display: 'flex', flexDirection: 'column', position: 'relative' }}
+                  onMouseEnter={e => { e.currentTarget.style.borderColor = c.border; e.currentTarget.style.boxShadow = '0 4px 24px ' + c.bg; e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.querySelector('.card-arrow').style.opacity = '1' }}
+                  onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.querySelector('.card-arrow').style.opacity = '0.35' }}
                 >
                   <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '4px 10px', borderRadius: 100, fontSize: 11, fontWeight: 600, marginBottom: 12, color: c.text, background: c.bg, border: '1px solid ' + c.border }}>
                     {proj.companyLogo && (
@@ -232,6 +283,12 @@ export default function Projects({ isMobile }) {
                         onPyLeave={() => setPyTooltip(null)}
                       />
                     ))}
+                  </div>
+                  {/* Chevron toujours en bas à droite */}
+                  <div className="card-arrow" style={{ position: 'absolute', bottom: 14, right: 16, opacity: 0.35, transition: 'opacity 0.2s', color: 'var(--lilas)' }}>
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
                   </div>
                 </div>
               )

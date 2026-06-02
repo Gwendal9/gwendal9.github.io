@@ -42,12 +42,12 @@ export default function About({ isMobile }) {
   const { formation, hobbies, hero } = content
 
   useEffect(() => {
-    const ids = ['about-eyebrow', 'about-title', 'about-desc', 'about-form-title', 'about-hobbies-title']
+    const ids = ['about-eyebrow', 'about-title', 'about-form-title', 'about-hobbies-title']
     ids.forEach((id, i) => {
       setTimeout(() => {
         const el = document.getElementById(id)
         if (el) { el.style.opacity = '1'; el.style.transform = 'translateY(0)' }
-      }, 100 + i * 120)
+      }, 100 + i * 140)
     })
     formation.forEach((_, i) => {
       setTimeout(() => {
@@ -87,19 +87,36 @@ export default function About({ isMobile }) {
           <em style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 300, color: 'var(--lilas)' }}>suis-je ?</em>
         </h2>
 
-        <div id="about-desc" style={{ ...fadeStyle, marginBottom: 40 }}>
+        <div id="about-desc" style={{ marginBottom: 40 }}>
           {(hero.aboutParagraphs || []).map((para, i) => (
-            <p key={i} style={{
-              fontSize: isMobile ? 14 : 16,
-              color: 'var(--low)',
-              lineHeight: 1.85,
-              margin: 0,
-              marginBottom: i < (hero.aboutParagraphs.length - 1) ? 20 : 0,
-              paddingLeft: 16,
-              borderLeft: i === 0 ? '2px solid var(--lilas)' : '2px solid var(--border)',
-            }}>
-              {para}
-            </p>
+            <div
+              key={i}
+              style={{ display: 'flex', gap: 16, marginBottom: i < (hero.aboutParagraphs.length - 1) ? 22 : 0 }}
+              onMouseEnter={e => {
+                const bar = e.currentTarget.querySelector('.para-bar')
+                if (bar) { bar.style.background = 'var(--lilas)'; bar.style.opacity = '1' }
+              }}
+              onMouseLeave={e => {
+                const bar = e.currentTarget.querySelector('.para-bar')
+                if (bar) { bar.style.background = 'var(--border)'; bar.style.opacity = '1' }
+              }}
+            >
+              <div className="para-bar" style={{
+                width: 2, flexShrink: 0,
+                background: 'var(--border)',
+                borderRadius: 2,
+                alignSelf: 'stretch',
+                transition: 'background 0.3s',
+              }} />
+              <p style={{
+                fontSize: isMobile ? 14 : 16,
+                color: 'var(--low)',
+                lineHeight: 1.85,
+                margin: 0,
+              }}>
+                {para}
+              </p>
+            </div>
           ))}
         </div>
 

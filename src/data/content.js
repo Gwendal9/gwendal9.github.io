@@ -5,7 +5,7 @@ export const content = {
         lastName: "Rolland",
         status: "Disponible · Paris",
         roles: ["Data Analyst", "Ingénieur IA & Big Data"],
-        description: "Conception et optimisation de pipelines data. Modélisation statistique, machine learning, dashboards, automatisation. Architecture de données, développement SQL/Python.",
+        description: "Je transforme des données brutes en décisions concrètes — pipelines automatisés, dashboards métier, modèles ML. Du besoin utilisateur au déploiement.",
         aboutParagraphs: [
             "J'ai grandi avec les maths, pas pour les formules en elles-mêmes, mais pour la logique qu'elles imposent. Au moment de choisir une orientation, la data et l'IA émergeaient à peine, et c'est exactement ce qui m'a attiré : un domaine en construction, où tout restait à inventer.",
             "Depuis, j'ai travaillé sur des sujets très différents : des dashboards métier à l'URSSAF, de la computer vision chez Skalup, et aujourd'hui l'industrialisation de processus chez Orange. Ce qui revient à chaque fois, c'est de prendre le temps de comprendre le vrai besoin avant de toucher au code.",
@@ -28,8 +28,6 @@ export const content = {
         "Modèles statistiques",
         "Impact métier",
         "Communication",
-        "Rapidité d'exécution",
-        "Rigueur + pragmatisme",
     ],
 
     experience: [
@@ -41,12 +39,13 @@ export const content = {
             companyColor: '#FF6600',
             badge: "CDD",
             current: true,
-            description: "Modernisation des données Qlik vers GCP pour Power BI. Industrialisation d'un système automatisé de contrôle de facturation sur un portefeuille de 40M€. Dashboard sur les processus de reconditionnement (8M produits). Mise en place d'une solution pour le reporting des activités de l'équipe + dashboard pour la direction",
+            description: "Industrialisation du contrôle de facturation (40M€) : de fichiers Excel manuels à un pipeline Power BI reproductible, en collaboration avec les métiers et les fournisseurs. Dashboard sur les processus de reconditionnement (8M produits). Reporting équipe + dashboard direction.",
             logos: [
                 { name: 'Power BI', img: 'https://upload.wikimedia.org/wikipedia/commons/c/cf/New_Power_BI_Logo.svg' },
                 { name: 'Python', img: 'https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg' },
                 { name: 'Excel', img: 'https://upload.wikimedia.org/wikipedia/commons/6/60/Microsoft_Office_Excel_%282025%E2%80%93present%29.svg?uselang=fr' },
                 { name: 'HTML', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg' },
+                { name: 'Claude', img: 'https://upload.wikimedia.org/wikipedia/commons/b/b0/Claude_AI_symbol.svg' },
             ],
         },
         {
@@ -129,15 +128,15 @@ export const content = {
                 companyLogo: 'https://upload.wikimedia.org/wikipedia/commons/c/c8/Orange_logo.svg',
                 companyColor: '#FF6600',
                 title: 'Modernisation contrôle facturation',
-                description: 'Adapter et industrialiser les sources de données pour moderniser le suivi de la facturation du refurbish de terminaux. SQL, Power BI, collaboration métiers.',
-                tags: ['Power BI', 'DAX', 'Power Query', 'GCP', 'SAP', 'BigQuery'],
+                description: 'Industrialisation du contrôle de facturation : de fichiers Excel manuels à un pipeline Power BI reproductible, en collaboration avec les métiers et les fournisseurs.',
+                tags: ['Power BI', 'DAX', 'Power Query', 'Excel', 'Power Query'],
                 link: null,
                 label: 'Voir →',
-                longDescription: `Contexte : Supply Chain devait moderniser le suivi de la facturation sur le recyclage des terminaux. Les sources de données provenaient de systèmes disparates (SAP, fichiers métier...) et n'étaient pas industrialisables.
-Approche : Collaboration avec les métiers et fournisseurs pour identifier les sources et les adapter. Extraction via SQL/DBeaver, transformation des données, modélisation dans Power BI (Excel, DAX, Power Query) en fonction des besoins des décideurs.
-Résultat : Pipeline de données stabilisé et reproductible. Dashboard temps réel sur les reconditionnements et la facturation.`,
+                longDescription: `Contexte : Le contrôle de facturation du recyclage de terminaux (40M€) reposait entièrement sur des fichiers Excel maintenus à la main — un par fournisseur, sans format commun, sans automatisation.
+Approche : Échanges avec les équipes métier pour comprendre leurs besoins de suivi, et avec les fournisseurs pour standardiser le format des données transmises. Transformation et modélisation dans Power BI (Power Query, DAX) en fonction des besoins des décideurs.
+Résultat : Pipeline reproductible et automatisé. Dashboard temps réel sur les reconditionnements et la facturation, utilisé par l'équipe de contrôle.`,
                 context: 'Orange France — Supply Chain — 2025/2026',
-                stack: ['Power BI', 'DAX', 'Power Query', 'GCP', 'SAP', 'BigQuery'],
+                stack: ['Power BI', 'DAX', 'Power Query', 'Excel'],
                 github: null,
                 demo: null,
                 screenshot: null,

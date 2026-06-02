@@ -6,6 +6,7 @@ import Projects from './components/Projects'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import CV from './components/CV'
+// Stack retiré du nav — import supprimé
 
 
 // Icones SVG propres
@@ -34,13 +35,6 @@ const ICONS = {
       <rect x="14" y="3" width="7" height="7" rx="1" />
       <rect x="3" y="14" width="7" height="7" rx="1" />
       <rect x="14" y="14" width="7" height="7" rx="1" />
-    </svg>
-  ),
-  stack: (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M12 2L2 7l10 5 10-5-10-5z" />
-      <path d="M2 17l10 5 10-5" />
-      <path d="M2 12l10 5 10-5" />
     </svg>
   ),
   contact: (
@@ -102,7 +96,7 @@ export default function App() {
     setTimeout(() => {
       setDisplayed(id)
       setFading(false)
-    }, 160)
+    }, 220)
   }
 
   useEffect(() => {
@@ -328,7 +322,7 @@ export default function App() {
         paddingBottom: isMobile ? 64 : 0,
         overflowX: 'hidden',
       }}>
-        <div style={{ flex: 1, overflow: 'hidden', position: 'relative', opacity: fading ? 0 : 1, transition: 'opacity 0.16s ease' }}>
+        <div style={{ flex: 1, overflow: 'hidden', position: 'relative', opacity: fading ? 0 : 1, transform: fading ? 'translateY(8px)' : 'translateY(0)', transition: 'opacity 0.22s ease, transform 0.22s ease' }}>
           {displayed === 'hero' && <Hero onNavigate={navigate} isMobile={isMobile} />}
           {displayed === 'about' && <About isMobile={isMobile} />}
           {displayed === 'experience' && <Experience isMobile={isMobile} />}

@@ -43,8 +43,19 @@ export default function Particles() {
     }
     draw()
 
+    // Pause quand l'onglet passe en arrière-plan
+    const onVisibility = () => {
+      if (document.hidden) {
+        cancelAnimationFrame(raf)
+      } else {
+        draw()
+      }
+    }
+    document.addEventListener('visibilitychange', onVisibility)
+
     return () => {
       window.removeEventListener('resize', resize)
+      document.removeEventListener('visibilitychange', onVisibility)
       cancelAnimationFrame(raf)
     }
   }, [])

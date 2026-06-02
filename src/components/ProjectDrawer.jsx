@@ -188,12 +188,39 @@ export default function ProjectDrawer({ project, onClose, isMobile }) {
                       background: 'var(--white)', border: '1px solid var(--border)',
                       fontSize: 12, color: 'var(--mid)', fontWeight: 500,
                     }}>
-                      {logo && <img src={logo} alt="" style={{ width: 22, height: 22, objectFit: 'contain' }} onError={e => { e.target.style.display = 'none' }}/>}
+                      {logo && <img src={logo} alt="" style={{ width: 22, height: 22, objectFit: 'contain' }}
+                        onError={e => { e.target.style.display = 'none'; const fb = e.target.nextSibling; if (fb?.classList?.contains('logo-fb')) fb.style.display = 'inline' }}/>}
+                      {logo && <span className="logo-fb" style={{ display: 'none', fontSize: 9, fontWeight: 700, color: 'var(--lilas)', background: 'var(--lilas-d)', borderRadius: 3, padding: '1px 4px' }}>{s.slice(0,2).toUpperCase()}</span>}
                       {s}
                     </span>
                   )
                 })}
               </div>
+
+              {/* Librairies Python si Python est dans la stack */}
+              {project.stack.includes('Python') && content.pythonLibs?.length > 0 && (
+                <div style={{ marginTop: 14 }}>
+                  <div style={{ fontSize: 10, letterSpacing: 2, color: 'var(--low)', fontWeight: 600, marginBottom: 8, display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="" style={{ width: 12, height: 12, objectFit: 'contain' }}/>
+                    LIBRAIRIES PYTHON
+                  </div>
+                  <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+                    {content.pythonLibs.map((lib, i) => (
+                      <span key={i} style={{
+                        display: 'inline-flex', alignItems: 'center', gap: 5,
+                        padding: '4px 10px', borderRadius: 5,
+                        background: 'var(--lilas-d)', border: '1px solid var(--lilas-b)',
+                        fontSize: 11, color: 'var(--lilas)', fontWeight: 500,
+                      }}>
+                        {lib.img && <img src={lib.img} alt="" style={{ width: 14, height: 14, objectFit: 'contain' }}
+                          onError={e => { e.target.style.display = 'none'; const fb = e.target.nextSibling; if (fb?.classList?.contains('logo-fb')) fb.style.display = 'inline' }}/>}
+                        {lib.img && <span className="logo-fb" style={{ display: 'none', fontSize: 8, fontWeight: 700, color: 'var(--lilas)', background: 'var(--lilas-d)', borderRadius: 3, padding: '1px 3px' }}>{lib.name.slice(0,2).toUpperCase()}</span>}
+                        {lib.name}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           )}
 

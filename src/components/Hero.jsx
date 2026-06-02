@@ -198,7 +198,7 @@ export default function Hero({ onNavigate, isMobile }) {
             textDecoration: 'none', display: 'inline-block',
           }}
         >
-          Telecharger CV
+          Télécharger le CV
         </a>
         <button
           onClick={() => onNavigate('projets')}
@@ -207,7 +207,10 @@ export default function Hero({ onNavigate, isMobile }) {
             background: 'var(--white)', border: '1px solid var(--border)',
             color: 'var(--low)', fontSize: '13px', borderRadius: '8px',
             cursor: 'pointer', fontFamily: 'inherit',
+            transition: 'border-color 0.2s, color 0.2s, background 0.2s',
           }}
+          onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--lilas-b)'; e.currentTarget.style.color = 'var(--lilas)'; e.currentTarget.style.background = 'var(--lilas-d)' }}
+          onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.color = 'var(--low)'; e.currentTarget.style.background = 'var(--white)' }}
         >
           Voir les projets
         </button>
