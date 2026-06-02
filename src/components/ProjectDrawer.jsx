@@ -3,6 +3,7 @@ import { content } from '../data/content'
 import DiagramJobHunter from './DiagramJobHunter'
 import DiagramPadel from './DiagramPadel'
 import DiagramOprono from './DiagramOprono'
+import DiagramOrangeBilling from './DiagramOrangeBilling'
 
 const COLORS = {
   blue:  { text: '#2563eb', bg: 'rgba(37,99,235,0.06)',  border: 'rgba(37,99,235,0.15)'  },
@@ -159,6 +160,7 @@ export default function ProjectDrawer({ project, onClose, isMobile }) {
           {project.title === 'Job Hunter — Veille auto' && <DiagramJobHunter />}
           {project.title === 'Padel — Classements joueurs FFT' && <DiagramPadel />}
           {project.title === "O'PRONO" && <DiagramOprono />}
+          {project.title === 'Modernisation contrôle facturation' && <DiagramOrangeBilling />}
 
           {project.longDescription && (
             <div style={{ marginBottom: 28 }}>

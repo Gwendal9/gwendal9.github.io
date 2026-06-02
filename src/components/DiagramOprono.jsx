@@ -5,164 +5,212 @@ const RN   = 'https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg
 const NODE = 'https://upload.wikimedia.org/wikipedia/commons/d/d9/Node.js_logo.svg'
 const PG   = 'https://upload.wikimedia.org/wikipedia/commons/2/29/Postgresql_elephant.svg'
 const AZ   = 'https://upload.wikimedia.org/wikipedia/commons/a/a8/Microsoft_Azure_Logo.svg'
-const AWS  = 'https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg'
 
-// Détecte le dark mode de l'app via CSS variable
-function useDark() {
-  const [dark, setDark] = useState(false)
-  useEffect(() => {
-    const check = () => {
-      const v = getComputedStyle(document.documentElement).getPropertyValue('--cream').trim()
-      setDark(v === '#111113')
-    }
-    check()
-    const obs = new MutationObserver(check)
-    obs.observe(document.documentElement, { attributes: true, attributeFilter: ['style'] })
-    return () => obs.disconnect()
-  }, [])
-  return dark
-}
+// ─────────────────────────────────────────────────────────────
+// Layout  viewBox="0 0 1000 256"   Flux Y=86
+//
+//  User avatar  : cx=68  r=22  → conn-right=93
+//  S1 gap       : 96 → 180   (84px)
+//  RN pill      : x=180  w=194  h=80  cx=277  → right=374
+//  S2 gap       : 377 → 447  (70px)
+//  Node pill    : x=447  w=214  h=100  cx=554  → right=661
+//  S3 gap       : 664 → 736  (72px)
+//  PG pill      : x=736  w=210  h=80  cx=841  → right=946
+//
+//  API sep y=158  cards y=170 h=56
+//  Symmetric ±100 around Node cx=554
+//    Soccer cx=454  x=364 w=180
+//    Sprtadr cx=654  x=564 w=180
+// ─────────────────────────────────────────────────────────────
 
-// ─────────────────────────────────────────────
-// SVG — s'adapte light / dark
-// ─────────────────────────────────────────────
-function DiagramSVG({ uid, dark = false }) {
-  const d   = `${uid}d`
-  const CY  = '4.5s'
-  const k   = (t) => (t / 4.5).toFixed(4)
+const FY = 86
+const CY = '4.5s'
+const k  = t => (t / 4.5).toFixed(4)
 
-  const track   = dark ? '#1f2937' : '#f1f5f9'
-  const pillBg  = dark ? '#1f2937' : '#ffffff'
-  const ink     = dark ? '#f9fafb' : '#111827'
-  const low     = dark ? '#6b7280' : '#9ca3af'
-  const nodeU   = dark ? '#1e1b2e' : '#eef2ff'
-  const nodeFE  = dark ? '#1e1b2e' : '#f5f3ff'
-  const nodeBE  = dark ? '#1a1428' : '#f5f0ff'
-  const nodeDB  = dark ? '#0f1f18' : '#f0fdf4'
-  const borU    = dark ? '#3730a3' : '#c7d2fe'
-  const borFE   = dark ? '#4c1d95' : '#ddd6fe'
-  const borBE   = dark ? '#5b21b6' : '#ddd6fe'
-  const borDB   = dark ? '#065f46' : '#bbf7d0'
-  const sep     = dark ? '#374151' : '#e5e7eb'
-  const apiCard = dark ? '#1c1a10' : '#fffbeb'
-  const apiBor  = dark ? '#92400e' : '#fde68a'
-  const avatarC = dark ? '#818cf8' : '#818cf8'
+function DiagramSVG({ uid }) {
+  const f = `${uid}f`
 
   return (
-    <svg viewBox="0 0 920 222" width="100%"
-      style={{ display: 'block', overflow: 'visible', borderRadius: dark ? 12 : 0,
-               background: dark ? '#111827' : 'transparent' }}>
+    <svg viewBox="0 0 1000 256" width="100%"
+      style={{ display: 'block', overflow: 'visible' }}>
       <defs>
-        <style>{`@keyframes ${d}{to{stroke-dashoffset:-20}} .${d}{animation:${d} 1s linear infinite}`}</style>
-        <marker id={`${uid}ar`} markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
-          <path d="M0,1 L7,4 L0,7 Z" fill={dark ? '#818cf8' : '#c7d2fe'}/>
+        <style>{`
+          @keyframes ${f} { to { stroke-dashoffset: -20; } }
+          .${f}s { animation: ${f} 2.4s linear infinite; }
+          .${f}m { animation: ${f} 1.7s linear infinite; }
+          .${f}a { animation: ${f} 2.8s linear infinite; }
+        `}</style>
+        <marker id={`${uid}ap`} markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+          <path d="M0,1 L5,3 L0,5 Z" fill="var(--lilas)" opacity="0.5"/>
         </marker>
-        <marker id={`${uid}ay`} markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
-          <path d="M0,0.5 L6,3.5 L0,6.5 Z" fill="#fbbf24"/>
+        <marker id={`${uid}ag`} markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+          <path d="M0,1 L5,3 L0,5 Z" fill="#059669" opacity="0.5"/>
         </marker>
       </defs>
 
-      {/* Piste */}
-      <line x1="14" y1="84" x2="906" y2="84" stroke={track} strokeWidth="22" strokeLinecap="round"/>
+      {/* ── Section labels ── */}
+      <text x="26"  y="24" fontSize="8" fontWeight="700" letterSpacing="2"
+        fill="var(--lilas)" fontFamily="monospace" opacity="0.5">CLIENT</text>
+      <text x="447" y="24" fontSize="8" fontWeight="700" letterSpacing="2"
+        fill="var(--lilas)" fontFamily="monospace" opacity="0.5">SERVICES</text>
+      <text x="736" y="24" fontSize="8" fontWeight="700" letterSpacing="2"
+        fill="#059669" fontFamily="monospace" opacity="0.5">STOCKAGE</text>
 
-      {/* Segments fléchés */}
-      <line x1="110" y1="84" x2="220" y2="84" stroke="#c7d2fe" strokeWidth="1.5" strokeDasharray="6 5" className={d} markerEnd={`url(#${uid}ar)`}/>
-      <line x1="332" y1="84" x2="462" y2="84" stroke="#c4b5fd" strokeWidth="1.5" strokeDasharray="6 5" className={d} markerEnd={`url(#${uid}ar)`}/>
-      <line x1="574" y1="84" x2="714" y2="84" stroke="#a7f3d0" strokeWidth="1.5" strokeDasharray="6 5" className={d} markerEnd={`url(#${uid}ar)`}/>
+      {/* ══ CONNEXIONS ══ */}
 
-      {/* Pills protocoles */}
-      <rect x="137" y="63" width="44" height="15" rx="7.5" fill={pillBg} stroke="#c7d2fe" strokeWidth="1"/>
-      <text x="159" y="74" textAnchor="middle" fontSize="7.5" fill="#818cf8" fontFamily="monospace" fontWeight="600">HTTP</text>
-      <rect x="368" y="63" width="82" height="15" rx="7.5" fill={pillBg} stroke="#c4b5fd" strokeWidth="1"/>
-      <text x="409" y="74" textAnchor="middle" fontSize="7.5" fill="#a78bfa" fontFamily="monospace" fontWeight="600">JWT · Prisma</text>
-      <rect x="622" y="63" width="36" height="15" rx="7.5" fill={pillBg} stroke="#a7f3d0" strokeWidth="1"/>
-      <text x="640" y="74" textAnchor="middle" fontSize="7.5" fill="#34d399" fontFamily="monospace" fontWeight="600">SQL</text>
+      {/* S1 : User → RN   96→180 */}
+      <line x1="96" y1={FY} x2="180" y2={FY}
+        stroke="var(--lilas)" strokeWidth="1" strokeOpacity="0.35"
+        strokeDasharray="5 5" className={`${f}s`} markerEnd={`url(#${uid}ap)`}/>
+      <circle cx="96"  cy={FY} r="2.5" fill="var(--lilas)" opacity="0.4"/>
+      <circle cx="180" cy={FY} r="2.5" fill="var(--lilas)" opacity="0.4"/>
+      <text x="138" y={FY - 8} textAnchor="middle" fontSize="7"
+        fill="var(--lilas)" fontFamily="monospace" opacity="0.45">HTTP</text>
 
-      {/* Boule 1 — S1 : 0→1s */}
-      <circle r="5.5" fill="#6C63C7">
+      {/* S2 : RN → Node   377→447 */}
+      <line x1="377" y1={FY} x2="447" y2={FY}
+        stroke="var(--lilas)" strokeWidth="1.5" strokeOpacity="0.45"
+        strokeDasharray="6 4" className={`${f}m`} markerEnd={`url(#${uid}ap)`}/>
+      <circle cx="377" cy={FY} r="2.5" fill="var(--lilas)" opacity="0.5"/>
+      <circle cx="447" cy={FY} r="2.5" fill="var(--lilas)" opacity="0.5"/>
+      <text x="412" y={FY - 8} textAnchor="middle" fontSize="7"
+        fill="var(--lilas)" fontFamily="monospace" opacity="0.45">JWT · Prisma</text>
+
+      {/* S3 : Node → PG   664→736 */}
+      <line x1="664" y1={FY} x2="736" y2={FY}
+        stroke="#059669" strokeWidth="1.5" strokeOpacity="0.45"
+        strokeDasharray="6 4" className={`${f}m`} markerEnd={`url(#${uid}ag)`}/>
+      <circle cx="664" cy={FY} r="2.5" fill="#059669" opacity="0.5"/>
+      <circle cx="736" cy={FY} r="2.5" fill="#059669" opacity="0.5"/>
+      <text x="700" y={FY - 8} textAnchor="middle" fontSize="7"
+        fill="#059669" fontFamily="monospace" opacity="0.45">SQL</text>
+
+      {/* ── Dots voyageurs (démarrent opacity=0) ── */}
+      <circle r="4" fill="var(--lilas)" opacity="0">
         <animateMotion dur={CY} repeatCount="indefinite" calcMode="linear"
-          keyPoints="0;1;1;1" keyTimes={`0;${k(1)};${k(1)};1`} path="M110,84 L220,84"/>
+          keyPoints="0;1;1;1" keyTimes={`0;${k(1)};${k(1)};1`} path={`M96,${FY} L180,${FY}`}/>
         <animate attributeName="opacity" dur={CY} repeatCount="indefinite"
-          values="1;1;0;0" keyTimes={`0;${k(1)};${k(1.02)};1`}/>
+          values="0;0.8;0.8;0;0" keyTimes={`0;${k(0.02)};${k(1)};${k(1.02)};1`}/>
       </circle>
-      {/* Boule 2 — S2 : 1.5→2.5s */}
-      <circle r="5.5" fill="#7c3aed">
+      <circle r="4" fill="var(--lilas)" opacity="0">
         <animateMotion dur={CY} repeatCount="indefinite" calcMode="linear"
-          keyPoints="0;0;1;1;1" keyTimes={`0;${k(1.5)};${k(2.5)};${k(2.5)};1`} path="M332,84 L462,84"/>
+          keyPoints="0;0;1;1;1" keyTimes={`0;${k(1.5)};${k(2.5)};${k(2.5)};1`} path={`M377,${FY} L447,${FY}`}/>
         <animate attributeName="opacity" dur={CY} repeatCount="indefinite"
-          values="0;0;1;1;0;0" keyTimes={`0;${k(1.48)};${k(1.5)};${k(2.5)};${k(2.52)};1`}/>
+          values="0;0;0.8;0.8;0;0" keyTimes={`0;${k(1.48)};${k(1.5)};${k(2.5)};${k(2.52)};1`}/>
       </circle>
-      {/* Boule 3 — S3 : 3→4s */}
-      <circle r="5.5" fill="#059669">
+      <circle r="4" fill="#059669" opacity="0">
         <animateMotion dur={CY} repeatCount="indefinite" calcMode="linear"
-          keyPoints="0;0;1;1;1" keyTimes={`0;${k(3)};${k(4)};${k(4)};1`} path="M574,84 L714,84"/>
+          keyPoints="0;0;1;1;1" keyTimes={`0;${k(3)};${k(4)};${k(4)};1`} path={`M664,${FY} L736,${FY}`}/>
         <animate attributeName="opacity" dur={CY} repeatCount="indefinite"
-          values="0;0;1;1;0;0" keyTimes={`0;${k(2.98)};${k(3)};${k(4)};${k(4.02)};1`}/>
+          values="0;0;0.8;0.8;0;0" keyTimes={`0;${k(2.98)};${k(3)};${k(4)};${k(4.02)};1`}/>
       </circle>
 
-      {/* Nœud Utilisateur */}
-      <rect x="14" y="32" width="96" height="104" rx="18" fill={nodeU} stroke={borU} strokeWidth="1.5"/>
-      <circle cx="62" cy="68" r="28" fill={dark ? '#1e1b2e' : '#fff'} stroke={borU} strokeWidth="1"/>
-      <circle cx="62" cy="60" r="11" fill={avatarC}/>
-      <path d="M40,82 Q40,70 62,70 Q84,70 84,82" fill={avatarC}/>
-      <text x="62" y="112" textAnchor="middle" fontSize="10" fontWeight="700" fill={ink}>Utilisateur</text>
-      <text x="62" y="126" textAnchor="middle" fontSize="8" fill={low}>iOS · Android</text>
+      {/* ══ NŒUD 1 — Utilisateur (sans cadre, cx=68 cy=68) ══ */}
+      <circle cx="68" cy="66" r="22" fill="none" stroke="var(--border)" strokeWidth="1.5"/>
+      <circle cx="68" cy="59" r="9"  fill="var(--lilas)" opacity="0.7"/>
+      <path d="M50,80 Q50,71 68,71 Q86,71 86,80" fill="var(--lilas)" opacity="0.7"/>
+      <text x="68" y="107" textAnchor="middle" fontSize="10.5" fontWeight="700"
+        fill="var(--ink)" fontFamily="monospace">Utilisateur</text>
+      <text x="68" y="121" textAnchor="middle" fontSize="8" fill="var(--low)"
+        fontFamily="monospace">iOS · Android</text>
 
-      {/* Nœud React Native */}
-      <rect x="222" y="28" width="110" height="112" rx="16" fill={nodeFE} stroke={borFE} strokeWidth="1.5"/>
-      <image href={RN} x="237" y="32" width="80" height="80"/>
-      <text x="277" y="122" textAnchor="middle" fontSize="10" fontWeight="800" fill={ink}>React Native</text>
-      <text x="277" y="136" textAnchor="middle" fontSize="8.5" fill={dark ? '#a78bfa' : '#7c3aed'}>Application mobile</text>
+      {/* ══ NŒUD 2 — React Native  x=180 w=194 h=80 cy=86 ══ */}
+      <rect x="180" y="46" width="194" height="80" rx="10"
+        fill="var(--white)" stroke="var(--border)" strokeWidth="1"/>
+      <image href={RN} x="193" y="52" width="56" height="56"/>
+      <text x="261" y="73" fontSize="12" fontWeight="700"
+        fill="var(--ink)" fontFamily="monospace">React Native</text>
+      <text x="261" y="90" fontSize="8.5" fill="var(--lilas)"
+        fontFamily="monospace">Expo · TypeScript</text>
+      <text x="261" y="105" fontSize="7.5" fill="var(--low)"
+        fontFamily="monospace">Application mobile</text>
 
-      {/* Nœud Node + Express */}
-      <rect x="464" y="28" width="110" height="112" rx="16" fill={nodeBE} stroke={borBE} strokeWidth="1.5"/>
-      <image href={NODE} x="472" y="34" width="96" height="62"/>
-      <text x="519" y="108" textAnchor="middle" fontSize="10" fontWeight="800" fill={ink}>Node + Express</text>
-      <text x="519" y="122" textAnchor="middle" fontSize="8.5" fill={dark ? '#a78bfa' : '#6d28d9'}>API & logique métier</text>
-      <text x="519" y="134" textAnchor="middle" fontSize="8" fill={low}>Hébergé sur Azure</text>
+      {/* ══ NŒUD 3 — Node + Express  x=447 w=214 h=100 cy=86 ══ */}
+      <rect x="447" y="36" width="214" height="100" rx="10"
+        fill="var(--white)" stroke="var(--border)" strokeWidth="1.5"/>
+      <image href={NODE} x="459" y="46" width="88" height="56"/>
+      <text x="557" y="65" fontSize="12" fontWeight="700"
+        fill="var(--ink)" fontFamily="monospace">Node + Express</text>
+      <text x="557" y="81" fontSize="8.5" fill="var(--lilas)"
+        fontFamily="monospace">API & logique métier</text>
+      {/* Séparateur interne */}
+      <line x1="459" y1="102" x2="651" y2="102"
+        stroke="var(--border)" strokeWidth="0.8"/>
+      {/* Badge Azure : icône + texte sur la même ligne, dans la zone basse */}
+      <image href={AZ} x="464" y="109" width="18" height="18"/>
+      <text x="488" y="122" fontSize="8" fill="var(--low)"
+        fontFamily="monospace">Hébergé sur Azure</text>
 
-      {/* Nœud PostgreSQL */}
-      <rect x="716" y="28" width="110" height="112" rx="16" fill={nodeDB} stroke={borDB} strokeWidth="1.5"/>
-      <image href={PG} x="731" y="32" width="80" height="80"/>
-      <text x="771" y="122" textAnchor="middle" fontSize="10" fontWeight="800" fill={dark ? '#6ee7b7' : '#064e3b'}>PostgreSQL</text>
-      <text x="771" y="136" textAnchor="middle" fontSize="8.5" fill={dark ? '#34d399' : '#059669'}>Base de données</text>
+      {/* ══ NŒUD 4 — PostgreSQL  x=736 w=210 h=80 cy=86 ══ */}
+      <rect x="736" y="46" width="210" height="80" rx="10"
+        fill="var(--white)" stroke="var(--border)" strokeWidth="1"/>
+      <image href={PG} x="750" y="52" width="56" height="56"/>
+      <text x="818" y="72" fontSize="12" fontWeight="700"
+        fill="var(--ink)" fontFamily="monospace">PostgreSQL</text>
+      <text x="818" y="88" fontSize="8.5" fill="#059669"
+        fontFamily="monospace">AWS RDS</text>
+      <text x="818" y="104" fontSize="7.5" fill="var(--low)"
+        fontFamily="monospace">Base de données</text>
 
-      {/* Séparateur sync nocturne */}
-      <line x1="14" y1="172" x2="906" y2="172" stroke={sep} strokeWidth="1"/>
-      <text x="18" y="168" fontSize="7.5" fill={low} fontFamily="monospace" letterSpacing="0.5">SYNC NOCTURNE</text>
+      {/* ══ SYNC NOCTURNE ══ */}
+      <line x1="26" y1="156" x2="974" y2="156"
+        stroke="var(--border)" strokeWidth="1"/>
+      <text x="26" y="170" fontSize="8" fontWeight="700" letterSpacing="2"
+        fill="#d97706" fontFamily="monospace" opacity="0.7">SYNC NOCTURNE</text>
 
-      {/* Flèches API → Backend (symétriques autour de x=519, ±90px) */}
-      <path d="M429,196 C429,170 519,162 519,142" fill="none" stroke="#fbbf24" strokeWidth="1.5" strokeDasharray="4 4" markerEnd={`url(#${uid}ay)`}/>
-      <path d="M609,196 C609,170 519,162 519,142" fill="none" stroke="#fbbf24" strokeWidth="1.5" strokeDasharray="4 4" markerEnd={`url(#${uid}ay)`}/>
-      <circle r="3" fill="#fbbf24">
-        <animateMotion dur="2.2s" repeatCount="indefinite" begin="0s" path="M429,196 C429,170 519,162 519,142"/>
+      {/* Connexions API → Node, symétriques autour de cx=554
+          Soccer  cx=454  Sportradar cx=654                    */}
+      <path d="M454,183 C454,166 554,156 554,136"
+        fill="none" stroke="#d97706" strokeWidth="1" strokeOpacity="0.4"
+        strokeDasharray="4 6" className={`${f}a`}/>
+      <path d="M654,183 C654,166 554,156 554,136"
+        fill="none" stroke="#d97706" strokeWidth="1" strokeOpacity="0.4"
+        strokeDasharray="4 6" className={`${f}a`} style={{ animationDelay: '1.4s' }}/>
+      <circle cx="554" cy="136" r="2.5" fill="#d97706" opacity="0.5"/>
+      <circle r="3" fill="#d97706" opacity="0">
+        <animateMotion dur="2.8s" repeatCount="indefinite" begin="0s"
+          path="M454,183 C454,166 554,156 554,136"/>
+        <animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.05;0.9;1" dur="2.8s" repeatCount="indefinite"/>
       </circle>
-      <circle r="3" fill="#fbbf24">
-        <animateMotion dur="2.2s" repeatCount="indefinite" begin="1.1s" path="M609,196 C609,170 519,162 519,142"/>
+      <circle r="3" fill="#d97706" opacity="0">
+        <animateMotion dur="2.8s" repeatCount="indefinite" begin="1.4s"
+          path="M654,183 C654,166 554,156 554,136"/>
+        <animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.05;0.9;1" dur="2.8s" repeatCount="indefinite" begin="1.4s"/>
       </circle>
 
-      {/* Card Soccer — cx=429 */}
-      <rect x="359" y="178" width="140" height="36" rx="9" fill={apiCard} stroke={apiBor} strokeWidth="1.5"/>
-      <text x="379" y="200" fontSize="15">⚽</text>
-      <text x="399" y="194" fontSize="9.5" fontWeight="700" fill={ink}>Soccer API</text>
-      <text x="399" y="207" fontSize="7.5" fill={low}>Résultats & stats</text>
+      {/* Card Soccer  x=364 w=180 h=56 cx=454 */}
+      <rect x="364" y="174" width="180" height="56" rx="10"
+        fill="var(--white)" stroke="var(--border)" strokeWidth="1"/>
+      {/* Icône Soccer API — carré arrondi vert + emoji */}
+      <rect x="374" y="184" width="36" height="36" rx="9" fill="#dcfce7" stroke="#86efac" strokeWidth="1"/>
+      <text x="392" y="209" textAnchor="middle" fontSize="20">⚽</text>
+      <text x="418" y="197" fontSize="10.5" fontWeight="700"
+        fill="var(--ink)" fontFamily="monospace">Soccer API</text>
+      <text x="418" y="211" fontSize="8" fill="var(--low)"
+        fontFamily="monospace">Résultats & stats</text>
+      <text x="418" y="223" fontSize="7" fill="var(--low)"
+        fontFamily="monospace" opacity="0.6">chaque nuit</text>
 
-      {/* Card Sportradar — cx=609 */}
-      <rect x="539" y="178" width="140" height="36" rx="9" fill={apiCard} stroke={apiBor} strokeWidth="1.5"/>
-      <text x="559" y="200" fontSize="15">🏆</text>
-      <text x="579" y="194" fontSize="9.5" fontWeight="700" fill={ink}>Sportradar</text>
-      <text x="579" y="207" fontSize="7.5" fill={low}>Données de match</text>
+      {/* Card Sportradar  x=564 w=180 h=56 cx=654 */}
+      <rect x="564" y="174" width="180" height="56" rx="10"
+        fill="var(--white)" stroke="var(--border)" strokeWidth="1"/>
+      {/* Icône Sportradar — carré arrondi ambre + emoji */}
+      <rect x="574" y="184" width="36" height="36" rx="9" fill="#fef3c7" stroke="#fcd34d" strokeWidth="1"/>
+      <text x="592" y="209" textAnchor="middle" fontSize="20">🏆</text>
+      <text x="618" y="197" fontSize="10.5" fontWeight="700"
+        fill="var(--ink)" fontFamily="monospace">Sportradar</text>
+      <text x="618" y="211" fontSize="8" fill="var(--low)"
+        fontFamily="monospace">Données de match</text>
+      <text x="618" y="223" fontSize="7" fill="var(--low)"
+        fontFamily="monospace" opacity="0.6">chaque nuit</text>
     </svg>
   )
 }
 
-// ─────────────────────────────────────────────
-// WRAPPER
-// ─────────────────────────────────────────────
-function DiagramCard({ uid, onExpand, dark }) {
+function DiagramCard({ uid, onExpand }) {
   return (
-    <div style={{ background: 'var(--white)', border: '1px solid var(--border)', borderRadius: 12, padding: '16px 16px 20px', marginBottom: 28 }}>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 }}>
+    <div style={{ background: 'var(--white)', border: '1px solid var(--border)', borderRadius: 12, padding: '16px 20px 20px', marginBottom: 28 }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
         <span style={{ fontSize: 9, letterSpacing: 3, textTransform: 'uppercase', color: 'var(--lilas)', fontWeight: 700, fontFamily: 'monospace' }}>Architecture</span>
         {onExpand && (
           <button onClick={onExpand} style={{ all: 'unset', fontSize: 11, color: 'var(--low)', cursor: 'pointer', fontFamily: 'monospace', textDecoration: 'underline', textUnderlineOffset: 3 }}>
@@ -170,15 +218,13 @@ function DiagramCard({ uid, onExpand, dark }) {
           </button>
         )}
       </div>
-      <DiagramSVG uid={uid} dark={dark} />
+      <DiagramSVG uid={uid} />
     </div>
   )
 }
 
 export default function DiagramOprono() {
   const [expanded, setExpanded] = useState(false)
-  const dark = useDark()
-
   useEffect(() => {
     if (!expanded) return
     const fn = e => { if (e.key === 'Escape') setExpanded(false) }
@@ -188,15 +234,17 @@ export default function DiagramOprono() {
 
   return (
     <>
-      <DiagramCard uid="op-i" onExpand={() => setExpanded(true)} dark={dark} />
+      <DiagramCard uid="op-i" onExpand={() => setExpanded(true)} />
       {expanded && createPortal(
         <div onClick={() => setExpanded(false)} style={{ position: 'fixed', inset: 0, zIndex: 9999, background: 'rgba(0,0,0,0.45)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '4vw' }}>
-          <div onClick={e => e.stopPropagation()} style={{ width: '100%', maxWidth: 1200, background: 'var(--cream)', border: '1px solid var(--border)', borderRadius: 16, padding: '24px 36px 36px', boxShadow: '0 32px 80px rgba(0,0,0,0.12)' }}>
+          <div onClick={e => e.stopPropagation()} style={{ width: '100%', maxWidth: 1300, background: 'var(--cream)', border: '1px solid var(--border)', borderRadius: 16, padding: '24px 40px 36px', boxShadow: '0 32px 80px rgba(0,0,0,0.12)' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
               <span style={{ fontSize: 9, letterSpacing: 3, textTransform: 'uppercase', color: 'var(--lilas)', fontWeight: 700, fontFamily: 'monospace' }}>Architecture — O'PRONO</span>
-              <button onClick={() => setExpanded(false)} style={{ all: 'unset', width: 30, height: 30, borderRadius: '50%', border: '1px solid var(--border)', background: 'var(--white)', cursor: 'pointer', fontSize: 17, color: 'var(--mid)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{'×'}</button>
+              <button onClick={() => setExpanded(false)} style={{ all: 'unset', width: 28, height: 28, borderRadius: '50%', border: '1px solid var(--border)', background: 'var(--white)', cursor: 'pointer', color: 'var(--mid)', display: 'flex', alignItems: 'center', justifyContent: 'center', lineHeight: 1 }}>
+                <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><line x1="1" y1="1" x2="9" y2="9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/><line x1="9" y1="1" x2="1" y2="9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
+              </button>
             </div>
-            <DiagramSVG uid="op-m" dark={dark} />
+            <DiagramSVG uid="op-m" />
           </div>
         </div>,
         document.body

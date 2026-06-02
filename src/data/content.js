@@ -279,11 +279,11 @@ Déployé avec Docker + nginx sur Render, migration prévue vers Hetzner VPS.`,
                 companyColor: '#6C63C7',
                 category: 'Dev mobile',
                 title: "O'PRONO",
-                description: "App mobile de pronostics sportifs publiée sur iOS & Android. ~300 utilisateurs sans aucune pub, uniquement bouche-à-oreille. Projet en binôme : concept + frontend (moi), backend (mon ami).",
+                description: "App mobile de pronostics sportifs publiée sur iOS & Android. ~300 utilisateurs sans aucune pub, uniquement bouche-à-oreille. Projet développé en binôme.",
                 tags: ['React Native', 'Expo', 'TypeScript', 'Node.js', 'Express', 'Prisma', 'PostgreSQL', 'AWS', 'Azure'],
                 link: null,
                 label: 'Voir →',
-                longDescription: `Application mobile de pronostics sportifs développée en binôme : j'ai porté l'idée, le design et le frontend, mon ami a développé le backend.
+                longDescription: `Application mobile de pronostics sportifs développée en binôme.
 
 Le principe : une app par compétition (Euro 2024, Coupe du Monde, Tournoi des 6 Nations…). Les utilisateurs posent leurs pronostics avant chaque match, l'app les score en live. À la fin de la compétition, l'app est retirée — éphémère par nature.
 
