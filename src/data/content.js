@@ -12,7 +12,7 @@ export const content = {
             "Ce qui me motive, c'est de voir une solution changer quelque chose pour les gens qui l'utilisent. Je reste curieux de ce qui sort, nouveaux outils et nouvelles approches, mais toujours avec un filtre : est-ce que ça résout un vrai problème ?",
         ],
         cvUrl: "/cv-gwendal-rolland.pdf",
-        email: "gwendal.rolland@yahoo.fr",
+        email: atob('Z3dlbmRhbC5yb2xsYW5kQHlhaG9vLmZy'),
         location: "Paris — Permis B",
         disponibility: "Disponible immédiatement",
         contract: "CDI / CDD / Mission",
@@ -352,7 +352,7 @@ Stack :
     ],
 
     contact: [
-        { icon: 'email', label: "Email", value: "gwendal.rolland@yahoo.fr", href: "mailto:gwendal.rolland@yahoo.fr" },
+        { icon: 'email', label: "Email", value: atob('Z3dlbmRhbC5yb2xsYW5kQHlhaG9vLmZy'), href: `mailto:${atob('Z3dlbmRhbC5yb2xsYW5kQHlhaG9vLmZy')}` },
         { icon: 'linkedin', label: "LinkedIn", value: "linkedin.com/in/gwendal-rolland", href: "https://linkedin.com/in/gwendal-rolland" },
         { icon: 'github', label: "GitHub", value: "Gwendal9", href: "https://github.com/Gwendal9" },
     ],
