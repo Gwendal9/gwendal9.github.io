@@ -1,4 +1,7 @@
+import { useLanguage } from '../context/LanguageContext'
+
 export default function CV({ isMobile }) {
+  const { lang } = useLanguage()
 
   if (isMobile) {
     return (
@@ -14,10 +17,10 @@ export default function CV({ isMobile }) {
       }}>
         <div style={{ fontSize: 48 }}>📄</div>
         <div style={{ fontSize: 20, fontWeight: 700, color: 'var(--ink)' }}>
-          Mon CV
+          {lang === 'en' ? 'My CV' : 'Mon CV'}
         </div>
         <p style={{ fontSize: 14, color: 'var(--low)', textAlign: 'center', lineHeight: 1.7 }}>
-          Telecharge mon CV pour le consulter sur mobile
+          {lang === 'en' ? 'Download my CV to view it on mobile.' : 'Télécharge mon CV pour le consulter sur mobile.'}
         </p>
         <a
           href="/CV_GWENDAL_ROLLAND-Data_analyst.pdf"
@@ -32,7 +35,7 @@ export default function CV({ isMobile }) {
             textDecoration: 'none',
           }}
         >
-          Telecharger PDF
+          {lang === 'en' ? 'Download PDF' : 'Télécharger PDF'}
         </a>
       </div>
     )
@@ -88,7 +91,7 @@ export default function CV({ isMobile }) {
           onMouseEnter={e => e.currentTarget.style.background = 'var(--lilas)'}
           onMouseLeave={e => e.currentTarget.style.background = 'var(--ink)'}
         >
-          Telecharger PDF
+          {lang === 'en' ? 'Download PDF' : 'Télécharger PDF'}
         </a>
       </div>
 

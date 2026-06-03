@@ -1,4 +1,5 @@
 import { useState, useRef, useCallback, useEffect } from 'react'
+import { useLanguage } from '../context/LanguageContext'
 import { createPortal } from 'react-dom'
 
 const EXCEL = 'https://upload.wikimedia.org/wikipedia/commons/6/60/Microsoft_Office_Excel_%282025%E2%80%93present%29.svg'
@@ -17,6 +18,7 @@ const PBI   = 'https://upload.wikimedia.org/wikipedia/commons/c/cf/New_Power_BI_
 
 // ── AVANT ────────────────────────────────────────────────────
 function AvantSVG() {
+  const { lang } = useLanguage()
   return (
     <svg viewBox="0 0 1000 200" width="100%" style={{ display: 'block' }}>
       <rect x="0" y="0" width="1000" height="200" fill="#fefcf7"/>
@@ -32,21 +34,21 @@ function AvantSVG() {
       <rect x="10" y="28" width="200" height="36" rx="8"
         fill="#fffbf0" stroke="#fcd34d" strokeWidth="1" strokeDasharray="4 3"/>
       <image href={EXCEL} x="18" y="34" width="20" height="20"/>
-      <text x="44" y="44" fontSize="9.5" fontWeight="600" fill="#78450a" fontFamily="monospace">Fournisseur 1</text>
+      <text x="44" y="44" fontSize="9.5" fontWeight="600" fill="#78450a" fontFamily="monospace">{lang === 'en' ? 'Supplier 1' : 'Fournisseur 1'}</text>
       <text x="44" y="57" fontSize="8" fill="#b45309" fontFamily="monospace" opacity="0.8">Format propre à chacun</text>
 
       {/* F2 — légèrement décalé pour suggérer le désordre */}
       <rect x="14" y="76" width="200" height="36" rx="8"
         fill="#fffbf0" stroke="#fcd34d" strokeWidth="1" strokeDasharray="4 3"/>
       <image href={EXCEL} x="22" y="82" width="20" height="20"/>
-      <text x="48" y="92" fontSize="9.5" fontWeight="600" fill="#78450a" fontFamily="monospace">Fournisseur 2</text>
+      <text x="48" y="92" fontSize="9.5" fontWeight="600" fill="#78450a" fontFamily="monospace">{lang === 'en' ? 'Supplier 2' : 'Fournisseur 2'}</text>
       <text x="48" y="105" fontSize="8" fill="#b45309" fontFamily="monospace" opacity="0.8">Colonnes différentes</text>
 
       {/* F3 */}
       <rect x="8" y="124" width="200" height="36" rx="8"
         fill="#fffbf0" stroke="#fcd34d" strokeWidth="1" strokeDasharray="4 3"/>
       <image href={EXCEL} x="16" y="130" width="20" height="20"/>
-      <text x="42" y="140" fontSize="9.5" fontWeight="600" fill="#78450a" fontFamily="monospace">Fournisseur 3</text>
+      <text x="42" y="140" fontSize="9.5" fontWeight="600" fill="#78450a" fontFamily="monospace">{lang === 'en' ? 'Supplier 3' : 'Fournisseur 3'}</text>
       <text x="42" y="153" fontSize="8" fill="#b45309" fontFamily="monospace" opacity="0.8">Nommage incohérent</text>
 
       {/* Fichiers internes — badge simple */}
@@ -66,14 +68,14 @@ function AvantSVG() {
       <rect x="272" y="30" width="330" height="140" rx="10"
         fill="#fffbf0" stroke="#d97706" strokeWidth="1.5"/>
       <image href={EXCEL} x="288" y="48" width="54" height="54"/>
-      <text x="354" y="65" fontSize="12" fontWeight="700" fill="#92400e" fontFamily="monospace">Tableur de contrôle</text>
-      <text x="354" y="82" fontSize="8.5" fill="#b45309" fontFamily="monospace">Maintenu à la main</text>
-      <text x="354" y="97" fontSize="8" fill="#a07030" fontFamily="monospace">Onglets · formules fragiles · périmé</text>
+      <text x="354" y="65" fontSize="12" fontWeight="700" fill="#92400e" fontFamily="monospace">{lang === 'en' ? 'Control spreadsheet' : 'Tableur de contrôle'}</text>
+      <text x="354" y="82" fontSize="8.5" fill="#b45309" fontFamily="monospace">{lang === 'en' ? 'Manually maintained' : 'Maintenu à la main'}</text>
+      <text x="354" y="97" fontSize="8" fill="#a07030" fontFamily="monospace">{lang === 'en' ? 'Tabs · fragile formulas · outdated' : 'Onglets · formules fragiles · périmé'}</text>
       <line x1="288" y1="112" x2="588" y2="112" stroke="#fde68a" strokeWidth="0.8"/>
       {/* Badge "à la main" */}
       <rect x="288" y="118" width="130" height="40" rx="7" fill="#fef3c7" stroke="#fde68a" strokeWidth="1"/>
       <text x="353" y="133" textAnchor="middle" fontSize="13">✍️</text>
-      <text x="353" y="150" textAnchor="middle" fontSize="8" fontWeight="700" fill="#92400e" fontFamily="monospace">à la main</text>
+      <text x="353" y="150" textAnchor="middle" fontSize="8" fontWeight="700" fill="#92400e" fontFamily="monospace">{lang === 'en' ? 'manual' : 'à la main'}</text>
       {/* Badge "40M€ risque" */}
       <rect x="430" y="118" width="158" height="40" rx="7" fill="#fef3c7" stroke="#fde68a" strokeWidth="1"/>
       <text x="509" y="133" textAnchor="middle" fontSize="13">⚠️</text>
@@ -87,8 +89,8 @@ function AvantSVG() {
       <line x1="654" y1="60" x2="954" y2="140" stroke="#d1d5db" strokeWidth="1.5" strokeLinecap="round"/>
       <line x1="954" y1="60" x2="654" y2="140" stroke="#d1d5db" strokeWidth="1.5" strokeLinecap="round"/>
       {/* Texte */}
-      <text x="804" y="95" textAnchor="middle" fontSize="11" fontWeight="700" fill="#9ca3af" fontFamily="monospace">Pas de reporting</text>
-      <text x="804" y="112" textAnchor="middle" fontSize="8" fill="#9ca3af" fontFamily="monospace">Contrôle ad hoc · chronophage</text>
+      <text x="804" y="95" textAnchor="middle" fontSize="11" fontWeight="700" fill="#9ca3af" fontFamily="monospace">{lang === 'en' ? 'No reporting' : 'Pas de reporting'}</text>
+      <text x="804" y="112" textAnchor="middle" fontSize="8" fill="#9ca3af" fontFamily="monospace">{lang === 'en' ? 'Ad hoc control · time-consuming' : 'Contrôle ad hoc · chronophage'}</text>
       {/* Petite flèche entrante */}
       <line x1="602" y1="100" x2="632" y2="100" stroke="#d1d5db" strokeWidth="1.5" strokeOpacity="0.5" strokeDasharray="4 4"/>
       <circle cx="602" cy="100" r="2.5" fill="#d1d5db" opacity="0.5"/>
@@ -98,6 +100,7 @@ function AvantSVG() {
 
 // ── APRÈS ─────────────────────────────────────────────────────
 function ApresSVG() {
+  const { lang } = useLanguage()
   return (
     <svg viewBox="0 0 1000 200" width="100%" style={{ display: 'block' }}>
       <rect x="0" y="0" width="1000" height="200" fill="white"/>
@@ -111,19 +114,19 @@ function ApresSVG() {
       <rect x="8" y="20" width="242" height="168" rx="10"
         fill="white" stroke="#059669" strokeWidth="1.2"/>
       <text x="129" y="34" textAnchor="middle" fontSize="8" fontWeight="700"
-        fill="#065f46" fontFamily="monospace">Sources structurées</text>
+        fill="#065f46" fontFamily="monospace">{lang === 'en' ? 'Structured sources' : 'Sources structurées'}</text>
 
       <rect x="18" y="42" width="222" height="30" rx="6" fill="#f0fdf4" stroke="#86efac" strokeWidth="1"/>
       <image href={EXCEL} x="24" y="47" width="16" height="16"/>
-      <text x="46" y="61" fontSize="9" fill="#065f46" fontFamily="monospace">Fournisseur 1 · Excel</text>
+      <text x="46" y="61" fontSize="9" fill="#065f46" fontFamily="monospace">{lang === 'en' ? 'Supplier 1 · Excel' : 'Fournisseur 1 · Excel'}</text>
 
       <rect x="18" y="80" width="222" height="30" rx="6" fill="#f0fdf4" stroke="#86efac" strokeWidth="1"/>
       <image href={EXCEL} x="24" y="85" width="16" height="16"/>
-      <text x="46" y="99" fontSize="9" fill="#065f46" fontFamily="monospace">Fournisseur 2 · Excel</text>
+      <text x="46" y="99" fontSize="9" fill="#065f46" fontFamily="monospace">{lang === 'en' ? 'Supplier 2 · Excel' : 'Fournisseur 2 · Excel'}</text>
 
       <rect x="18" y="118" width="222" height="30" rx="6" fill="#f0fdf4" stroke="#86efac" strokeWidth="1"/>
       <image href={EXCEL} x="24" y="123" width="16" height="16"/>
-      <text x="46" y="137" fontSize="9" fill="#065f46" fontFamily="monospace">Fournisseur 3 · Excel</text>
+      <text x="46" y="137" fontSize="9" fill="#065f46" fontFamily="monospace">{lang === 'en' ? 'Supplier 3 · Excel' : 'Fournisseur 3 · Excel'}</text>
 
       <rect x="18" y="157" width="222" height="22" rx="5" fill="#dcfce7" stroke="#86efac" strokeWidth="0.8"/>
       <text x="129" y="171" textAnchor="middle" fontSize="8" fill="#065f46" fontFamily="monospace">+ Cibles · Référentiels</text>
@@ -139,11 +142,11 @@ function ApresSVG() {
         fill="white" stroke="var(--border,#e5e7eb)" strokeWidth="1.5"/>
       <image href={EXCEL} x="270" y="62" width="44" height="44"/>
       <text x="324" y="76" fontSize="11.5" fontWeight="700" fill="var(--ink,#111)" fontFamily="monospace">Power Query</text>
-      <text x="324" y="92" fontSize="8.5" fill="var(--lilas,#818cf8)" fontFamily="monospace">Transformation auto</text>
+      <text x="324" y="92" fontSize="8.5" fill="var(--lilas,#818cf8)" fontFamily="monospace">{lang === 'en' ? 'Auto transformation' : 'Transformation auto'}</text>
       <line x1="270" y1="114" x2="498" y2="114" stroke="var(--border,#e5e7eb)" strokeWidth="0.8"/>
       <rect x="270" y="121" width="42" height="20" rx="6" fill="#ede9fe" stroke="#ddd6fe" strokeWidth="1"/>
       <text x="291" y="134" textAnchor="middle" fontSize="8.5" fontWeight="700" fill="var(--lilas,#818cf8)" fontFamily="monospace">DAX</text>
-      <text x="320" y="134" fontSize="8" fill="var(--low,#9ca3af)" fontFamily="monospace">Modèle de données</text>
+      <text x="320" y="134" fontSize="8" fill="var(--low,#9ca3af)" fontFamily="monospace">{lang === 'en' ? 'Data model' : 'Modèle de données'}</text>
 
       {/* Arrow PQ → PBI */}
       <line x1="512" y1="100" x2="554" y2="100"
@@ -156,12 +159,12 @@ function ApresSVG() {
         fill="white" stroke="var(--border,#e5e7eb)" strokeWidth="1.5"/>
       <image href={PBI} x="566" y="42" width="54" height="54"/>
       <text x="632" y="61" fontSize="12" fontWeight="700" fill="var(--ink,#111)" fontFamily="monospace">Power BI</text>
-      <text x="632" y="77" fontSize="8.5" fill="#059669" fontFamily="monospace">Dashboard temps réel</text>
-      <text x="632" y="92" fontSize="7.5" fill="var(--low,#9ca3af)" fontFamily="monospace">Reconditionnements · facturation</text>
+      <text x="632" y="77" fontSize="8.5" fill="#059669" fontFamily="monospace">{lang === 'en' ? 'Real-time dashboard' : 'Dashboard temps réel'}</text>
+      <text x="632" y="92" fontSize="7.5" fill="var(--low,#9ca3af)" fontFamily="monospace">{lang === 'en' ? 'Refurbishments · billing' : 'Reconditionnements · facturation'}</text>
       <line x1="566" y1="108" x2="814" y2="108" stroke="var(--border,#e5e7eb)" strokeWidth="0.8"/>
       <rect x="566" y="115" width="234" height="44" rx="6" fill="#f0fdf4"/>
       <text x="683" y="131" textAnchor="middle" fontSize="8.5" fontWeight="700" fill="#059669" fontFamily="monospace">✓ 40M€ · Pipeline reproductible</text>
-      <text x="683" y="148" textAnchor="middle" fontSize="7.5" fill="#059669" fontFamily="monospace">Industrialisé · stable · temps réel</text>
+      <text x="683" y="148" textAnchor="middle" fontSize="7.5" fill="#059669" fontFamily="monospace">{lang === 'en' ? 'Industrialized · stable · real-time' : 'Industrialisé · stable · temps réel'}</text>
 
       {/* Arrow PBI → Équipe */}
       <line x1="828" y1="100" x2="866" y2="100"
@@ -176,13 +179,14 @@ function ApresSVG() {
       <circle cx="929" cy="80" r="6" fill="var(--lilas,#818cf8)" opacity="0.7"/>
       <path d="M914,98 Q914,91 929,91 Q944,91 944,98" fill="var(--lilas,#818cf8)" opacity="0.7"/>
       <text x="929" y="117" textAnchor="middle" fontSize="8.5" fontWeight="700" fill="var(--ink,#111)" fontFamily="monospace">Équipe</text>
-      <text x="929" y="130" textAnchor="middle" fontSize="8" fill="var(--low,#9ca3af)" fontFamily="monospace">Contrôle fact.</text>
+      <text x="929" y="130" textAnchor="middle" fontSize="8" fill="var(--low,#9ca3af)" fontFamily="monospace">{lang === 'en' ? 'Billing ctrl.' : 'Contrôle fact.'}</text>
     </svg>
   )
 }
 
 // ── Slider ────────────────────────────────────────────────────
 function SliderDiagram({ onExpand }) {
+  const { lang } = useLanguage()
   const [pos, setPos] = useState(50) // 0 = full AVANT, 100 = full APRÈS
   const containerRef = useRef(null)
   const dragging = useRef(false)
@@ -217,11 +221,11 @@ function SliderDiagram({ onExpand }) {
       {/* Header */}
       <div style={{ padding: '14px 20px 12px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <span style={{ fontSize: 9, letterSpacing: 3, textTransform: 'uppercase', color: 'var(--lilas)', fontWeight: 700, fontFamily: 'monospace' }}>
-          Architecture · Avant / Après
+          {lang === 'en' ? 'Architecture · Before / After' : 'Architecture · Avant / Après'}
         </span>
         {onExpand && (
           <button onClick={onExpand} style={{ all: 'unset', fontSize: 11, color: 'var(--low)', cursor: 'pointer', fontFamily: 'monospace', textDecoration: 'underline', textUnderlineOffset: 3 }}>
-            Agrandir
+            {lang === 'en' ? 'Expand' : 'Agrandir'}
           </button>
         )}
       </div>
@@ -290,7 +294,7 @@ function SliderDiagram({ onExpand }) {
           color: '#d97706', background: '#fef3c7',
           padding: '3px 8px', borderRadius: 4, border: '1px solid #fde68a',
           pointerEvents: 'none', zIndex: 5,
-        }}>AVANT</div>
+        }}>{lang === 'en' ? 'BEFORE' : 'AVANT'}</div>
 
         {/* Badge APRÈS (coin bas-droit) */}
         <div style={{
@@ -299,7 +303,7 @@ function SliderDiagram({ onExpand }) {
           color: 'var(--lilas)', background: '#ede9fe',
           padding: '3px 8px', borderRadius: 4, border: '1px solid #ddd6fe',
           pointerEvents: 'none', zIndex: 5,
-        }}>APRÈS</div>
+        }}>{lang === 'en' ? 'AFTER' : 'APRÈS'}</div>
       </div>
     </div>
   )
@@ -307,6 +311,7 @@ function SliderDiagram({ onExpand }) {
 
 // ── Export ────────────────────────────────────────────────────
 export default function DiagramOrangeBilling() {
+  const { lang } = useLanguage()
   const [expanded, setExpanded] = useState(false)
 
   return (

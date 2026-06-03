@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { content } from '../data/content'
+import { useLanguage } from '../context/LanguageContext'
 import DiagramJobHunter from './DiagramJobHunter'
 import DiagramPadel from './DiagramPadel'
 import DiagramOprono from './DiagramOprono'
@@ -34,6 +34,7 @@ const IconExternal = () => (
 )
 
 export default function ProjectDrawer({ project, onClose, isMobile }) {
+  const { content, lang } = useLanguage()
   const c = getColors(project)
 
   useEffect(() => {
@@ -126,7 +127,7 @@ export default function ProjectDrawer({ project, onClose, isMobile }) {
                   onMouseEnter={e => e.currentTarget.style.opacity = '0.8'}
                   onMouseLeave={e => e.currentTarget.style.opacity = '1'}
                 >
-                  <IconGithub/> GitHub
+                  <IconGithub/> {content.ui.github}
                 </a>
               )}
               {project.demo && (
@@ -141,7 +142,7 @@ export default function ProjectDrawer({ project, onClose, isMobile }) {
                   onMouseEnter={e => e.currentTarget.style.borderColor = 'var(--lilas)'}
                   onMouseLeave={e => e.currentTarget.style.borderColor = 'var(--border)'}
                 >
-                  <IconExternal/> Voir le projet
+                  <IconExternal/> {content.ui.demo}
                 </a>
               )}
             </div>
@@ -157,10 +158,10 @@ export default function ProjectDrawer({ project, onClose, isMobile }) {
             </div>
           )}
 
-          {project.title === 'Job Hunter — Veille auto' && <DiagramJobHunter />}
-          {project.title === 'Padel — Classements joueurs FFT' && <DiagramPadel />}
+          {(project.title === 'Job Hunter — Veille auto' || project.title === 'Job Hunter — Auto monitoring') && <DiagramJobHunter />}
+          {(project.title === 'Padel — Classements joueurs FFT' || project.title === 'Padel — FFT player rankings') && <DiagramPadel />}
           {project.title === "O'PRONO" && <DiagramOprono />}
-          {project.title === 'Modernisation contrôle facturation' && <DiagramOrangeBilling />}
+          {(project.title === 'Modernisation contrôle facturation' || project.title === 'Billing control modernization') && <DiagramOrangeBilling />}
 
           {project.longDescription && (
             <div style={{ marginBottom: 28 }}>
@@ -176,7 +177,7 @@ export default function ProjectDrawer({ project, onClose, isMobile }) {
           {project.stack && project.stack.length > 0 && (
             <div style={{ marginBottom: 28 }}>
               <div style={{ fontSize: 10, letterSpacing: 3, textTransform: 'uppercase', color: 'var(--lilas)', fontWeight: 700, marginBottom: 12 }}>
-                Stack technique
+                {content.ui.techStack}
               </div>
               <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                 {project.stack.map((s, i) => {
@@ -226,7 +227,7 @@ export default function ProjectDrawer({ project, onClose, isMobile }) {
 
           {isMobile && (
             <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 16, fontSize: 11, color: 'var(--low)', opacity: 0.5 }}>
-              <span>Glisser vers la droite pour fermer</span>
+              <span>{lang === 'en' ? 'Slide right to close' : 'Glisser vers la droite pour fermer'}</span>
             </div>
           )}
         </div>

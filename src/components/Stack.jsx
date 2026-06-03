@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
-import { content } from '../data/content'
+import { useLanguage } from '../context/LanguageContext'
 
 export default function Stack() {
+    const { content, lang } = useLanguage()
     const { stack, pythonLibs } = content
     const [pyTooltip, setPyTooltip] = useState(null) // { top, left } ou null
 
@@ -125,7 +126,7 @@ export default function Stack() {
                 pointerEvents: 'none',
             }}>
                 <div style={{ fontSize: 9, fontWeight: 700, color: 'var(--low)', marginBottom: 8, letterSpacing: 2, textTransform: 'uppercase' }}>
-                    Librairies & Frameworks
+                    {lang === 'en' ? 'Libraries & Frameworks' : 'Librairies & Frameworks'}
                 </div>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5 }}>
                     {pythonLibs.map((lib, idx) => (

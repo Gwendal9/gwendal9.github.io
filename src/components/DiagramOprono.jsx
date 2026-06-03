@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useLanguage } from '../context/LanguageContext'
 import { createPortal } from 'react-dom'
 
 const RN   = 'https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg'
@@ -28,6 +29,7 @@ const CY = '4.5s'
 const k  = t => (t / 4.5).toFixed(4)
 
 function DiagramSVG({ uid }) {
+  const { lang } = useLanguage()
   const f = `${uid}f`
 
   return (
@@ -110,7 +112,7 @@ function DiagramSVG({ uid }) {
       <circle cx="68" cy="59" r="9"  fill="var(--lilas)" opacity="0.7"/>
       <path d="M50,80 Q50,71 68,71 Q86,71 86,80" fill="var(--lilas)" opacity="0.7"/>
       <text x="68" y="107" textAnchor="middle" fontSize="10.5" fontWeight="700"
-        fill="var(--ink)" fontFamily="monospace">Utilisateur</text>
+        fill="var(--ink)" fontFamily="monospace">{lang === 'en' ? 'User' : 'Utilisateur'}</text>
       <text x="68" y="121" textAnchor="middle" fontSize="8" fill="var(--low)"
         fontFamily="monospace">iOS · Android</text>
 
@@ -123,7 +125,7 @@ function DiagramSVG({ uid }) {
       <text x="261" y="90" fontSize="8.5" fill="var(--lilas)"
         fontFamily="monospace">Expo · TypeScript</text>
       <text x="261" y="105" fontSize="7.5" fill="var(--low)"
-        fontFamily="monospace">Application mobile</text>
+        fontFamily="monospace">{lang === 'en' ? 'Mobile app' : 'Application mobile'}</text>
 
       {/* ══ NŒUD 3 — Node + Express  x=447 w=214 h=100 cy=86 ══ */}
       <rect x="447" y="36" width="214" height="100" rx="10"
@@ -132,14 +134,14 @@ function DiagramSVG({ uid }) {
       <text x="557" y="65" fontSize="12" fontWeight="700"
         fill="var(--ink)" fontFamily="monospace">Node + Express</text>
       <text x="557" y="81" fontSize="8.5" fill="var(--lilas)"
-        fontFamily="monospace">API & logique métier</text>
+        fontFamily="monospace">{lang === 'en' ? 'API & business logic' : 'API & logique métier'}</text>
       {/* Séparateur interne */}
       <line x1="459" y1="102" x2="651" y2="102"
         stroke="var(--border)" strokeWidth="0.8"/>
       {/* Badge Azure : icône + texte sur la même ligne, dans la zone basse */}
       <image href={AZ} x="464" y="109" width="18" height="18"/>
       <text x="488" y="122" fontSize="8" fill="var(--low)"
-        fontFamily="monospace">Hébergé sur Azure</text>
+        fontFamily="monospace">{lang === 'en' ? 'Hosted on Azure' : 'Hébergé sur Azure'}</text>
 
       {/* ══ NŒUD 4 — PostgreSQL  x=736 w=210 h=80 cy=86 ══ */}
       <rect x="736" y="46" width="210" height="80" rx="10"
@@ -150,7 +152,7 @@ function DiagramSVG({ uid }) {
       <text x="818" y="88" fontSize="8.5" fill="#059669"
         fontFamily="monospace">AWS RDS</text>
       <text x="818" y="104" fontSize="7.5" fill="var(--low)"
-        fontFamily="monospace">Base de données</text>
+        fontFamily="monospace">{lang === 'en' ? 'Database' : 'Base de données'}</text>
 
       {/* ══ SYNC NOCTURNE ══ */}
       <line x1="26" y1="156" x2="974" y2="156"
@@ -187,7 +189,7 @@ function DiagramSVG({ uid }) {
       <text x="418" y="197" fontSize="10.5" fontWeight="700"
         fill="var(--ink)" fontFamily="monospace">Soccer API</text>
       <text x="418" y="211" fontSize="8" fill="var(--low)"
-        fontFamily="monospace">Résultats & stats</text>
+        fontFamily="monospace">{lang === 'en' ? 'Results & stats' : 'Résultats & stats'}</text>
       <text x="418" y="223" fontSize="7" fill="var(--low)"
         fontFamily="monospace" opacity="0.6">chaque nuit</text>
 
@@ -200,7 +202,7 @@ function DiagramSVG({ uid }) {
       <text x="618" y="197" fontSize="10.5" fontWeight="700"
         fill="var(--ink)" fontFamily="monospace">Sportradar</text>
       <text x="618" y="211" fontSize="8" fill="var(--low)"
-        fontFamily="monospace">Données de match</text>
+        fontFamily="monospace">{lang === 'en' ? 'Match data' : 'Données de match'}</text>
       <text x="618" y="223" fontSize="7" fill="var(--low)"
         fontFamily="monospace" opacity="0.6">chaque nuit</text>
     </svg>
@@ -208,13 +210,14 @@ function DiagramSVG({ uid }) {
 }
 
 function DiagramCard({ uid, onExpand }) {
+  const { lang } = useLanguage()
   return (
     <div style={{ background: 'var(--white)', border: '1px solid var(--border)', borderRadius: 12, padding: '16px 20px 20px', marginBottom: 28 }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
         <span style={{ fontSize: 9, letterSpacing: 3, textTransform: 'uppercase', color: 'var(--lilas)', fontWeight: 700, fontFamily: 'monospace' }}>Architecture</span>
         {onExpand && (
           <button onClick={onExpand} style={{ all: 'unset', fontSize: 11, color: 'var(--low)', cursor: 'pointer', fontFamily: 'monospace', textDecoration: 'underline', textUnderlineOffset: 3 }}>
-            Agrandir
+            {lang === 'en' ? 'Expand' : 'Agrandir'}
           </button>
         )}
       </div>
@@ -224,6 +227,7 @@ function DiagramCard({ uid, onExpand }) {
 }
 
 export default function DiagramOprono() {
+  const { lang } = useLanguage()
   const [expanded, setExpanded] = useState(false)
   useEffect(() => {
     if (!expanded) return

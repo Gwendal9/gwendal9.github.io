@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { content } from '../data/content'
+import { useLanguage } from '../context/LanguageContext'
 
 const SIDEBAR = 220
 const MAX_CONTENT = 700
@@ -26,6 +26,7 @@ const ICONS = {
 export default function Contact({ isMobile }) {
   const mainWidth = isMobile ? window.innerWidth : window.innerWidth - SIDEBAR
   const hPad = isMobile ? 16 : Math.max(40, (mainWidth - MAX_CONTENT) / 2)
+  const { content } = useLanguage()
   const { contact } = content
   const [copied, setCopied] = useState(false)
 
@@ -72,22 +73,20 @@ export default function Contact({ isMobile }) {
 
         <div id="contact-eyebrow" style={{ fontSize: 10, letterSpacing: 4, textTransform: 'uppercase', color: 'var(--lilas)', fontWeight: 700, marginBottom: 16, display: 'flex', alignItems: 'center', gap: 10, opacity: 0, transform: 'translateY(10px)', transition: 'opacity 0.5s, transform 0.5s' }}>
           <span style={{ width: 16, height: 1, background: 'var(--lilas)', display: 'inline-block' }} />
-          Contact
+          {content.ui.contactTitle}
         </div>
 
         <h2 id="contact-title" style={{ fontSize: 'clamp(28px, 4vw, 42px)', fontWeight: 800, color: 'var(--ink)', lineHeight: 1.1, marginBottom: 20, opacity: 0, transform: 'translateY(14px)', transition: 'opacity 0.6s, transform 0.6s' }}>
-          On se{' '}
-          <em style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 300, color: 'var(--lilas)' }}>parle ?</em>
+          <em style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 300, color: 'var(--lilas)' }}>{content.ui.contactTitle}</em>
         </h2>
 
         <p id="contact-intro" style={{ fontSize: 15, color: 'var(--low)', lineHeight: 1.8, marginBottom: 48, opacity: 0, transform: 'translateY(12px)', transition: 'opacity 0.6s, transform 0.6s' }}>
-          Disponible pour des opportunités en Data et BI en Île-de-France.
-          N'hésite pas à me contacter directement.
+          {content.ui.contactIntro}
         </p>
 
         {copied && (
           <div style={{ position: 'fixed', bottom: isMobile ? 80 : 32, left: '50%', transform: 'translateX(-50%)', background: 'var(--ink)', color: 'var(--white)', padding: '10px 20px', borderRadius: 8, fontSize: 13, fontWeight: 600, zIndex: 999, display: 'flex', alignItems: 'center', gap: 8 }}>
-            ✓ Email copié !
+            ✓ {content.ui.emailCopied}
           </div>
         )}
 
@@ -107,16 +106,16 @@ export default function Contact({ isMobile }) {
               </div>
               <div>
                 <div style={{ fontSize: 10, color: 'var(--low)', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 3, fontWeight: 500 }}>{item.label}</div>
-                <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--ink)' }}>{item.icon === 'email' && copied ? 'Copié !' : item.value}</div>
+                <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--ink)' }}>{item.icon === 'email' && copied ? content.ui.emailCopied : item.value}</div>
               </div>
               <span className="arrow" style={{ marginLeft: 'auto', fontSize: 13, color: 'var(--lilas)', opacity: 0, transition: 'opacity 0.2s, transform 0.2s' }}>
-                {item.icon === 'email' ? 'Copier' : '↗'}
+                {item.icon === 'email' ? content.ui.copy : '↗'}
               </span>
             </a>
           ))}
 
           <div style={{ marginTop: 48 }}>
-            <div style={{ fontSize: 11, letterSpacing: 3, textTransform: 'uppercase', color: 'var(--mid)', fontWeight: 700, marginBottom: 20 }}>References</div>
+            <div style={{ fontSize: 11, letterSpacing: 3, textTransform: 'uppercase', color: 'var(--mid)', fontWeight: 700, marginBottom: 20 }}>{content.ui.references}</div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               {content.references && content.references.map((ref, i) => (
                 <div key={i} style={{ padding: '20px 24px', background: 'var(--white)', border: '1px solid var(--border)', borderRadius: 12 }}>

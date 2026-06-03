@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { content } from '../data/content'
+import { useLanguage } from '../context/LanguageContext'
 import ProjectDrawer from './ProjectDrawer'
 
 const COLORS = {
@@ -40,6 +40,7 @@ function getColors(proj) {
 }
 
 function ToolTag({ name, onPyEnter, onPyLeave }) {
+  const { content } = useLanguage()
   const logo = content.toolLogos?.[name]
   const isPython = name === 'Python'
   return (
@@ -66,6 +67,7 @@ function ToolTag({ name, onPyEnter, onPyLeave }) {
 }
 
 function PythonTooltip({ pos }) {
+  const { content, lang } = useLanguage()
   if (!pos) return null
   const TOOLTIP_W = 240
   const TOOLTIP_H = 200
@@ -89,7 +91,7 @@ function PythonTooltip({ pos }) {
       pointerEvents: 'none',
     }}>
       <div style={{ fontSize: 9, fontWeight: 700, color: 'var(--low)', marginBottom: 8, letterSpacing: 2, textTransform: 'uppercase' }}>
-        Librairies & Frameworks
+        {lang === 'en' ? 'Libraries & Frameworks' : 'Librairies & Frameworks'}
       </div>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5 }}>
         {(content.pythonLibs || []).map((lib, idx) => (
@@ -149,6 +151,7 @@ function ToolsMarquee() {
 }
 
 export default function Projects({ isMobile }) {
+  const { content, lang } = useLanguage()
   const mainWidth = isMobile ? window.innerWidth : window.innerWidth - SIDEBAR
   const hPad = isMobile ? 16 : Math.max(40, (mainWidth - MAX_CONTENT) / 2)
   const [tab, setTab] = useState('pro')
@@ -198,17 +201,16 @@ export default function Projects({ isMobile }) {
 
           <div id="proj-eyebrow" style={{ fontSize: 10, letterSpacing: 4, textTransform: 'uppercase', color: 'var(--lilas)', fontWeight: 700, marginBottom: 12, display: 'flex', alignItems: 'center', gap: 10, opacity: 0, transform: 'translateY(10px)', transition: 'opacity 0.5s, transform 0.5s' }}>
             <span style={{ width: 16, height: 1, background: 'var(--lilas)', display: 'inline-block' }} />
-            Realisations
+            {content.ui.projectsTitle}
           </div>
 
           <h2 id="proj-title" style={{ fontSize: 'clamp(24px, 4vw, 42px)', fontWeight: 800, color: 'var(--ink)', lineHeight: 1.1, marginBottom: 24, opacity: 0, transform: 'translateY(14px)', transition: 'opacity 0.6s, transform 0.6s' }}>
-            Mes{' '}
-            <em style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 300, color: 'var(--lilas)' }}>projets</em>
+            <em style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 300, color: 'var(--lilas)' }}>{content.ui.projectsTitle}</em>
           </h2>
 
           <div style={{ display: 'flex', gap: 0, marginBottom: isMobile ? 20 : 28, borderBottom: '1px solid var(--border)', alignItems: 'center', justifyContent: 'space-between' }}>
             <div style={{ display: 'flex', gap: 0 }}>
-              {[{ key: 'pro', label: 'Projets pro' }, { key: 'perso', label: 'Projets perso' }].map(t => {
+              {[{ key: 'pro', label: content.ui.proProjects }, { key: 'perso', label: content.ui.persoProjects }].map(t => {
                 const count = content.projects[t.key]?.length || 0
                 const active = tab === t.key
                 return (
@@ -244,7 +246,7 @@ export default function Projects({ isMobile }) {
                 )
               })}
             </div>
-            <span style={{ fontSize: 11, color: 'var(--low)', paddingRight: 4, opacity: 0.6, letterSpacing: 0.3 }}>⇄ basculer</span>
+            <span style={{ fontSize: 11, color: 'var(--low)', paddingRight: 4, opacity: 0.6, letterSpacing: 0.3 }}>{lang === 'en' ? '⇄ switch' : '⇄ basculer'}</span>
           </div>
 
           {!isMobile && <ToolsMarquee />}
@@ -303,4 +305,3 @@ export default function Projects({ isMobile }) {
     </>
   )
 }
-

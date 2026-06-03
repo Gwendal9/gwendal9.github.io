@@ -1,7 +1,8 @@
 import { useEffect, useRef } from 'react'
-import { content } from '../data/content'
+import { useLanguage } from '../context/LanguageContext'
 
 export default function Timeline() {
+  const { content, lang } = useLanguage()
   const { timeline } = content
   const lineRef = useRef(null)
   const isMobile = window.innerWidth <= 768
@@ -46,7 +47,7 @@ export default function Timeline() {
         transition: 'opacity 0.5s, transform 0.5s',
       }}>
         <span style={{ width: 16, height: 1, background: 'var(--lilas)', display: 'inline-block' }} />
-        Parcours technique
+        {lang === 'en' ? 'Technical journey' : 'Parcours technique'}
       </div>
 
       {/* Titre */}
@@ -199,9 +200,4 @@ export default function Timeline() {
                 ))}
               </div>
             </div>
-          ))}
-        </div>
-      )}
-    </div>
-  )
-}
+    

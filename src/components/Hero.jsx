@@ -1,8 +1,8 @@
 import { useEffect, useState, useRef } from 'react'
-import { content } from '../data/content'
+import { useLanguage } from '../context/LanguageContext'
 import Particles from './Particles'
 
-const TYPING_TITLES = ['Data Analyst', 'Ingénieur IA & Big Data']
+
 
 function useTypingEffect(titles) {
   const [display, setDisplay] = useState('')
@@ -38,8 +38,9 @@ const _mainW = window.innerWidth <= 768 ? window.innerWidth : window.innerWidth 
 const _hPad = window.innerWidth <= 768 ? 16 : Math.max(40, (_mainW - 900) / 2)
 
 export default function Hero({ onNavigate, isMobile }) {
+  const { content } = useLanguage()
   const { hero } = content
-  const typedTitle = useTypingEffect(TYPING_TITLES)
+  const typedTitle = useTypingEffect(hero.roles)
   const photoRef = useRef(null)
 
   useEffect(() => {
@@ -128,10 +129,10 @@ export default function Hero({ onNavigate, isMobile }) {
             background: 'var(--lilas)', display: 'inline-block',
             animation: 'blink 2.5s ease-in-out infinite',
           }} />
-          Disponible immédiatement
+          {hero.disponibility}
         </span>
-        <span style={{ fontSize: 11, color: 'var(--low)' }}>📍 Paris - Permis B</span>
-        <span style={{ fontSize: 11, color: 'var(--low)' }}>📄 CDI / CDD / Mission</span>
+        <span style={{ fontSize: 11, color: 'var(--low)' }}>📍 {hero.location}</span>
+        <span style={{ fontSize: 11, color: 'var(--low)' }}>📄 {hero.contract}</span>
       </div>
 
       {/* Nom */}
@@ -198,7 +199,7 @@ export default function Hero({ onNavigate, isMobile }) {
             textDecoration: 'none', display: 'inline-block',
           }}
         >
-          Télécharger le CV
+          {content.ui.downloadCV}
         </a>
         <button
           onClick={() => onNavigate('projets')}
@@ -212,7 +213,7 @@ export default function Hero({ onNavigate, isMobile }) {
           onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--lilas-b)'; e.currentTarget.style.color = 'var(--lilas)'; e.currentTarget.style.background = 'var(--lilas-d)' }}
           onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.color = 'var(--low)'; e.currentTarget.style.background = 'var(--white)' }}
         >
-          Voir les projets
+          {content.ui.projectsTitle} →
         </button>
       </div>
 

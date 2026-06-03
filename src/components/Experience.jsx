@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react'
-import { content } from '../data/content'
+import { useLanguage } from '../context/LanguageContext'
 
 const SIDEBAR = 220
 const MAX_CONTENT = 900
@@ -7,6 +7,7 @@ const MAX_CONTENT = 900
 export default function Experience({ isMobile }) {
   const mainWidth = isMobile ? window.innerWidth : window.innerWidth - SIDEBAR
   const hPad = isMobile ? 16 : Math.max(40, (mainWidth - MAX_CONTENT) / 2)
+  const { content } = useLanguage()
   const { experience } = content
 
   // All animation state — survives re-renders triggered by mouse events
@@ -88,7 +89,7 @@ export default function Experience({ isMobile }) {
           transition: 'opacity 0.5s, transform 0.5s',
         }}>
           <span style={{ width: 16, height: 1, background: 'var(--lilas)', display: 'inline-block' }} />
-          Parcours
+          {content.ui.timeline}
         </div>
 
         <h2 style={{
@@ -98,8 +99,7 @@ export default function Experience({ isMobile }) {
           transform: titleIn ? 'translateY(0)' : 'translateY(14px)',
           transition: 'opacity 0.6s, transform 0.6s',
         }}>
-          Mon{' '}
-          <em style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 300, color: 'var(--lilas)' }}>experience</em>
+          <em style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 300, color: 'var(--lilas)' }}>{content.ui.experienceTitle}</em>
         </h2>
 
         <div

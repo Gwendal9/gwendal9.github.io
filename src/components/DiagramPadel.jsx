@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useLanguage } from '../context/LanguageContext'
 import { createPortal } from 'react-dom'
 
 const TENUP  = '/logos/tenup.png'
@@ -29,6 +30,7 @@ const CY = '6s'
 const k  = t => (t / 6).toFixed(4)
 
 function DiagramSVG({ uid }) {
+  const { lang } = useLanguage()
   const f = `${uid}f`
   return (
     <svg viewBox="0 0 1000 256" width="100%"
@@ -130,7 +132,7 @@ function DiagramSVG({ uid }) {
       <text x="40" y="106" textAnchor="middle" fontSize="10" fontWeight="700"
         fill="var(--ink)" fontFamily="monospace">TenUp / FFT</text>
       <text x="40" y="120" textAnchor="middle" fontSize="7.5" fill="var(--low)"
-        fontFamily="monospace">API non-documentée</text>
+        fontFamily="monospace">{lang === 'en' ? 'Undocumented API' : 'API non-documentée'}</text>
 
       {/* ══ NŒUD 2 — Scraper Python  x=110 w=182 h=96 ══ */}
       <rect x="110" y="38" width="182" height="96" rx="10"
@@ -142,7 +144,7 @@ function DiagramSVG({ uid }) {
         fontFamily="monospace">15 workers asyncio</text>
       <line x1="122" y1="102" x2="280" y2="102" stroke="var(--border)" strokeWidth="0.8"/>
       <text x="201" y="118" textAnchor="middle" fontSize="7.5" fill="var(--low)"
-        fontFamily="monospace">Queue SQLite intégrée</text>
+        fontFamily="monospace">{lang === 'en' ? 'Built-in SQLite queue' : 'Queue SQLite intégrée'}</text>
 
       {/* ══ NŒUD 3 — PostgreSQL  x=330 w=166 h=80 ══ */}
       <rect x="330" y="46" width="166" height="80" rx="10"
@@ -151,9 +153,9 @@ function DiagramSVG({ uid }) {
       <text x="394" y="68" fontSize="11.5" fontWeight="700"
         fill="var(--ink)" fontFamily="monospace">PostgreSQL</text>
       <text x="394" y="84" fontSize="8.5" fill="#059669"
-        fontFamily="monospace">156k joueurs</text>
+        fontFamily="monospace">{lang === 'en' ? '156k players' : '156k joueurs'}</text>
       <text x="394" y="99" fontSize="7.5" fill="var(--low)"
-        fontFamily="monospace">273k participations</text>
+        fontFamily="monospace">{lang === 'en' ? '273k participations' : '273k participations'}</text>
 
       {/* ══ NŒUD 4 — Flask + nginx  x=534 w=170 h=80 ══ */}
       <rect x="534" y="46" width="170" height="80" rx="10"
@@ -162,7 +164,7 @@ function DiagramSVG({ uid }) {
       <text x="590" y="66" fontSize="11.5" fontWeight="700"
         fill="var(--ink)" fontFamily="monospace">Flask API</text>
       <text x="590" y="82" fontSize="8.5" fill="var(--lilas)"
-        fontFamily="monospace">REST · H/F séparés</text>
+        fontFamily="monospace">{lang === 'en' ? 'REST · M/F split' : 'REST · H/F séparés'}</text>
       <text x="590" y="97" fontSize="7.5" fill="var(--low)"
         fontFamily="monospace">Proxy nginx</text>
 
@@ -175,7 +177,7 @@ function DiagramSVG({ uid }) {
       <text x="800" y="84" fontSize="8.5" fill="var(--lilas)"
         fontFamily="monospace">HTML · JS vanilla</text>
       <text x="800" y="99" fontSize="7.5" fill="var(--low)"
-        fontFamily="monospace">Classements & stats</text>
+        fontFamily="monospace">{lang === 'en' ? 'Rankings & stats' : 'Classements & stats'}</text>
 
       {/* ══ MISE À JOUR MENSUELLE ══ */}
       <line x1="26" y1="158" x2="974" y2="158"
@@ -201,9 +203,9 @@ function DiagramSVG({ uid }) {
       <rect x="90" y="186" width="36" height="36" rx="9" fill="#fef3c7" stroke="#fde68a" strokeWidth="1"/>
       <text x="108" y="211" textAnchor="middle" fontSize="20">📅</text>
       <text x="134" y="199" fontSize="10.5" fontWeight="700"
-        fill="var(--ink)" fontFamily="monospace">1er mardi / mois</text>
+        fill="var(--ink)" fontFamily="monospace">{lang === 'en' ? '1st Tuesday / month' : '1er mardi / mois'}</text>
       <text x="134" y="213" fontSize="8" fill="var(--low)"
-        fontFamily="monospace">Mise à jour · 156k joueurs</text>
+        fontFamily="monospace">{lang === 'en' ? 'Update · 156k players' : 'Mise à jour · 156k joueurs'}</text>
       <text x="134" y="225" fontSize="7" fill="var(--low)"
         fontFamily="monospace" opacity="0.6">déclenchement automatique</text>
     </svg>
@@ -211,13 +213,14 @@ function DiagramSVG({ uid }) {
 }
 
 function DiagramCard({ uid, onExpand }) {
+  const { lang } = useLanguage()
   return (
     <div style={{ background: 'var(--white)', border: '1px solid var(--border)', borderRadius: 12, padding: '16px 20px 20px', marginBottom: 28 }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
         <span style={{ fontSize: 9, letterSpacing: 3, textTransform: 'uppercase', color: 'var(--lilas)', fontWeight: 700, fontFamily: 'monospace' }}>Architecture</span>
         {onExpand && (
           <button onClick={onExpand} style={{ all: 'unset', fontSize: 11, color: 'var(--low)', cursor: 'pointer', fontFamily: 'monospace', textDecoration: 'underline', textUnderlineOffset: 3 }}>
-            Agrandir
+            {lang === 'en' ? 'Expand' : 'Agrandir'}
           </button>
         )}
       </div>
@@ -227,6 +230,7 @@ function DiagramCard({ uid, onExpand }) {
 }
 
 export default function DiagramPadel() {
+  const { lang } = useLanguage()
   const [expanded, setExpanded] = useState(false)
   useEffect(() => {
     if (!expanded) return

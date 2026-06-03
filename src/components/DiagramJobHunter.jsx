@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useLanguage } from '../context/LanguageContext'
 import { createPortal } from 'react-dom'
 
 const N8N    = 'https://avatars.githubusercontent.com/u/45487711?s=200&v=4'
@@ -30,6 +31,7 @@ const CY = '6s'
 const k  = t => (t / 6).toFixed(4)
 
 function DiagramSVG({ uid }) {
+  const { lang } = useLanguage()
   const f = `${uid}f`
   return (
     <svg viewBox="0 0 1000 256" width="100%"
@@ -134,13 +136,13 @@ function DiagramSVG({ uid }) {
       <text x="164" y="65" fontSize="11.5" fontWeight="700"
         fill="var(--ink)" fontFamily="monospace">n8n · VPS</text>
       <text x="164" y="81" fontSize="8.5" fill="var(--lilas)"
-        fontFamily="monospace">Orchestration</text>
+        fontFamily="monospace">{lang === 'en' ? 'Orchestration' : 'Orchestration'}</text>
       <text x="164" y="95" fontSize="7.5" fill="var(--low)"
-        fontFamily="monospace">Filtre + dedup</text>
+        fontFamily="monospace">{lang === 'en' ? 'Filter + dedup' : 'Filtre + dedup'}</text>
       <line x1="108" y1="104" x2="276" y2="104" stroke="var(--border)" strokeWidth="0.8"/>
       <rect x="108" y="108" width="20" height="16" rx="4" fill="#fef3c7"/>
       <text x="118" y="119.5" textAnchor="middle" fontSize="9">☀</text>
-      <text x="132" y="120" fontSize="7.5" fill="var(--low)" fontFamily="monospace">Lun-Ven · 8h00</text>
+      <text x="132" y="120" fontSize="7.5" fill="var(--low)" fontFamily="monospace">{lang === 'en' ? 'Mon-Fri · 8am' : 'Lun-Ven · 8h00'}</text>
 
       {/* ══ NŒUD 3 — GPT-4o-mini  x=328 w=152 h=80 ══ */}
       <rect x="328" y="46" width="152" height="80" rx="10"
@@ -149,9 +151,9 @@ function DiagramSVG({ uid }) {
       <text x="390" y="67" fontSize="11" fontWeight="700"
         fill="var(--ink)" fontFamily="monospace">GPT-4o-mini</text>
       <text x="390" y="83" fontSize="8.5" fill="var(--lilas)"
-        fontFamily="monospace">Score 0-100</text>
+        fontFamily="monospace">{lang === 'en' ? 'Score 0-100' : 'Score 0-100'}</text>
       <text x="390" y="98" fontSize="7.5" fill="var(--low)"
-        fontFamily="monospace">Résumé 2 phrases</text>
+        fontFamily="monospace">{lang === 'en' ? '2-sentence summary' : 'Résumé 2 phrases'}</text>
 
       {/* ══ NŒUD 4 — Google Sheets  x=520 w=144 h=80 ══ */}
       <rect x="520" y="46" width="144" height="80" rx="10"
@@ -162,7 +164,7 @@ function DiagramSVG({ uid }) {
       <text x="576" y="82" fontSize="11" fontWeight="700"
         fill="var(--ink)" fontFamily="monospace">Sheets</text>
       <text x="576" y="98" fontSize="7.5" fill="var(--low)"
-        fontFamily="monospace">Upsert par URL</text>
+        fontFamily="monospace">{lang === 'en' ? 'Upsert by URL' : 'Upsert par URL'}</text>
 
       {/* ══ NŒUD 5 — Dashboard React  x=700 w=188 h=80 ══ */}
       <rect x="700" y="46" width="188" height="80" rx="10"
@@ -171,7 +173,7 @@ function DiagramSVG({ uid }) {
       <text x="768" y="68" fontSize="11" fontWeight="700"
         fill="var(--ink)" fontFamily="monospace">Dashboard</text>
       <text x="768" y="83" fontSize="8.5" fill="var(--lilas)"
-        fontFamily="monospace">Kanban offres</text>
+        fontFamily="monospace">{lang === 'en' ? 'Job kanban' : 'Kanban offres'}</text>
       <text x="768" y="98" fontSize="7.5" fill="var(--low)"
         fontFamily="monospace">GitHub Pages</text>
 
@@ -194,9 +196,9 @@ function DiagramSVG({ uid }) {
       <rect x="583" y="184" width="36" height="36" rx="9" fill="#fef3c7" stroke="#fde68a" strokeWidth="1"/>
       <text x="601" y="209" textAnchor="middle" fontSize="20">🔔</text>
       <text x="627" y="197" fontSize="10.5" fontWeight="700"
-        fill="var(--ink)" fontFamily="monospace">Changement de statut</text>
+        fill="var(--ink)" fontFamily="monospace">{lang === 'en' ? 'Status change' : 'Changement de statut'}</text>
       <text x="627" y="211" fontSize="8" fill="var(--low)"
-        fontFamily="monospace">Kanban → Webhook → Sheets</text>
+        fontFamily="monospace">{lang === 'en' ? 'Kanban → Webhook → Sheets' : 'Kanban → Webhook → Sheets'}</text>
       <text x="627" y="223" fontSize="7" fill="var(--low)"
         fontFamily="monospace" opacity="0.6">à chaque déplacement</text>
 
@@ -226,13 +228,14 @@ function DiagramSVG({ uid }) {
 }
 
 function DiagramCard({ uid, onExpand }) {
+  const { lang } = useLanguage()
   return (
     <div style={{ background: 'var(--white)', border: '1px solid var(--border)', borderRadius: 12, padding: '16px 20px 20px', marginBottom: 28 }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
         <span style={{ fontSize: 9, letterSpacing: 3, textTransform: 'uppercase', color: 'var(--lilas)', fontWeight: 700, fontFamily: 'monospace' }}>Architecture</span>
         {onExpand && (
           <button onClick={onExpand} style={{ all: 'unset', fontSize: 11, color: 'var(--low)', cursor: 'pointer', fontFamily: 'monospace', textDecoration: 'underline', textUnderlineOffset: 3 }}>
-            Agrandir
+            {lang === 'en' ? 'Expand' : 'Agrandir'}
           </button>
         )}
       </div>
@@ -242,6 +245,7 @@ function DiagramCard({ uid, onExpand }) {
 }
 
 export default function DiagramJobHunter() {
+  const { lang } = useLanguage()
   const [expanded, setExpanded] = useState(false)
   useEffect(() => {
     if (!expanded) return

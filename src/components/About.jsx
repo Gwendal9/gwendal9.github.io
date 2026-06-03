@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { content } from '../data/content'
+import { useLanguage } from '../context/LanguageContext'
 
 const SCHOOL_LOGOS = {
   'eiCNAM': '/logos/CNAM_Logo.svg.png',
@@ -39,6 +39,7 @@ export default function About({ isMobile }) {
   const hPad = isMobile ? 16 : Math.max(40, (mainWidth - MAX_CONTENT) / 2)
   const vPadTop = isMobile ? 4 : 56
   const vPadBottom = isMobile ? 135 : 60
+  const { content, lang } = useLanguage()
   const { formation, hobbies, hero } = content
 
   useEffect(() => {
@@ -79,12 +80,12 @@ export default function About({ isMobile }) {
 
         <div id="about-eyebrow" style={{ ...fadeStyle, fontSize: 10, letterSpacing: 4, textTransform: 'uppercase', color: 'var(--lilas)', fontWeight: 700, marginBottom: 12, display: 'flex', alignItems: 'center', gap: 10 }}>
           <span style={{ width: 16, height: 1, background: 'var(--lilas)', display: 'inline-block' }} />
-          À propos
+          {content.ui.aboutTitle}
         </div>
 
         <h2 id="about-title" style={{ ...fadeStyle, fontSize: 'clamp(24px, 4vw, 42px)', fontWeight: 800, color: 'var(--ink)', lineHeight: 1.1, marginBottom: 16 }}>
           Qui{' '}
-          <em style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 300, color: 'var(--lilas)' }}>suis-je ?</em>
+          <em style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 300, color: 'var(--lilas)' }}>{lang === 'en' ? 'me?' : 'suis-je ?'}</em>
         </h2>
 
         <div id="about-desc" style={{ marginBottom: 40 }}>
@@ -121,7 +122,7 @@ export default function About({ isMobile }) {
         </div>
 
         <div id="about-form-title" style={{ ...fadeStyle, fontSize: 11, letterSpacing: 3, textTransform: 'uppercase', color: 'var(--mid)', fontWeight: 700, marginBottom: 16 }}>
-          Formation
+          {content.ui.formation}
         </div>
 
         <div style={{ marginBottom: 36 }}>
@@ -150,7 +151,7 @@ export default function About({ isMobile }) {
         </div>
 
         <div id="about-hobbies-title" style={{ ...fadeStyle, fontSize: 11, letterSpacing: 3, textTransform: 'uppercase', color: 'var(--mid)', fontWeight: 700, marginBottom: 16 }}>
-          Centres d'intérêt
+          {content.ui.hobbies}
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr 1fr' : 'repeat(auto-fill, minmax(200px, 1fr))', gap: 10 }}>

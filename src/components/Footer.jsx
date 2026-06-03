@@ -1,4 +1,7 @@
+import { useLanguage } from '../context/LanguageContext'
+
 export default function Footer() {
+  const { lang } = useLanguage()
   return (
     <div style={{
       padding: '16px clamp(24px, 5vw, 60px)',
@@ -13,7 +16,7 @@ export default function Footer() {
       gap: 8,
     }}>
       <span>
-        Concu et developpe par{' '}
+        {lang === 'en' ? 'Designed & built by' : 'Conçu et développé par'}{' '}
         <strong style={{ color: 'var(--mid)', fontWeight: 600 }}>Gwendal Rolland</strong>
       </span>
 

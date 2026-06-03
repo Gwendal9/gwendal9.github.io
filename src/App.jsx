@@ -6,6 +6,7 @@ import Projects from './components/Projects'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import CV from './components/CV'
+import { LanguageProvider, useLanguage } from './context/LanguageContext'
 // Stack retiré du nav — import supprimé
 
 
@@ -72,22 +73,23 @@ const ICONS = {
   ),
 }
 
-const NAV = [
-  { id: 'hero', icon: 'hero', label: 'Profil' },
-  { id: 'about', icon: 'about', label: 'À propos' },
-  { id: 'experience', icon: 'experience', label: 'Expérience' },
-  { id: 'projets', icon: 'projets', label: 'Projets' },
-  { id: 'contact', icon: 'contact', label: 'Contact' },
-  { id: 'cv', icon: 'cv', label: 'Mon CV' },
-]
-
-export default function App() {
+function AppInner() {
+  const { lang, toggleLang, content } = useLanguage()
   const [active, setActive] = useState('hero')
   const [displayed, setDisplayed] = useState('hero')
   const [fading, setFading] = useState(false)
   const [dark, setDark] = useState(false)
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768)
   const [isCompact, setIsCompact] = useState(window.innerWidth > 768 && window.innerWidth <= 1100)
+
+  const NAV = [
+    { id: 'hero', icon: 'hero', label: content.ui.nav.profil },
+    { id: 'about', icon: 'about', label: content.ui.nav.about },
+    { id: 'experience', icon: 'experience', label: content.ui.nav.experience },
+    { id: 'projets', icon: 'projets', label: content.ui.nav.projets },
+    { id: 'contact', icon: 'contact', label: content.ui.nav.contact },
+    { id: 'cv', icon: 'cv', label: content.ui.nav.cv },
+  ]
 
   const navigate = (id) => {
     if (id === active) return
@@ -153,11 +155,11 @@ export default function App() {
 
   // Nav items mobile — 5 max pour la bottom bar (CV accessible via Hero)
   const mobileNav = [
-    { id: 'hero', icon: 'hero', label: 'Profil' },
-    { id: 'about', icon: 'about', label: 'À propos' },
-    { id: 'experience', icon: 'experience', label: 'Expérience' },
-    { id: 'projets', icon: 'projets', label: 'Projets' },
-    { id: 'contact', icon: 'contact', label: 'Contact' },
+    { id: 'hero', icon: 'hero', label: content.ui.nav.profil },
+    { id: 'about', icon: 'about', label: content.ui.nav.about },
+    { id: 'experience', icon: 'experience', label: content.ui.nav.experience },
+    { id: 'projets', icon: 'projets', label: content.ui.nav.projets },
+    { id: 'contact', icon: 'contact', label: content.ui.nav.contact },
   ]
 
   return (
@@ -188,25 +190,18 @@ export default function App() {
             justifyContent: 'center',
           }}>
             {isCompact ? (
-              <button
-                onClick={() => setDark(!dark)}
-                style={{
-                  width: 32, height: 32, borderRadius: '50%',
-                  border: '1px solid var(--border)', background: 'var(--cream)',
-                  cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  color: 'var(--mid)',
-                }}
-              >
-                {dark ? ICONS.sun : ICONS.moon}
-              </button>
-            ) : (
-              <>
-                <div onClick={() => navigate('hero')} style={{ cursor: 'pointer', flex: 1 }}>
-                  <div style={{ fontSize: 16, fontWeight: 800, color: 'var(--ink)' }}>Gwendal</div>
-                  <div style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 300, fontSize: 13, color: 'var(--lilas)' }}>
-                    Rolland
-                  </div>
-                </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 6, alignItems: 'center' }}>
+                <button
+                  onClick={toggleLang}
+                  style={{
+                    height: 26, padding: '0 6px', borderRadius: 12,
+                    border: '1px solid var(--border)', background: 'var(--cream)',
+                    cursor: 'pointer', fontSize: 10, fontWeight: 700,
+                    color: 'var(--mid)', letterSpacing: 0.5,
+                  }}
+                >
+                  {lang === 'fr' ? 'EN' : 'FR'}
+                </button>
                 <button
                   onClick={() => setDark(!dark)}
                   style={{
@@ -218,6 +213,40 @@ export default function App() {
                 >
                   {dark ? ICONS.sun : ICONS.moon}
                 </button>
+              </div>
+            ) : (
+              <>
+                <div onClick={() => navigate('hero')} style={{ cursor: 'pointer', flex: 1 }}>
+                  <div style={{ fontSize: 16, fontWeight: 800, color: 'var(--ink)' }}>Gwendal</div>
+                  <div style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 300, fontSize: 13, color: 'var(--lilas)' }}>
+                    Rolland
+                  </div>
+                </div>
+                <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+                  <button
+                    onClick={toggleLang}
+                    title={lang === 'fr' ? 'Switch to English' : 'Passer en français'}
+                    style={{
+                      height: 32, padding: '0 8px', borderRadius: 16,
+                      border: '1px solid var(--border)', background: 'var(--cream)',
+                      cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      color: 'var(--mid)', fontSize: 11, fontWeight: 700, letterSpacing: 0.5,
+                    }}
+                  >
+                    {lang === 'fr' ? 'EN' : 'FR'}
+                  </button>
+                  <button
+                    onClick={() => setDark(!dark)}
+                    style={{
+                      width: 32, height: 32, borderRadius: '50%',
+                      border: '1px solid var(--border)', background: 'var(--cream)',
+                      cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      color: 'var(--mid)',
+                    }}
+                  >
+                    {dark ? ICONS.sun : ICONS.moon}
+                  </button>
+                </div>
               </>
             )}
           </div>
@@ -270,7 +299,7 @@ export default function App() {
                 boxShadow: '0 0 0 2px rgba(34,197,94,0.2)',
                 animation: 'pulse-green 2s infinite', display: 'inline-block',
               }} />
-              Disponible
+              {content.ui.available}
             </div>
           )}
           {isCompact && (
@@ -300,17 +329,30 @@ export default function App() {
               Rolland
             </span>
           </div>
-          <button
-            onClick={() => setDark(!dark)}
-            style={{
-              width: 32, height: 32, borderRadius: '50%',
-              border: '1px solid var(--border)', background: 'var(--cream)',
-              cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
-              color: 'var(--mid)',
-            }}
-          >
-            {dark ? ICONS.sun : ICONS.moon}
-          </button>
+          <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+            <button
+              onClick={toggleLang}
+              style={{
+                height: 32, padding: '0 8px', borderRadius: 16,
+                border: '1px solid var(--border)', background: 'var(--cream)',
+                cursor: 'pointer', fontSize: 11, fontWeight: 700,
+                color: 'var(--mid)', letterSpacing: 0.5,
+              }}
+            >
+              {lang === 'fr' ? 'EN' : 'FR'}
+            </button>
+            <button
+              onClick={() => setDark(!dark)}
+              style={{
+                width: 32, height: 32, borderRadius: '50%',
+                border: '1px solid var(--border)', background: 'var(--cream)',
+                cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                color: 'var(--mid)',
+              }}
+            >
+              {dark ? ICONS.sun : ICONS.moon}
+            </button>
+          </div>
         </div>
       )}
 
@@ -366,5 +408,13 @@ export default function App() {
       )}
 
     </div>
+  )
+}
+
+export default function App() {
+  return (
+    <LanguageProvider>
+      <AppInner />
+    </LanguageProvider>
   )
 }
