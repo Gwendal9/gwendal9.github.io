@@ -91,6 +91,24 @@ function AppInner() {
     { id: 'cv', icon: 'cv', label: content.ui.nav.cv },
   ]
 
+  useEffect(() => {
+    // Ne notifie pas les visites depuis localhost
+    if (window.location.hostname === 'localhost') return
+    const sent = sessionStorage.getItem('discord_notified')
+    if (sent) return
+    sessionStorage.setItem('discord_notified', '1')
+    const info = [
+      `🌍 **${navigator.language}** · ${screen.width}x${screen.height}`,
+      `📱 ${/Mobi|Android/i.test(navigator.userAgent) ? 'Mobile' : 'Desktop'}`,
+      `🔗 Ref: ${document.referrer || 'direct'}`,
+    ].join('\n')
+    fetch('https://discord.com/api/webhooks/1511869917895594024/Q1zFDvxUAj668ozZebrSj1_QYd-hHluSTx4BBdVQ6gHfXACwLWSOsnGyi4jXf8YRTmBb', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ content: `👀 **Quelqu'un visite ton portfolio !**\n${info}` }),
+    }).catch(() => {})
+  }, [])
+
   const navigate = (id) => {
     if (id === active) return
     setActive(id)
