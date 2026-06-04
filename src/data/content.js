@@ -282,6 +282,7 @@ Déployé avec Docker + nginx sur Render, migration prévue vers Hetzner VPS.`,
                 tags: ['React Native', 'Expo', 'TypeScript', 'Node.js', 'Express', 'Prisma', 'PostgreSQL', 'AWS', 'Azure'],
                 link: null,
                 label: 'Voir →',
+                demo: 'https://apps.apple.com/fr/app/oprono/id6503480965?l=en-GB',
                 longDescription: `Application mobile de pronostics sportifs développée en binôme.
 
 Le principe : une app par compétition (Euro 2024, Coupe du Monde, Tournoi des 6 Nations…). Les utilisateurs posent leurs pronostics avant chaque match, l'app les score en live. À la fin de la compétition, l'app est retirée — éphémère par nature.
@@ -714,6 +715,7 @@ Deployed with Docker + nginx on Render, planned migration to Hetzner VPS.`,
                 description: "Sports prediction mobile app published on iOS & Android. ~300 users with zero advertising, purely word of mouth. Developed as a pair project.",
                 tags: ['React Native', 'Expo', 'TypeScript', 'Node.js', 'Express', 'Prisma', 'PostgreSQL', 'AWS', 'Azure'],
                 link: null, label: 'View →',
+                demo: 'https://apps.apple.com/fr/app/oprono/id6503480965?l=en-GB',
                 longDescription: `Sports prediction mobile app developed in a pair.
 
 The concept: one app per competition (Euro 2024, World Cup, Six Nations...). Users place predictions before each match, the app scores them live. At the end of the competition, the app is taken down — ephemeral by design.
