@@ -104,7 +104,7 @@ function PythonTooltip({ pos }) {
             fontSize: 10, fontWeight: 500, color: 'var(--mid)',
           }}>
             {lib.img && (
-              <img src={lib.img} alt={lib.name} style={{ width: 11, height: 11, objectFit: 'contain' }} onError={e => { e.target.style.display = 'none' }} />
+              <img src={lib.img} alt={lib.name} loading="lazy" style={{ width: 11, height: 11, objectFit: 'contain' }} onError={e => { e.target.style.display = 'none' }} />
             )}
             {lib.name}
           </span>
@@ -138,6 +138,7 @@ function ToolsMarquee() {
             <img
               src={tool.img}
               alt={tool.name}
+              loading="lazy"
               style={{ width: 22, height: 22, objectFit: 'contain', opacity: 0.7, flexShrink: 0 }}
               onError={e => { e.target.style.display = 'none' }}
             />
@@ -285,6 +286,7 @@ export default function Projects({ isMobile }) {
                         <img
                           src={proj.companyLogo}
                           alt=""
+                          loading="lazy"
                           style={{ width: 24, height: 24, objectFit: 'contain', flexShrink: 0 }}
                           onError={e => { e.target.style.display = 'none' }}
                         />
@@ -328,11 +330,11 @@ export default function Projects({ isMobile }) {
             })}
           </div>
 
-          {selected && <ProjectDrawer project={selected} onClose={() => setSelected(null)} isMobile={isMobile} />}
-        </div>
+          {selected && <ProjectDrawer project={selected} onClose={() => setSelected(null)} isMobile={isMobile} />
+        }
       </div>
-
-      <PythonTooltip pos={pyTooltip} />
-    </>
+    </div>
+    <PythonTooltip pos={pyTooltip} />
+  </>
   )
 }
