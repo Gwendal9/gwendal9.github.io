@@ -256,41 +256,72 @@ export default function Projects({ isMobile }) {
               const c = getColors(proj)
               return (
                 <div key={i} id={'proj-card-' + i} onClick={() => setSelected(proj)}
-                  style={{ background: 'var(--white)', border: '1px solid var(--border)', borderRadius: 12, padding: 20, paddingBottom: 40, opacity: 0, transform: 'translateY(16px)', transition: 'opacity 0.4s, transform 0.4s, border-color 0.2s, box-shadow 0.2s', cursor: 'pointer', display: 'flex', flexDirection: 'column', position: 'relative' }}
-                  onMouseEnter={e => { e.currentTarget.style.borderColor = c.border; e.currentTarget.style.boxShadow = '0 4px 24px ' + c.bg; e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.querySelector('.card-arrow').style.opacity = '1' }}
-                  onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.querySelector('.card-arrow').style.opacity = '0.35' }}
+                  style={{ background: 'var(--white)', border: '1px solid var(--border)', borderRadius: 14, overflow: 'hidden', opacity: 0, transform: 'translateY(16px)', transition: 'opacity 0.4s, transform 0.4s, border-color 0.25s, box-shadow 0.25s', cursor: 'pointer', display: 'flex', flexDirection: 'column', position: 'relative' }}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.borderColor = c.border
+                    e.currentTarget.style.boxShadow = '0 8px 32px ' + c.text + '22'
+                    e.currentTarget.style.transform = 'translateY(-4px)'
+                    e.currentTarget.querySelector('.card-cta').style.opacity = '1'
+                    e.currentTarget.querySelector('.card-cta').style.color = c.text
+                    e.currentTarget.querySelector('.accent-bar').style.opacity = '1'
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.borderColor = 'var(--border)'
+                    e.currentTarget.style.boxShadow = 'none'
+                    e.currentTarget.style.transform = 'translateY(0)'
+                    e.currentTarget.querySelector('.card-cta').style.opacity = '0.45'
+                    e.currentTarget.querySelector('.card-cta').style.color = 'var(--low)'
+                    e.currentTarget.querySelector('.accent-bar').style.opacity = '0.5'
+                  }}
+                  onPointerDown={e => { e.currentTarget.style.transform = 'translateY(-1px) scale(0.99)' }}
+                  onPointerUp={e => { e.currentTarget.style.transform = isMobile ? 'translateY(0)' : 'translateY(-4px)' }}
                 >
-                  <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '4px 10px', borderRadius: 100, fontSize: 11, fontWeight: 600, marginBottom: 12, color: c.text, background: c.bg, border: '1px solid ' + c.border }}>
-                    {proj.companyLogo && (
-                      <img
-                        src={proj.companyLogo}
-                        alt=""
-                        style={{ width: 24, height: 24, objectFit: 'contain', flexShrink: 0 }}
-                        onError={e => { e.target.style.display = 'none' }}
-                      />
-                    )}
-                    {proj.category}
-                  </div>
-                  <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--ink)', marginBottom: 8 }}>{proj.title}</div>
-                  <p style={{ fontSize: 13, color: 'var(--low)', lineHeight: 1.75, marginBottom: 14, whiteSpace: 'pre-line' }}>{proj.description}</p>
-                  <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginTop: 'auto' }}>
-                    {proj.tags.map((tag, j) => (
-                      <ToolTag
-                        key={j}
-                        name={tag}
-                        onPyEnter={e => {
-                          const rect = e.currentTarget.getBoundingClientRect()
-                          setPyTooltip({ top: rect.top, left: rect.right + 8 })
-                        }}
-                        onPyLeave={() => setPyTooltip(null)}
-                      />
-                    ))}
-                  </div>
-                  {/* Chevron toujours en bas à droite */}
-                  <div className="card-arrow" style={{ position: 'absolute', bottom: 14, right: 16, opacity: 0.35, transition: 'opacity 0.2s', color: 'var(--lilas)' }}>
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                      <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
+                  {/* Barre accent colorée en haut */}
+                  <div className="accent-bar" style={{ height: 3, background: `linear-gradient(90deg, ${c.text}, ${c.text}88)`, opacity: 0.5, transition: 'opacity 0.25s', flexShrink: 0 }} />
+
+                  <div style={{ padding: 20, paddingBottom: 16, display: 'flex', flexDirection: 'column', flex: 1 }}>
+                    <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '4px 10px', borderRadius: 100, fontSize: 11, fontWeight: 600, marginBottom: 12, color: c.text, background: c.bg, border: '1px solid ' + c.border, alignSelf: 'flex-start' }}>
+                      {proj.companyLogo && (
+                        <img
+                          src={proj.companyLogo}
+                          alt=""
+                          style={{ width: 24, height: 24, objectFit: 'contain', flexShrink: 0 }}
+                          onError={e => { e.target.style.display = 'none' }}
+                        />
+                      )}
+                      {proj.category}
+                    </div>
+                    <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--ink)', marginBottom: 8 }}>{proj.title}</div>
+                    <p style={{ fontSize: 13, color: 'var(--low)', lineHeight: 1.75, marginBottom: 14, whiteSpace: 'pre-line' }}>{proj.description}</p>
+
+                    <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginTop: 'auto', marginBottom: 14 }}>
+                      {proj.tags.map((tag, j) => (
+                        <ToolTag
+                          key={j}
+                          name={tag}
+                          onPyEnter={e => {
+                            const rect = e.currentTarget.getBoundingClientRect()
+                            setPyTooltip({ top: rect.top, left: rect.right + 8 })
+                          }}
+                          onPyLeave={() => setPyTooltip(null)}
+                        />
+                      ))}
+                    </div>
+
+                    {/* CTA bas de card */}
+                    <div style={{ borderTop: '1px solid var(--border)', paddingTop: 12, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                      <span className="card-cta" style={{ fontSize: 12, fontWeight: 600, color: 'var(--low)', opacity: 0.45, transition: 'opacity 0.2s, color 0.2s', display: 'flex', alignItems: 'center', gap: 5 }}>
+                        {lang === 'en' ? 'See project' : 'Voir le projet'}
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                          <path d="M2 7h10M8 3.5l3.5 3.5-3.5 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </span>
+                      {proj.demo && (
+                        <span style={{ fontSize: 10, color: 'var(--low)', opacity: 0.4, letterSpacing: 0.3 }}>
+                          {proj.github ? 'GitHub + Demo' : 'Demo'}
+                        </span>
+                      )}
+                    </div>
                   </div>
                 </div>
               )

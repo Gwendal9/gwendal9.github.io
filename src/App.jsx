@@ -382,7 +382,7 @@ function AppInner() {
         paddingBottom: isMobile ? 64 : 0,
         overflowX: 'hidden',
       }}>
-        <div style={{ flex: 1, overflow: 'hidden', position: 'relative', opacity: fading ? 0 : 1, transform: fading ? 'translateY(8px)' : 'translateY(0)', transition: 'opacity 0.22s ease, transform 0.22s ease' }}>
+        <div style={{ flex: 1, overflow: 'hidden', position: 'relative', display: 'flex', flexDirection: 'column', opacity: fading ? 0 : 1, transform: fading ? 'translateY(8px)' : 'translateY(0)', transition: 'opacity 0.22s ease, transform 0.22s ease' }}>
           {displayed === 'hero' && <Hero onNavigate={navigate} isMobile={isMobile} />}
           {displayed === 'about' && <About isMobile={isMobile} />}
           {displayed === 'experience' && <Experience isMobile={isMobile} />}

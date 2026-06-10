@@ -93,6 +93,6 @@ body {
   :root { --sidebar: 0px; }
   .sidebar-desktop { display: none !important; }
   .mobile-header { display: flex !important; }
-  body { padding-top: 56px; height: auto; overflow: auto; }
+  body { height: auto; overflow: auto; }
   iframe { max-width: none !important; }
 }

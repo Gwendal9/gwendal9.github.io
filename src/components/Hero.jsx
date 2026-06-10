@@ -57,12 +57,15 @@ export default function Hero({ onNavigate, isMobile }) {
 
   return (
     <section style={{
-      minHeight: '100vh',
+      /* Mobile : prend tout l'espace disponible (100vh - header 56 - bottomnav 64) */
+      flex: isMobile ? '1 0 0' : undefined,
+      minHeight: isMobile ? 0 : '100vh',
+      overflowY: isMobile ? 'auto' : 'visible',
       display: 'flex',
       flexDirection: 'column',
-      justifyContent: 'center',
-      paddingTop: isMobile ? 4 : 56,
-      paddingBottom: isMobile ? 135 : 60,
+      justifyContent: isMobile ? 'flex-start' : 'center',
+      paddingTop: isMobile ? 20 : 56,
+      paddingBottom: isMobile ? 28 : 60,
       paddingLeft: _hPad,
       paddingRight: _hPad,
       position: 'relative',
@@ -70,14 +73,23 @@ export default function Hero({ onNavigate, isMobile }) {
 
       <Particles />
 
-      {/* Ligne accent top */}
-      <div style={{
-        position: 'absolute', top: 0, left: isMobile ? 24 : 'clamp(24px, 5vw, 60px)',
-        height: '2px',
-        background: 'linear-gradient(90deg, var(--lilas), transparent)',
-        animation: 'linedraw 1s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards',
-        width: 0,
-      }} />
+      {/* Halo décoratif arrière-plan — desktop uniquement */}
+      {!isMobile && (
+        <>
+          <div style={{
+            position: 'absolute', top: '-60px', right: '-40px',
+            width: 420, height: 420, borderRadius: '50%',
+            background: 'radial-gradient(circle, var(--lilas-d) 0%, transparent 70%)',
+            pointerEvents: 'none', zIndex: 0,
+          }} />
+          <div style={{
+            position: 'absolute', bottom: 80, left: -60,
+            width: 240, height: 240, borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(124,58,237,0.04) 0%, transparent 70%)',
+            pointerEvents: 'none', zIndex: 0,
+          }} />
+        </>
+      )}
 
       {/* Photo — desktop uniquement en absolute, mobile en flow */}
       {isMobile ? (
@@ -91,7 +103,10 @@ export default function Hero({ onNavigate, isMobile }) {
             overflow: 'hidden', border: '3px solid var(--white)',
             animation: 'photo-pulse 3s ease-in-out infinite',
           }}>
-            <img src="/CV_photo.jpg" alt="Gwendal Rolland" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            <picture>
+              <source srcSet="/CV_photo_600.webp" type="image/webp" />
+              <img src="/CV_photo_600.jpg" alt="Gwendal Rolland" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center center' }} />
+            </picture>
           </div>
         </div>
       ) : (
@@ -107,7 +122,10 @@ export default function Hero({ onNavigate, isMobile }) {
             overflow: 'hidden', border: '3px solid var(--white)',
             animation: 'photo-pulse 3s ease-in-out infinite',
           }}>
-            <img src="/CV_photo.jpg" alt="Gwendal Rolland" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            <picture>
+              <source srcSet="/CV_photo_600.webp" type="image/webp" />
+              <img src="/CV_photo_600.jpg" alt="Gwendal Rolland" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center center' }} />
+            </picture>
           </div>
         </div>
       )}

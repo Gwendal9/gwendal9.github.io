@@ -219,7 +219,21 @@ function DiagramCard({ uid, onExpand }) {
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
         <span style={{ fontSize: 9, letterSpacing: 3, textTransform: 'uppercase', color: 'var(--lilas)', fontWeight: 700, fontFamily: 'monospace' }}>Architecture</span>
         {onExpand && (
-          <button onClick={onExpand} style={{ all: 'unset', fontSize: 11, color: 'var(--low)', cursor: 'pointer', fontFamily: 'monospace', textDecoration: 'underline', textUnderlineOffset: 3 }}>
+          <button onClick={onExpand} style={{
+              all: 'unset', display: 'inline-flex', alignItems: 'center', gap: 5,
+              padding: '5px 10px', borderRadius: 6,
+              border: '1px solid var(--lilas-b)',
+              background: 'var(--lilas-d)',
+              fontSize: 11, color: 'var(--lilas)',
+              cursor: 'pointer', fontFamily: 'inherit', fontWeight: 600,
+              transition: 'background 0.2s, border-color 0.2s',
+            }}
+            onMouseEnter={e => { e.currentTarget.style.background = 'var(--lilas-b)' }}
+            onMouseLeave={e => { e.currentTarget.style.background = 'var(--lilas-d)' }}
+          >
+            <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+              <path d="M7.5 1.5H10.5V4.5M10.5 1.5L6.5 5.5M4.5 10.5H1.5V7.5M1.5 10.5L5.5 6.5"/>
+            </svg>
             {lang === 'en' ? 'Expand' : 'Agrandir'}
           </button>
         )}
