@@ -208,7 +208,7 @@ export default function Hero({ onNavigate, isMobile }) {
         opacity: 0, animation: 'fadeup 0.5s 1.2s forwards',
       }}>
         <a
-          href="/CV_GWENDAL_ROLLAND-Data_analyst.pdf"
+          href="/CV_GWENDAL-ROLLAND_Ingenieur_IA_DATA.pdf"
           download
           style={{
             padding: isMobile ? '11px 20px' : '13px 28px',

@@ -23,7 +23,7 @@ export default function CV({ isMobile }) {
           {lang === 'en' ? 'Download my CV to view it on mobile.' : 'Télécharge mon CV pour le consulter sur mobile.'}
         </p>
         <a
-          href="/CV_GWENDAL_ROLLAND-Data_analyst.pdf"
+          href="/CV_GWENDAL-ROLLAND_Ingenieur_IA_DATA.pdf"
           download
           style={{
             padding: '14px 32px',
@@ -74,7 +74,7 @@ export default function CV({ isMobile }) {
           </div>
         </div>
         <a
-          href="/CV_GWENDAL_ROLLAND-Data_analyst.pdf"
+          href="/CV_GWENDAL-ROLLAND_Ingenieur_IA_DATA.pdf"
           download
           style={{
             padding: '10px 20px',
@@ -98,7 +98,7 @@ export default function CV({ isMobile }) {
       {/* PDF viewer */}
       <div style={{ flex: 1, minHeight: 0, overflow: 'hidden', display: 'flex', justifyContent: 'center', background: 'var(--cream3)' }}>
         <iframe
-          src="/CV_GWENDAL_ROLLAND-Data_analyst.pdf#zoom=75&view=FitH"
+          src="/CV_GWENDAL-ROLLAND_Ingenieur_IA_DATA.pdf#zoom=75&view=FitH"
           style={{
             width: '820px',
             height: '100%',

@@ -129,7 +129,7 @@ const contentFR = {
                 companyColor: '#FF6600',
                 title: 'Modernisation contrôle facturation',
                 description: 'Industrialisation du contrôle de facturation : de fichiers Excel manuels à un pipeline Power BI reproductible, en collaboration avec les métiers et les fournisseurs.',
-                tags: ['Power BI', 'DAX', 'Power Query', 'Excel', 'Power Query'],
+                tags: ['Power BI', 'DAX', 'Power Query', 'Excel'],
                 link: null,
                 label: 'Voir →',
                 longDescription: `Contexte : Le contrôle de facturation du recyclage de terminaux (40M€) reposait entièrement sur des fichiers Excel maintenus à la main — un par fournisseur, sans format commun, sans automatisation.
@@ -379,7 +379,7 @@ Stack :
         { year: '2021', label: 'IUT & URSSAF', tools: ['SQL', 'Power BI', 'Python', 'Excel avancé'], description: 'DUT STID + alternance URSSAF — dashboards sur 25M lignes' },
         { year: '2023', label: 'IA & Vision', tools: ['NLP', 'OpenCV', 'YOLO', 'Hugging Face', 'OCR'], description: 'eiCNAM + Skalup — Machine Learning et Computer Vision' },
         { year: '2024', label: 'Ingénieur IA', tools: ['Spark', 'Hive', 'GCP', 'Databricks'], description: 'Diplôme ingénieur IA & Big Data eiCNAM' },
-        { year: '2025', label: 'Orange', tools: ['Power BI', 'GCP', 'SAP', 'n8n', 'Automatisation'], description: 'Supply Chain Orange — facturation 40M, 8M produits' },
+        { year: '2025', label: 'Orange', tools: ['Power BI', 'GCP', 'n8n', 'Automatisation'], description: 'Supply Chain Orange — facturation 40M, 8M produits' },
     ],
 
     ui: {
@@ -428,8 +428,7 @@ Stack :
         'Rstudio': 'https://upload.wikimedia.org/wikipedia/commons/d/d0/RStudio_logo_flat.svg',
         'GCP': 'https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg',
         'BigQuery': 'https://www.vectorlogo.zone/logos/google_bigquery/google_bigquery-icon.svg',
-        'SAP': 'https://upload.wikimedia.org/wikipedia/commons/5/59/SAP_2011_logo.svg',
-        'Docker': 'https://upload.wikimedia.org/wikipedia/commons/4/4e/Docker_%28container_engine%29_logo.svg',
+'Docker': 'https://upload.wikimedia.org/wikipedia/commons/4/4e/Docker_%28container_engine%29_logo.svg',
         'VPS': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg',
         'React': 'https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg',
         'Flask': 'https://upload.wikimedia.org/wikipedia/commons/3/38/Flask_logo.svg',
@@ -804,7 +803,7 @@ Stack:
         { year: '2021', label: 'IUT & URSSAF', tools: ['SQL', 'Power BI', 'Python', 'Advanced Excel'], description: '2-year degree + URSSAF apprenticeship — dashboards on 25M rows' },
         { year: '2023', label: 'AI & Vision', tools: ['NLP', 'OpenCV', 'YOLO', 'Hugging Face', 'OCR'], description: 'eiCNAM + Skalup — Machine Learning and Computer Vision' },
         { year: '2024', label: 'AI Engineer', tools: ['Spark', 'Hive', 'GCP', 'Databricks'], description: 'AI & Big Data engineering degree — eiCNAM' },
-        { year: '2025', label: 'Orange', tools: ['Power BI', 'GCP', 'SAP', 'n8n', 'Automation'], description: 'Orange Supply Chain — €40M billing, 8M products' },
+        { year: '2025', label: 'Orange', tools: ['Power BI', 'GCP', 'n8n', 'Automation'], description: 'Orange Supply Chain — €40M billing, 8M products' },
     ],
 
     ui: {
