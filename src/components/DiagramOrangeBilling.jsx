@@ -140,7 +140,7 @@ function ApresSVG() {
       {/* ── Power Query + DAX ── */}
       <rect x="258" y="50" width="254" height="100" rx="10"
         fill="white" stroke="var(--border,#e5e7eb)" strokeWidth="1.5"/>
-      <image href={EXCEL} x="270" y="62" width="44" height="44"/>
+      <image href={PBI} x="270" y="62" width="44" height="44"/>
       <text x="324" y="76" fontSize="11.5" fontWeight="700" fill="var(--ink,#111)" fontFamily="monospace">Power Query</text>
       <text x="324" y="92" fontSize="8.5" fill="var(--lilas,#818cf8)" fontFamily="monospace">{lang === 'en' ? 'Auto transformation' : 'Transformation auto'}</text>
       <line x1="270" y1="114" x2="498" y2="114" stroke="var(--border,#e5e7eb)" strokeWidth="0.8"/>
